@@ -10,26 +10,20 @@
 # la boîte de dépôt est modifiée.
 
 # Config files
-dev_config_file="hva.conf"
+config_file="hva.conf"
 prod_config_file="/etc/hva.conf"
 
-# Log files
-dev_log_file="hva.log"
-prod_log_file="/var/log/hva.log"
-
 # Load config file and set environment
-if [[ -e $dev_config_file ]]; then
-  source $dev_config_file
+if [[ -e $config_file ]]; then
   env="dev"
-  log_file=$dev_log_file
 elif [[ -e $prod_config_file ]]; then
-  source $prod_config_file
+  config_file=$prod_config_file
   env="prod"
-  log_file=$prod_log_file
 else
-  log "Can't find config file! Exiting..."
+  echo "Can't find config file! Exiting..."
   exit 1
 fi
+source $config_file
 # Keep in mind this is not secure. As one may add nasty code in
 # config file! It should only be writable by owner.
 
@@ -37,6 +31,8 @@ fi
 function log () {
   echo "$(date) - $1" >> $log_file
 }
+
+log "HTML Video Automator triggered"
 
 # Lock HVA execution (MUTEX)
 mkdir /tmp/hva-lock 2> /dev/null

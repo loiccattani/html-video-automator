@@ -27,10 +27,7 @@ Un log des opérations effectuées peut être utile
 
 ## Design
 
-Au lancement du script un fichier .lock est placé à coté du script. (Il empêche une seconde instance du script de se lancer au même moment)
-Le script attend 1 seconde et revérifie.
-Boucle de traitement.
-Le script vérifie si de nouveaux fichiers sont présents. Si oui, la boucle de traitement est relancée avec ces nouveaux fichiers. Si non, exit.
+...
 
 ## Surveillance de la boîte de dépôt
 
