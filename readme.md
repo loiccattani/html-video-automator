@@ -3,13 +3,13 @@
 Author: Loïc Cattani "Arko" <loic.cattani@gmail.com>
 Begin:  2011.01.28
 
+# Projet
+
 ## Définition du problème
 
 Nous avons des vidéos qui arrivent dans n'importe quels formats et nous voulons les rendre disponible à tous sur internet
 
 ## Besoins fonctionnels
-
-*Que doit faire le programme pour résoudre ce problème:*
 
 Une boîte de dépôt (dropbox) est définie dans laquelle on place les fichiers à traiter. Cette boîte est surveillée et un script est lancé dès qu'un fichier s'y trouve ajouté. Ce script encode les vidéos dans les formats requis et génère un document HTML présentant la vidéo à l'aide de l'élément HTML5 `<video>` et des scripts/styles [videojs](http://videojs.com/).
 
@@ -31,3 +31,51 @@ Au lancement du script un fichier .lock est placé à coté du script. (Il empê
 Le script attend 1 seconde et revérifie.
 Boucle de traitement.
 Le script vérifie si de nouveaux fichiers sont présents. Si oui, la boucle de traitement est relancée avec ces nouveaux fichiers. Si non, exit.
+
+# Problèmes à résoudre / Questions
+
+  - Profils vidéo pour l'encodage (Quelle cible visons-nous: taille, débit, qualité, etc... )
+
+# Configuration
+
+Prévoir de pouvoir configurer:
+
+  - Environnement ( Dev || Prod )
+  - Profils utiliser pour l'encodage
+  - L'adresse du serveur www (et autres params SSH?)
+  - L'adresse du serveur d'archivage (et autres params SSH?)
+
+# Installation
+
+## Surveillance de la boîte de dépôt
+
+La surveillance de la boîte de dépôt est prise en charge par launchd et sa méchanique de *watchpaths*.
+
+Un exemple de fichier .plist se trouve juste à coté: `ch.unil.hva.plist`. Ce fichier est configuré pour le développement. Il doit être modifié pour la production à l'aide des informations se trouvant dans la section "production" ci-dessous.
+
+### Développement:
+
+Bash script: `~/work/hva/hva`  
+Dropbox: `~/work/hva/dropbox/`  
+Launchd job: `~/Library/LaunchAgents/ch.unil.hva.plist`  
+
+**Pour installer:**
+
+    cp ch.unil.hva.plist ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/ch.unil.hva.plist
+
+### Production:
+
+Bash script: `/usr/local/bin/hva`  
+Dropbox: `/var/hva/dropbox/`
+Dropbox: `/var/hva/dropbox/`
+Launchd job: `/Library/LaunchDaemons/ch.unil.hva.plist`  
+
+**Pour installer:**
+
+    sudo cp hva /usr/local/bin
+    sudo mkdir -p /var/hva/dropbox
+    sudo cp ch.unil.hva.plist /Library/LaunchDaemons/
+    sudo launchctl load /Library/LaunchDaemons/ch.unil.hva.plist
+
+
