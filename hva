@@ -1,0 +1,28 @@
+#!/bin/bash
+# Title: HVA - HTML Video Automator
+# Author: Loïc Cattani "arko" <loic.cattani@gmail.com>
+# Begin: 2011.01.28
+#
+# Ce script automatise l'encodage et la préparation du code HTML pour
+# une ou plusieurs vidéos déposées dans une boîte de dépôt.
+#
+# Il est prévu pour être executé automatiquement par launchd lorsque
+# la boîte de dépôt est modifiée.
+
+# Load config file and set environment
+if [[ -e hva.conf ]]; then
+  source hva.conf
+  env="dev"
+elif [[ -e /etc/hva.conf ]]; then
+  source /etc/hva.conf
+  env="prod"
+else
+  echo "Can't find config file! Exiting..."
+  exit 1
+fi
+# Keep in mind this is not secure. As one may add nasty code in
+# config file! It should be writable only by owner.
+
+
+
+exit 0
