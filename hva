@@ -9,20 +9,48 @@
 # Il est prévu pour être executé automatiquement par launchd lorsque
 # la boîte de dépôt est modifiée.
 
+# Config files
+dev_config_file="hva.conf"
+prod_config_file="/etc/hva.conf"
+
+# Log files
+dev_log_file="hva.log"
+prod_log_file="/var/log/hva.log"
+
 # Load config file and set environment
-if [[ -e hva.conf ]]; then
-  source hva.conf
+if [[ -e $dev_config_file ]]; then
+  source $dev_config_file
   env="dev"
-elif [[ -e /etc/hva.conf ]]; then
-  source /etc/hva.conf
+  log_file=$dev_log_file
+elif [[ -e $prod_config_file ]]; then
+  source $prod_config_file
   env="prod"
+  log_file=$prod_log_file
 else
-  echo "Can't find config file! Exiting..."
+  log "Can't find config file! Exiting..."
   exit 1
 fi
 # Keep in mind this is not secure. As one may add nasty code in
-# config file! It should be writable only by owner.
+# config file! It should only be writable by owner.
 
+# Log messages to a proper log file
+function log () {
+  echo "$(date) - $1" >> $log_file
+}
 
+# Lock HVA execution (MUTEX)
+mkdir /tmp/hva-lock 2> /dev/null
+if [[ $? != 0 ]]; then
+  log "HVA already running. Exiting..."
+  exit 0
+fi
+
+# List movies in dropbox
+# Encode each movie
+# Build HTML document
+# scp encoded movies and html doc to www server
+# scp source movies to archive server
+# Clean local files
+# Unlock
 
 exit 0

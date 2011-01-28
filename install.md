@@ -14,7 +14,7 @@ Launchd job file: `~/Library/LaunchAgents/ch.unil.hva.plist`
 Avant d'installer en production:
 
   1. Configurer le job launchd avec les chemins correct du script et de la dropbox
-  2. Configurer hva (plus d'infos dans hva.conf)
+  2. Configurer hva `sudo cp hva.conf /etc/hva.conf` (voir hva.conf)
 
 Bash script: `/usr/local/bin/hva`  
 Dropbox: `/var/hva/dropbox/`
