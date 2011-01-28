@@ -3,25 +3,31 @@
 Author: Loïc Cattani "Arko" <loic.cattani@gmail.com>
 Begin:  2011.01.28
 
-## Définition du problème:
+## Définition du problème
 
 Nous avons des vidéos qui arrivent dans n'importe quels formats et nous voulons les rendre disponible à tous sur internet
 
-## Besoins fonctionnels:
+## Besoins fonctionnels
 
 *Que doit faire le programme pour résoudre ce problème:*
 
-Le programme doit offrir une boîte de dépôt dans laquelle on place les fichiers à traiter. Cette boîte est surveillée et le script est lancé dès qu'un nouveau fichier s'y trouve.
+Une boîte de dépôt (dropbox) est définie dans laquelle on place les fichiers à traiter. Cette boîte est surveillée et un script est lancé dès qu'un fichier s'y trouve ajouté. Ce script encode les vidéos dans les formats requis et génère un document HTML présentant la vidéo à l'aide de l'élément HTML5 `<video>` et des scripts/styles [videojs](http://videojs.com/).
 
-### Opération du script:
+### Boucle de traitement
 
-  1. Encode les fichiers dans les formats H.264 et webm à l'aide de ffmpeg
-  2. Copie les fichiers sur le serveur www.
-  3. Génère un document HTML5 par vidéo en utilisant la syntaxe videojs
-  4. Copie ce document sur le serveur www.
-  5. Vérifie éventuellement que les fichiers ont bien été transmis.
-  6. Archive les sources et nettoie les fichiers temporaires (Fichiers encodés en local, etc).
+  1. Liste les fichiers présents dans la dropbox
+  2. Encode les fichiers dans les formats H.264 et webm à l'aide de ffmpeg
+  3. Génère un document HTML par vidéo en utilisant la syntaxe videojs
+  4. Copie sur le serveur web les fichiers encodés et le document HTML
+  5. Archive les sources sur un autre serveur/volume?
+  6. Vérifie éventuellement que les fichiers ont bien été transmis.
+  7. Nettoie les fichiers restés en local (Fichiers encodés et sources).
 
-## Design:
+Un log des opérations effectuées peut être utile
 
-Au lancement du script un fichier .lock est placé qqpart. Il empêche une seconde instance du script de se lancer au même moment (Avec un délai de x secondes?). A la fin, le script vérifie si de nouveaux fichiers sont présents et relance la boucle de traitement avec ces nouveaux fichiers. etc…
+## Design
+
+Au lancement du script un fichier .lock est placé à coté du script. (Il empêche une seconde instance du script de se lancer au même moment)
+Le script attend 1 seconde et revérifie.
+Boucle de traitement.
+Le script vérifie si de nouveaux fichiers sont présents. Si oui, la boucle de traitement est relancée avec ces nouveaux fichiers. Si non, exit.
