@@ -32,6 +32,10 @@ Le script attend 1 seconde et revérifie.
 Boucle de traitement.
 Le script vérifie si de nouveaux fichiers sont présents. Si oui, la boucle de traitement est relancée avec ces nouveaux fichiers. Si non, exit.
 
+## Surveillance de la boîte de dépôt
+
+La surveillance de la boîte de dépôt est prise en charge par launchd et sa méchanique de *watchpaths*. Un exemple de fichier .plist préparé pour le dev se trouve juste à coté: `ch.unil.hva.plist`.
+
 # Problèmes à résoudre / Questions
 
   - Profils vidéo pour l'encodage (Quelle cible visons-nous: taille, débit, qualité, etc... )
@@ -40,42 +44,11 @@ Le script vérifie si de nouveaux fichiers sont présents. Si oui, la boucle de 
 
 Prévoir de pouvoir configurer:
 
-  - Environnement ( Dev || Prod )
   - Profils utiliser pour l'encodage
   - L'adresse du serveur www (et autres params SSH?)
   - L'adresse du serveur d'archivage (et autres params SSH?)
 
-# Installation
+# TODO
 
-## Surveillance de la boîte de dépôt
-
-La surveillance de la boîte de dépôt est prise en charge par launchd et sa méchanique de *watchpaths*.
-
-Un exemple de fichier .plist se trouve juste à coté: `ch.unil.hva.plist`. Ce fichier est configuré pour le développement. Il doit être modifié pour la production à l'aide des informations se trouvant dans la section "production" ci-dessous.
-
-### Développement:
-
-Bash script: `~/work/hva/hva`  
-Dropbox: `~/work/hva/dropbox/`  
-Launchd job: `~/Library/LaunchAgents/ch.unil.hva.plist`  
-
-**Pour installer:**
-
-    cp ch.unil.hva.plist ~/Library/LaunchAgents/
-    launchctl load ~/Library/LaunchAgents/ch.unil.hva.plist
-
-### Production:
-
-Bash script: `/usr/local/bin/hva`  
-Dropbox: `/var/hva/dropbox/`
-Dropbox: `/var/hva/dropbox/`
-Launchd job: `/Library/LaunchDaemons/ch.unil.hva.plist`  
-
-**Pour installer:**
-
-    sudo cp hva /usr/local/bin
-    sudo mkdir -p /var/hva/dropbox
-    sudo cp ch.unil.hva.plist /Library/LaunchDaemons/
-    sudo launchctl load /Library/LaunchDaemons/ch.unil.hva.plist
-
-
+  - Much
+  
