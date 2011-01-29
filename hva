@@ -27,9 +27,14 @@ source $config_file
 # Keep in mind this is not secure. As one may add nasty code in
 # config file! It should only be writable by owner.
 
-# Log messages to a proper log file
+# Log messages to log file
 function log () {
   echo "$(date) - $1" >> $log_file
+}
+
+# Log ffmpeg messages to log file
+function ffmpeg_log () {
+  echo -e "#### $(date) - $1\n" >> $ffmpeg_log_file
 }
 
 log "HTML Video Automator triggered"
@@ -43,13 +48,39 @@ fi
 
 # Get all files in dropbox (Assumed they are all video files)
 # If not, we'll see what happens... ffmpeg can read nearly everything
-files=$dropbox/*
+files=($(find $dropbox/*))
 
-# Encode each movie
-# Build HTML document
-# scp encoded movies and html doc to www server
-# scp source movies to archive server
-# Clean local files
+log "${#files[@]} files found in $dropbox"
+
+for file in ${files[@]}; do
+  
+  log "Processing $file"
+  
+  # Getting filename without extension
+  infile=$(basename $file)
+  filename=${infile%.*}
+  
+  # Setting encoded filename
+  outfile="${filename}.mp4"
+  
+  #Encoding H.264
+  ffmpeg_log "Encoding $file"
+  ffmpeg -y -i $file -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s 640x480 $outbox/$outfile 2>> $ffmpeg_log_file
+  ffmpeg_log "Finished encoding $file"
+  
+  log "Finished encoding $infile to $outfile"
+  
+  # TODO:
+  # Encode webm
+  # Build HTML document
+  # scp encoded movies and html doc to www server
+  # scp source movies to archive server
+  # Clean local files
+  
+done
+
+log "Done."
+
 # Unlock
 rm -r /tmp/hva-lock
 
