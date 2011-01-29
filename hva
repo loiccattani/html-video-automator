@@ -32,11 +32,6 @@ function log () {
   echo "$(date) - $1" >> $log_file
 }
 
-# Log ffmpeg messages to log file
-function ffmpeg_log () {
-  echo -e "#### $(date) - $1\n" >> $ffmpeg_log_file
-}
-
 log "HTML Video Automator started"
 
 # Lock HVA execution (MUTEX)
@@ -58,20 +53,35 @@ for file in ${files[@]}; do
   file_basename=$(basename $file)
   file_name=${file_basename%.*}
   
-  # Setting encoded filename
-  outfile="${file_name}.mp4"
-  
   log "Processing $file_basename"
   
-  #Encoding H.264
-  ffmpeg_log "Encoding $file"
-  ffmpeg -y -i $file -threads 0 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s 640x480 $payload/$outfile 2>> $ffmpeg_log_file
-  ffmpeg_log "Finished encoding $file"
+  #Encoding H.264 mp4
+  outfile="${file_name}.mp4"
+  log "Encoding $file to mp4"
+  start_time=$(date +%s)
+  ffmpeg -y -i $file -threads 8 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s 640x480 $payload/$outfile 2>> $ffmpeg_log_file
+  exit_code=$?
+  elapsed="$(expr $(date +%s) - $start_time)"
+  if [[ $exit_code > 0 ]]; then
+    log "ERROR encoding $outfile. Elapsed $elapsed seconds"
+  else
+    log "SUCCESS encoding $outfile. Elapsed $elapsed seconds"
+  fi
   
-  log "Finished encoding $outfile"
+  #Encoding VP8 webm
+  outfile="${file_name}.webm"
+  log "Encoding $file to webm"
+  start_time=$(date +%s)
+  ffmpeg -y -i $file -threads 8 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s 640x480 $payload/$outfile 2>> $ffmpeg_log_file
+  exit_code=$?
+  elapsed="$(expr $(date +%s) - $start_time)"
+  if [[ $exit_code > 0 ]]; then
+    log "ERROR encoding $outfile. Elapsed $elapsed seconds"
+  else
+    log "SUCCESS encoding $outfile. Elapsed $elapsed seconds"
+  fi
   
   # TODO:
-  # Encode webm
   # Build HTML document
   # scp encoded movies and html doc to www server
   # scp source movies to archive server
