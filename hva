@@ -51,5 +51,6 @@ files=$dropbox/*
 # scp source movies to archive server
 # Clean local files
 # Unlock
+rm -r /tmp/hva-lock
 
 exit 0
