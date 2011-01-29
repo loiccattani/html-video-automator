@@ -3,7 +3,8 @@
 ## Développement
 
 Bash script: `~/work/hva/hva`  
-Dropbox: `~/work/hva/dropbox/`  
+Launchpad: `~/work/hva/launchpad/`  
+Payload: `~/work/hva/payload/`
 Launchd job file: `~/Library/LaunchAgents/ch.unil.hva.plist`  
 
     cp ch.unil.hva.plist ~/Library/LaunchAgents/
@@ -11,17 +12,14 @@ Launchd job file: `~/Library/LaunchAgents/ch.unil.hva.plist`
 
 ## Production
 
-Avant d'installer en production:
-
-  1. Configurer le job launchd avec les chemins correct du script et de la dropbox
-  2. Configurer hva `sudo cp hva.conf /etc/hva.conf` (voir hva.conf)
-
 Bash script: `/usr/local/bin/hva`  
-Dropbox: `/var/hva/dropbox/`
-Dropbox: `/var/hva/dropbox/`
+Launchpad: `/var/hva/launchpad/`
+Payload: `/var/hva/payload/`
 Launchd job file: `/Library/LaunchDaemons/ch.unil.hva.plist`  
 
     sudo cp hva /usr/local/bin
-    sudo mkdir -p /var/hva/dropbox
+    sudo mkdir -p /var/hva/arrival /var/hva/launchpad /var/hva/payload
+    sudo cp hva.conf /etc/hva.conf
     sudo cp ch.unil.hva.plist /Library/LaunchDaemons/
+    # Configurer le job launchd et hva.conf
     sudo launchctl load /Library/LaunchDaemons/ch.unil.hva.plist
