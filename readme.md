@@ -27,15 +27,16 @@ Un log des opérations effectuées peut être utile
 
 ## Design
 
-...
+### Surveillance de la boîte de dépôt et execution automatique
 
-## Surveillance de la boîte de dépôt
+Le fichiers copiés depuis les clients distants arrivent dans `arrival`. Une fois la copie terminée, le client déplace les fichiers dans `dropbox`. Ceci permet d'assurer que les fichiers présents dans la boîte de dépôt soient tous complets et prêt au traitement. Car sinon il n'y a pas de moyen fiable d'être sûr que le fichier ait été entièrement copié. Une validation de la part du client est le plus simple et le plus sûr.
 
 La surveillance de la boîte de dépôt est prise en charge par launchd et sa méchanique de *watchpaths*. Un exemple de fichier .plist préparé pour le dev se trouve juste à coté: `ch.unil.hva.plist`.
 
 # Problèmes à résoudre / Questions
 
   - Profils vidéo pour l'encodage (Quelle cible visons-nous: taille, débit, qualité, etc... )
+  - Assurer que les fichiers soient d'abord copiés dans `arrival` avant d'être déplacé dans `dropbox`. Ceci de manière sécurisée. (sftp: *ForceCommand internal-sftp*?)
 
 # Configuration
 

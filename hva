@@ -41,7 +41,10 @@ if [[ $? != 0 ]]; then
   exit 0
 fi
 
-# List movies in dropbox
+# Get all files in dropbox (Assumed they are all video files)
+# If not, we'll see what happens... ffmpeg can read nearly everything
+files=$dropbox/*
+
 # Encode each movie
 # Build HTML document
 # scp encoded movies and html doc to www server
