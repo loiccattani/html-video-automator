@@ -54,21 +54,21 @@ log "${#files[@]} files found in $launchpad"
 
 for file in ${files[@]}; do
   
-  log "Processing $file"
-  
   # Getting filename without extension
-  infile=$(basename $file)
-  filename=${infile%.*}
+  file_basename=$(basename $file)
+  file_name=${file_basename%.*}
   
   # Setting encoded filename
-  outfile="${filename}.mp4"
+  outfile="${file_name}.mp4"
+  
+  log "Processing $file_basename"
   
   #Encoding H.264
   ffmpeg_log "Encoding $file"
-  ffmpeg -y -i $file -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s 640x480 $payload/$outfile 2>> $ffmpeg_log_file
+  ffmpeg -y -i $file -threads 0 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s 640x480 $payload/$outfile 2>> $ffmpeg_log_file
   ffmpeg_log "Finished encoding $file"
   
-  log "Finished encoding $infile to $outfile"
+  log "Finished encoding $outfile"
   
   # TODO:
   # Encode webm
