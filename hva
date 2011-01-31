@@ -61,31 +61,43 @@ for file in ${files[@]}; do
   height=$(echo $litteral_size | cut -d x -f 2)
   maxed_size=$(./maxisize.rb $width $height)
   
+  log "Export size: $maxed_size"
+  
   # Encoding H.264 mp4
   outfile="${file_name}.mp4"
-  log "Encoding $file to mp4 ($maxed_size)"
+  log "Encoding $file to mp4"
   start_time=$(date +%s)
   ffmpeg -y -i $file -threads 0 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s $maxed_size $payload/$outfile 2>> $ffmpeg_log_file
-  exit_code=$?
-  elapsed="$(expr $(date +%s) - $start_time)"
-  if [[ $exit_code > 0 ]]; then
-    log "ERROR encoding $outfile. Elapsed $elapsed seconds"
+  if [[ $? > 0 ]]; then
+    status="ERROR"
   else
-    log "SUCCESS encoding $outfile. Elapsed $elapsed seconds"
+    status="SUCCESS"
   fi
+  elapsed="$(expr $(date +%s) - $start_time)"
+  log "$status encoding $outfile. Elapsed $elapsed seconds."
   
   # Encoding VP8 webm
   outfile="${file_name}.webm"
-  log "Encoding $file to webm ($maxed_size)"
+  log "Encoding $file to webm"
   start_time=$(date +%s)
-  ffmpeg -y -i $file -threads 8 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s $maxed_size $payload/$outfile 2>> $ffmpeg_log_file
-  exit_code=$?
-  elapsed="$(expr $(date +%s) - $start_time)"
-  if [[ $exit_code > 0 ]]; then
-    log "ERROR encoding $outfile. Elapsed $elapsed seconds"
+  ffmpeg -y -i $file -threads 0 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s $maxed_size $payload/$outfile 2>> $ffmpeg_log_file
+  if [[ $? > 0 ]]; then
+    status="ERROR"
   else
-    log "SUCCESS encoding $outfile. Elapsed $elapsed seconds"
+    status="SUCCESS"
   fi
+  elapsed="$(expr $(date +%s) - $start_time)"
+  log "$status encoding $outfile. Elapsed $elapsed seconds."
+  
+  # Generating Poster
+  outfile="${file_name}.jpg"
+  ffmpeg -i $file -r 1 -ss 00:00:15.00 -vcodec mjpeg -vframes 1 -f image2 -s $maxed_size $payload/$outfile 2>> $ffmpeg_log_file
+  if [[ $? > 0 ]]; then
+    status="ERROR"
+  else
+    status="SUCCESS"
+  fi
+  log "$status generating poster $outfile."
   
   # TODO:
   # Build HTML document
