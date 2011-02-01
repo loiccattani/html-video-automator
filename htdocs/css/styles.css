@@ -77,8 +77,12 @@ footer:hover {
   opacity: 1;
 }
 
+footer a {
+  margin-left: 1em;
+}
+
 h1 {
-  font-size: 40px;
+  font-size: 44px;
   font-family: Lobster, arial, serif;
   text-shadow: 0px 0px 3px rgb(255,255,255), 3px 3px 3px rgb(0,0,0);
   -webkit-transform: rotate(-3deg);
