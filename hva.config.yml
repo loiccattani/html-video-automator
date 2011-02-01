@@ -1,5 +1,9 @@
 # HVA - HTML Video Automator Config file
 
+global:
+  max_width: 640
+  max_height: 480
+
 development:
   log_file: ~/work/hva/hva.log
   ffmpeg_log_file: ~/work/hva/hva-ffmpeg.log
