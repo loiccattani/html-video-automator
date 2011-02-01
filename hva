@@ -53,7 +53,7 @@ for file in ${files[@]}; do
   file_basename=$(basename $file)
   file_name=${file_basename%.*}
   
-  log "Processing $file_basename"
+  log "Processing $file"
   
   # Getting video size
   litteral_size=$(ffmpeg -i $file 2>&1 | egrep -o "(\<Video\>.*)([0-9]{2,4}x[0-9]{2,4})" | egrep -o "[0-9]{2,4}x[0-9]{2,4}")
@@ -65,7 +65,7 @@ for file in ${files[@]}; do
   
   # Encoding H.264 mp4
   outfile="${file_name}.mp4"
-  log "Encoding $file to mp4"
+  log "Encoding $file_basename to mp4"
   start_time=$(date +%s)
   ffmpeg -y -i $file -threads 0 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s $maxed_size $payload/$outfile 2>> $ffmpeg_log_file
   if [[ $? > 0 ]]; then
@@ -78,7 +78,7 @@ for file in ${files[@]}; do
   
   # Encoding VP8 webm
   outfile="${file_name}.webm"
-  log "Encoding $file to webm"
+  log "Encoding $file_basename to webm"
   start_time=$(date +%s)
   ffmpeg -y -i $file -threads 0 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s $maxed_size $payload/$outfile 2>> $ffmpeg_log_file
   if [[ $? > 0 ]]; then
