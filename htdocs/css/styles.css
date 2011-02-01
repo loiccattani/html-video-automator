@@ -1,0 +1,123 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Main styles */
+
+body {
+  width: 900px;
+  margin: 0 auto;
+  color: #fff;
+  background: #222 url(../images/bg.jpg) fixed;
+  font-family: 'Droid Sans', arial, serif;
+}
+
+header {
+  margin: 3em 0;
+  text-align: center;
+}
+
+footer {
+  width: 720px;
+  margin: 1em auto;
+  text-align: right;
+  opacity: 0.3;
+  -webkit-transition: opacity 0.3s ease;
+  -moz-transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+
+footer:hover {
+  opacity: 1;
+}
+
+h1 {
+  font-size: 40px;
+  font-family: Lobster, arial, serif;
+  text-shadow: 0px 0px 3px rgb(255,255,255), 3px 3px 3px rgb(0,0,0);
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+
+#main {
+  width: 640px;
+  margin: 0 auto;
+  padding: 40px 40px 25px 40px;
+  background-color: rgba(0,0,0,0.3);
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  border-radius: 40px;
+}
+
+#main p {
+  color: #999;
+  font-size: 13px;
+  margin-top: 7px;
+}
+
+.video-js-box {
+  margin: 0 auto;
+  -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  -moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+a:link,
+a:visited {
+  color: #999;
+  -webkit-transition: all 0.1s ease-out;
+}
+
+a:hover,
+a:active {
+  color: #fff;
+  text-shadow: 0px 0px 2px rgb(255,255,255);
+}
