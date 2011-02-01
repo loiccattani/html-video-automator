@@ -1,0 +1,16 @@
+# HVA - HTML Video Automator Config file
+
+development:
+  log_file: ~/work/hva/hva.log
+  ffmpeg_log_file: ~/work/hva/hva-ffmpeg.log
+
+  launchpad: ~/work/hva/launchpad
+  payload: ~/work/hva/payload
+  
+production:
+  log_file: /var/log/hva.log
+  ffmpeg_log_file: /var/log/hva-ffmpeg.log
+
+  launchpad: /var/hva/launchpad
+  payload: /var/hva/payload
+  
