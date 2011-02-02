@@ -15,10 +15,14 @@ require 'fileutils'
 require "erb"
 
 class HTMLVideoAutomator
+  ENVIRONMENT = 'dev' # 'dev' || 'prod'
+  
   def initialize
-    @config = YAML.load_file('hva.config.yml')['global'] 
-    @config.merge! YAML.load_file('hva.config.yml')['development']
-    #@config.merge! YAML.load_file("/etc/hva.config.yml")['production']
+    @config = YAML.load_file('hva.config.yml')['global']
+    case ENVIRONMENT
+    when 'prod' then @config.merge! YAML.load_file("/etc/hva.config.yml")['production']
+    when 'dev'  then @config.merge! YAML.load_file('hva.config.yml')['development']
+    end
 
     @log = Logger.new(@config['log_file'], 'daily')
     @log.level = Logger::INFO
@@ -28,7 +32,7 @@ class HTMLVideoAutomator
 
     @log.info "HTML Video Automator Started"
 
-    # lock # Try mutex lock or abort
+    lock if ENVIRONMENT == 'prod' # Try mutex lock or abort
 
     @files = load_launchpad # Get all files on the launchpad
 
@@ -49,7 +53,7 @@ class HTMLVideoAutomator
       # Clean local files
     end
 
-    # unlock # Unlock mutex
+    unlock if ENVIRONMENT == 'prod'  # Unlock mutex
 
     @log.info "No more work! Will take a nap..."
 
