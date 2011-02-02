@@ -5,16 +5,17 @@ global:
   max_height: 480
 
 development:
-  log_file: ~/work/hva/hva.log
-  ffmpeg_log_file: ~/work/hva/hva-ffmpeg.log
+  log_file: /Users/arko/work/hva/hva.log
+  ffmpeg_log_file: /Users/arko/work/hva/hva-ffmpeg.log
 
-  launchpad: ~/work/hva/launchpad
-  payload: ~/work/hva/payload
-  
+  launchpad: /Users/arko/work/hva/launchpad
+  payload: /Users/arko/work/hva/public
+  pub_url: /Users/arko/work/hva/public
+
 production:
   log_file: /var/log/hva.log
   ffmpeg_log_file: /var/log/hva-ffmpeg.log
 
   launchpad: /var/hva/launchpad
   payload: /var/hva/payload
-  
+  pub_url: http://podcast.unil.ch/hva

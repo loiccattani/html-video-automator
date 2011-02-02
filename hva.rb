@@ -12,6 +12,7 @@
 require 'yaml'
 require 'logger'
 require 'fileutils'
+require "erb"
 
 class HTMLVideoAutomator
   def initialize
@@ -19,7 +20,7 @@ class HTMLVideoAutomator
     @config.merge! YAML.load_file('hva.config.yml')['development']
     #@config.merge! YAML.load_file("/etc/hva.config.yml")['production']
 
-    @log = Logger.new(File.expand_path(@config['log_file']), 'daily')
+    @log = Logger.new(@config['log_file'], 'daily')
     @log.level = Logger::INFO
   end
 
@@ -33,14 +34,16 @@ class HTMLVideoAutomator
 
     @files.each do |file|
       @log.info "Processing #{file}"
-      size = export_size(file) # Get video size
+      name = filename(file) # Get the file name, without extension
+      size = get_size(file) # Get video size
+      wxh = maxisize(size) # Get video size
       
-      next if ! encode file, :format => 'mp4', :size => size
-      next if ! encode file, :format => 'webm', :size => size
-      next if ! gen_poster file, :size => size
+      #next if ! encode file, :format => 'mp4', :size => wxh
+      #next if ! encode file, :format => 'webm', :size => wxh
+      #next if ! gen_poster file, :size => wxh
+      next if ! gen_html name, :pub_url => @config['pub_url'], :size => size
       
       # TODO:
-      # Build HTML document
       # scp encoded movies and html doc to www server
       # scp source movies to archive server
       # Clean local files
@@ -57,7 +60,7 @@ class HTMLVideoAutomator
   def load_launchpad
     # TODO: May need to filter input here...
     # but for now let's go with all files, ffmpeg's hungry.
-    path = File.expand_path(@config['launchpad'])
+    path = @config['launchpad']
     files = Dir.glob("#{path}/*")
     @log.info "#{files.count} files found on the launchpad"
     return files
@@ -68,11 +71,11 @@ class HTMLVideoAutomator
     name = basename[/(.*)\..*/,1] # Isolate filename from extension
   end
   
-  def export_size(file)
+  def get_size(file)
     ffmpeg_out = `ffmpeg -i #{file} 2>&1` # ffmpeg outputs to stderr!
     width = ffmpeg_out[/Video.*\s([0-9]{2,4})x([0-9]{2,4})/, 1].to_i
     height = ffmpeg_out[/Video.*\s([0-9]{2,4})x([0-9]{2,4})/, 2].to_i
-    return maxisize :width => width, :height => height
+    return :width => width, :height => height
   end
   
   def maxisize(size)
@@ -133,12 +136,25 @@ class HTMLVideoAutomator
     status = system("ffmpeg -i #{file} -r 1 -ss 00:00:15.00 -vcodec mjpeg -vframes 1 -f image2 -s #{params[:size]} #{@config['payload']}/#{outfile} 2>> #{@config['ffmpeg_log_file']}")
     
     if ! status
-      @log.error "ffmpeg returned an error creating poster for #{outfile}"
+      @log.error "ffmpeg returned an error creating poster for #{name}"
       return false
     else
-      @log.info "Poster done for #{outfile}"
+      @log.info "Poster done for #{name}"
       return true
     end
+  end
+  
+  def gen_html(name, params)
+    pub_url = params[:pub_url]
+    size = params[:size]
+    
+    erb = ERB.new File.new("views/video.rhtml").read, nil, "%"
+    
+    File.open("#{@config['payload']}/#{name}.html", 'w') do |f|
+      f.write erb.result(binding)
+    end
+    
+    @log.info "Built HTML document for #{name}"
   end
   
   def aspect_ratio(width, height)

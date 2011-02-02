@@ -15,8 +15,8 @@ Une boîte de dépôt est définie dans laquelle on place les fichiers à traite
 
 ### Boucle de traitement
 
-  1. Liste les fichiers présents dans la launchpad
-  2. Encode les fichiers dans les formats H.264 et webm à l'aide de ffmpeg
+  1. Liste les fichiers présents sur le launchpad
+  2. Encode les fichiers dans les formats mp4 et webm à l'aide de ffmpeg
   3. Génère un document HTML par vidéo en utilisant la syntaxe videojs
   4. Copie sur le serveur web les fichiers encodés et le document HTML
   5. Archive les sources sur un autre serveur/volume?
@@ -27,13 +27,13 @@ Un log des opérations effectuées peut être utile
 
 ## Design
 
-Le fichiers copiés depuis les clients distants arrivent dans `arrival`. Une fois la copie terminée, le client déplace les fichiers dans `launchpad`. Ils seront alors automatiquement encodés dans `payload` et seront ensuite copié sur le serveur web.
+Le fichiers copiés depuis les clients distants arrivent dans `arrival`. Une fois la copie terminée, le client déplace les fichiers dans `launchpad`. Ils seront alors automatiquement encodés et placés dans `payload`. Ils seront ensuite copié sur le serveur web.
 
-Ceci permet d'assurer que les fichiers présents dans la boîte de dépôt soient tous complets et prêt au traitement. Car sinon il n'y a pas de moyen fiable d'être sûr que le fichier ait été entièrement copié. Une validation de la part du client est le plus simple et le plus sûr.
+Ceci permet d'assurer que les fichiers présents dans la boîte de dépôt soient tous complets et prêts au traitement. Car sinon il n'y a pas de moyen fiable d'être sûr que le fichier ait été entièrement copié. Une validation de la part du client est le plus simple et le plus sûr.
 
 La surveillance de la boîte de dépôt `launchpad` est prise en charge par launchd et sa méchanique de *watchpaths*. Un exemple de fichier .plist préparé pour le dev se trouve juste à coté: `ch.unil.hva.plist`.
 
-Une fois la copie vers le serveur web effectuée les fichiers n'ont plus besoin de rester en local. Ils sont alors selectivement supprimés. (Fichiers sources dans `launchpad`, fichiers encodés et documents HTML dans `payload`. Le contenu de `arrival` n'est pas touché.)
+Une fois la copie vers le serveur web effectuée, les fichiers n'ont plus besoin de rester en local. Ils sont alors sélectivement supprimés. (Fichiers sources dans `launchpad`, fichiers encodés et documents HTML dans `payload`. Le contenu de `arrival` n'est pas touché.)
 
 # Problèmes à résoudre / Questions
 
@@ -44,11 +44,12 @@ Une fois la copie vers le serveur web effectuée les fichiers n'ont plus besoin 
 
 Prévoir de pouvoir configurer:
 
-  - Profils utiliser pour l'encodage
+  - Profils utilisés pour l'encodage
   - L'adresse du serveur www (et autres params SSH?)
   - L'adresse du serveur d'archivage (et autres params SSH?)
 
 # TODO
 
-  - Much
+  - Plus bcp
+  - Réfléchir à implications de tagguer les noms de fichiers en sortie avec date ou trier dans struct. datée (YYYY/MM/JJ) pour permettre doublons de noms
   
