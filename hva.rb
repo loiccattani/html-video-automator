@@ -9,91 +9,121 @@
 # Il est prévu pour être executé automatiquement par launchd lorsque
 # la boîte de dépôt est modifiée.
 
+require 'yaml'
+require 'logger'
+require 'fileutils'
+
 class HTMLVideoAutomator
+  def initialize
+    @config = YAML.load_file('hva.config.yml')['global'] 
+    @config.merge! YAML.load_file('hva.config.yml')['development']
+    #@config.merge! YAML.load_file("/etc/hva.config.yml")['production']
+
+    @log = Logger.new(File.expand_path(@config['log_file']))
+    @log.level = Logger::DEBUG
+  end
+
+  def run
+
+    @log.info "HTML Video Automator Started"
+
+    # lock # Try mutex lock or abort
+
+    @files = load_launchpad # Get all files on the launchpad
+
+    @files.each do |file|
+      @log.info "Processing #{file}"
+      name = filename(file) # Get the file name, without extension
+      size = export_size(file) # Get video size
+
+      # TODO:
+      # Encode mp4
+      # Encode webm
+      # Gen poster
+      # Build HTML document
+      # scp encoded movies and html doc to www server
+      # scp source movies to archive server
+      # Clean local files
+    end
+
+    # unlock # Unlock mutex
+
+  end
   
-  require 'yaml'
-  require 'logger'
-  require 'fileutils'
-
-  GLOBAL_CONFIG = YAML.load_file('hva.config.yml')['global']
-  CONFIG = YAML.load_file('hva.config.yml')['development']
-  #CONFIG = YAML.load_file("/etc/hva.config.yml")['production']
+  private
   
-  # Log
-  Log = Logger.new(File.expand_path(CONFIG['log_file']))
-  Log.level = Logger::DEBUG
+  def load_launchpad
+    # TODO: May need to filter input here...
+    # but for now let's go with all files, ffmpeg's hungry.
+    path = File.expand_path(@config['launchpad'])
+    files = Dir.glob("#{path}/*")
+    @log.info "#{files.count} files found on the launchpad"
+    return files
+  end
+  
+  def filename(file)
+    basename = File.basename(file)
+    name = basename[/(.*)\..*/,1] # Isolate filename from extension
+  end
+  
+  def export_size(file)
+    ffmpeg_out = `ffmpeg -i #{file} 2>&1` # ffmpeg outputs to stderr!
+    width = ffmpeg_out[/Video.*\s([0-9]{2,4})x([0-9]{2,4})/, 1].to_i
+    height = ffmpeg_out[/Video.*\s([0-9]{2,4})x([0-9]{2,4})/, 2].to_i
+    return maxisize :width => width, :height => height
+  end
+  
+  def maxisize(size)
+    # Maxisize: Accept a size hash (:width, :height) and returns a
+    # maximized "wxh" value. Scaling down the size only if needed and
+    # keeping its aspect ratio.
+    
+    w = size[:width]
+    h = size[:height]
+    mw = @config['max_width']
+    mh = @config['max_height']
+    r = aspect_ratio(w, h)
+  
+    @log.debug "Original size: #{w}x#{h} (#{r.round(2)})"
 
-  def main
+    if w > mw && r >= 1.0
+      w = mw
+      h = [w / r, mh].min.to_i
+    elsif h > mh && r < 1.0
+      h = mh
+      w = [h * r, mw].min.to_i
+    end
 
-    Log.info "HTML Video Automator Started"
+    r = aspect_ratio(w, h)
+    
+    @log.debug "Maxed size: #{w}x#{h} (#{r.round(2)})"
 
+    return "#{w}x#{h}"
+
+  end
+  
+  def aspect_ratio(width, height)
+    return width.to_f / height.to_f
+  end
+  
+  def lock
     # Try to lock HVA execution
     # (Only one instance of this script can run at a time)
     begin
       FileUtils.mkdir '/tmp/hva-lock'
     rescue Exception => e
-      Log.error "HVA already running. Aborting..."
+      @log.error "HVA already running. Aborting..."
       abort("HVA already running. #{e}")
     end
-
-    # Get all files on the launchpad
-    # TODO: May need to filter input here...
-    # but for now let's go with all files, ffmpeg's hungry.
-    path = File.expand_path(CONFIG['launchpad'])
-    files = Dir.glob("#{path}/*")
-
-    Log.info "#{files.count} files found on the launchpad"
-
-    files.each do |file|
-
-      Log.info "Processing #{file}"
-
-      # Get the file name, without extension
-      basename = File.basename(file)
-      name = basename[/(.*)\..*/,1]
-
-      # Get video size
-      ffmpeg_out = `ffmpeg -i #{file} 2>&1` # ffmpeg outputs to stderr!
-      width = ffmpeg_out[/Video.*\s([0-9]{2,4})x([0-9]{2,4})/, 1].to_i
-      height = ffmpeg_out[/Video.*\s([0-9]{2,4})x([0-9]{2,4})/, 2].to_i
-            
-      # Get maxed size
-      maxed_size = maxisize(width, height)
-
-    end
-
-    # Unlock
-    FileUtils.rmdir '/tmp/hva-lock'
-
+    @log.debug "Successfully locked mutex"
   end
-
-  # Maxisize: Accept a width an height as first and second parameter
-  # and returns a maximized "wxh" value. Scaling down the size if
-  # needed and keeping its aspect ratio.
-  def maxisize(width, height)
-
-    max_width = GLOBAL_CONFIG['max_width']
-    max_height = GLOBAL_CONFIG['max_height']
-    
-    aspect_ratio = width.to_f / height.to_f
-    
-    Log.debug "maxisize input: #{width.to_s}x#{height.to_s} (#{aspect_ratio})"
-
-    if width > max_width && aspect_ratio >= 1.0
-      width = max_width
-      height = [width/aspect_ratio, max_height].min.to_i
-    elsif height > max_height && aspect_ratio < 1.0
-      height = max_height
-      width = [height*aspect_ratio, max_width].min.to_i
-    end
-
-    aspect_ratio = width.to_f / height.to_f
-    Log.debug "maxisize output: #{width.to_s}x#{height.to_s} (#{aspect_ratio})"
-
-    return "#{width.to_s}x#{height.to_s}"
-
+  
+  def unlock
+    FileUtils.rmdir '/tmp/hva-lock'
+    @log.debug "Unlocked mutex"
   end
   
 end
 
-HTMLVideoAutomator.new.main
+hva = HTMLVideoAutomator.new
+hva.run
