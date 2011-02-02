@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # Title: HVA - HTML Video Automator
-# Author: Loïc Cattani "arko" <loic.cattani@gmail.com>
+# Author: Loïc Cattani "Arko" <loic.cattani@gmail.com>
 # Begin: 2011.01.28
 #
 # Ce script automatise l'encodage et la préparation du code HTML pour
@@ -33,11 +33,11 @@ class HTMLVideoAutomator
 
     @files.each do |file|
       @log.info "Processing #{file}"
-      name = filename(file) # Get the file name, without extension
       size = export_size(file) # Get video size
-
+      
+      next if ! encode file, :format => 'mp4', :size => size
+      
       # TODO:
-      # Encode mp4
       # Encode webm
       # Gen poster
       # Build HTML document
@@ -47,6 +47,8 @@ class HTMLVideoAutomator
     end
 
     # unlock # Unlock mutex
+
+    @log.info "No more work! Will take a nap..."
 
   end
   
@@ -100,6 +102,21 @@ class HTMLVideoAutomator
 
     return "#{w}x#{h}"
 
+  end
+  
+  def encode(file, params)
+    name = filename(file) # Get the file name, without extension
+    
+    case params[:format]
+    when 'mp4'
+      outfile = "#{name}.mp4"
+      t1 = Time.now
+      if ! system("ffmpeg -y -i #{file} -threads 0 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s #{params[:size]} #{@config['payload']}/#{outfile} 2>> #{@config['ffmpeg_log_file']}")
+        @log.error "ffmpeg returned an error"
+        return false
+      end
+      @log.info "Done encoding #{outfile}. Elapsed #{(Time.now - t1).to_i}s"
+    end
   end
   
   def aspect_ratio(width, height)
