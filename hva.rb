@@ -19,8 +19,8 @@ class HTMLVideoAutomator
     @config.merge! YAML.load_file('hva.config.yml')['development']
     #@config.merge! YAML.load_file("/etc/hva.config.yml")['production']
 
-    @log = Logger.new(File.expand_path(@config['log_file']))
-    @log.level = Logger::DEBUG
+    @log = Logger.new(File.expand_path(@config['log_file']), 'daily')
+    @log.level = Logger::INFO
   end
 
   def run
