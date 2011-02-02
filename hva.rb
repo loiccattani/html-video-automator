@@ -37,10 +37,9 @@ class HTMLVideoAutomator
       
       next if ! encode file, :format => 'mp4', :size => size
       next if ! encode file, :format => 'webm', :size => size
+      next if ! gen_poster file, :size => size
       
       # TODO:
-      # Encode webm
-      # Gen poster
       # Build HTML document
       # scp encoded movies and html doc to www server
       # scp source movies to archive server
@@ -119,10 +118,25 @@ class HTMLVideoAutomator
     end
     
     if ! status
-      @log.error "ffmpeg returned an error"
+      @log.error "ffmpeg returned an error encoding #{outfile}"
       return false
     else
       @log.info "Done encoding #{outfile}. Elapsed #{(Time.now - start_time).to_i}s"
+      return true
+    end
+  end
+  
+  def gen_poster(file, params)
+    name = filename(file) # Get the file name, without extension
+    outfile = "#{name}.jpg"
+    
+    status = system("ffmpeg -i #{file} -r 1 -ss 00:00:15.00 -vcodec mjpeg -vframes 1 -f image2 -s #{params[:size]} #{@config['payload']}/#{outfile} 2>> #{@config['ffmpeg_log_file']}")
+    
+    if ! status
+      @log.error "ffmpeg returned an error creating poster for #{outfile}"
+      return false
+    else
+      @log.info "Poster done for #{outfile}"
       return true
     end
   end
