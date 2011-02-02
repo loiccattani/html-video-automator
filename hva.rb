@@ -36,6 +36,7 @@ class HTMLVideoAutomator
       size = export_size(file) # Get video size
       
       next if ! encode file, :format => 'mp4', :size => size
+      next if ! encode file, :format => 'webm', :size => size
       
       # TODO:
       # Encode webm
@@ -106,16 +107,23 @@ class HTMLVideoAutomator
   
   def encode(file, params)
     name = filename(file) # Get the file name, without extension
+    start_time = Time.now
     
     case params[:format]
     when 'mp4'
       outfile = "#{name}.mp4"
-      t1 = Time.now
-      if ! system("ffmpeg -y -i #{file} -threads 0 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s #{params[:size]} #{@config['payload']}/#{outfile} 2>> #{@config['ffmpeg_log_file']}")
-        @log.error "ffmpeg returned an error"
-        return false
-      end
-      @log.info "Done encoding #{outfile}. Elapsed #{(Time.now - t1).to_i}s"
+      status = system("ffmpeg -y -i #{file} -threads 0 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s #{params[:size]} #{@config['payload']}/#{outfile} 2>> #{@config['ffmpeg_log_file']}")
+    when 'webm'
+      outfile = "#{name}.webm"
+      status = system("ffmpeg -y -i #{file} -threads 0 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s #{params[:size]} #{@config['payload']}/#{outfile} 2>> #{@config['ffmpeg_log_file']}")
+    end
+    
+    if ! status
+      @log.error "ffmpeg returned an error"
+      return false
+    else
+      @log.info "Done encoding #{outfile}. Elapsed #{(Time.now - start_time).to_i}s"
+      return true
     end
   end
   
