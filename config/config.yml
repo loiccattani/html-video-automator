@@ -1,6 +1,7 @@
 # HVA - HTML Video Automator Config file
 
 global:
+  environment: development # development || production
   max_width: 640
   max_height: 480
 
@@ -17,5 +18,5 @@ production:
   ffmpeg_log_file: /var/log/hva/ffmpeg.log
 
   dropbox: /var/hva/dropbox
-  outbox: /var/hva/outbox
+  outbox: /tmp/hva/outbox
   pub_url: http://podcast.unil.ch/hva
