@@ -96,10 +96,10 @@ class HTMLVideoAutomator
   
     @log.debug "Original size: #{w}x#{h} (#{r.round(2)})"
 
-    if w > mw && r >= 1.0
+    if w > mw and r >= 1.0
       w = mw
       h = [w / r, mh].min.to_i
-    elsif h > mh && r < 1.0
+    elsif h > mh and r < 1.0
       h = mh
       w = [h * r, mw].min.to_i
     end
