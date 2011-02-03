@@ -18,8 +18,8 @@ Outbox: `/var/hva/outbox/`
 Launchd job file: `/Library/LaunchDaemons/ch.unil.hva.plist`  
 
     sudo cp hva.rb /usr/local/bin
-    sudo mkdir -p /var/hva/arrival /var/hva/dropbox /var/hva/outbox
-    sudo cp hva.conf /etc/hva.conf
+    sudo mkdir -p /var/hva/dropbox /var/hva/outbox
+    sudo cp config/config.yml /etc/hva.config.yml
     sudo cp ch.unil.hva.plist /Library/LaunchDaemons/
-    # Configurer le job launchd et hva.conf
+    # Configurer le job launchd et hva.config.yml
     sudo launchctl load /Library/LaunchDaemons/ch.unil.hva.plist

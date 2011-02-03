@@ -15,14 +15,15 @@ require 'fileutils'
 require "erb"
 
 class HTMLVideoAutomator
-  ENVIRONMENT = 'dev' # 'dev' || 'prod'
+  ENVIRONMENT = 'development' # 'development' || 'production'
   
   def initialize
-    @config = YAML.load_file('hva.config.yml')['global']
     case ENVIRONMENT
-    when 'prod' then @config.merge! YAML.load_file("/etc/hva.config.yml")['production']
-    when 'dev'  then @config.merge! YAML.load_file('hva.config.yml')['development']
+    when 'development' then config_path = 'config/config.yml'
+    when 'production'  then config_path = '/etc/hva.config.yml'
     end
+    @config = YAML.load_file(config_path)['global']
+    @config.merge! YAML.load_file(config_path)[ENVIRONMENT]
 
     @log = Logger.new(@config['log_file'], 'daily')
     @log.level = Logger::INFO
