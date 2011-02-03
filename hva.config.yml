@@ -8,14 +8,14 @@ development:
   log_file: /Users/arko/work/hva/hva.log
   ffmpeg_log_file: /Users/arko/work/hva/hva-ffmpeg.log
 
-  launchpad: /Users/arko/work/hva/launchpad
-  payload: /Users/arko/work/hva/public
+  dropbox: /Users/arko/work/hva/dropbox
+  outbox: /Users/arko/work/hva/public
   pub_url: /Users/arko/work/hva/public
 
 production:
   log_file: /var/log/hva.log
   ffmpeg_log_file: /var/log/hva-ffmpeg.log
 
-  launchpad: /var/hva/launchpad
-  payload: /var/hva/payload
+  dropbox: /var/hva/dropbox
+  outbox: /var/hva/outbox
   pub_url: http://podcast.unil.ch/hva

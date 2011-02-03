@@ -34,7 +34,7 @@ class HTMLVideoAutomator
 
     lock if ENVIRONMENT == 'prod' # Try mutex lock or abort
 
-    @files = load_launchpad # Get all files on the launchpad
+    @files = load_dropbox # List all files in the dropbox
 
     @files.each do |file|
       @log.info "Processing #{file}"
@@ -61,12 +61,12 @@ class HTMLVideoAutomator
   
   private
   
-  def load_launchpad
+  def load_dropbox
     # TODO: May need to filter input here...
     # but for now let's go with all files, ffmpeg's hungry.
-    path = @config['launchpad']
+    path = @config['dropbox']
     files = Dir.glob("#{path}/*")
-    @log.info "#{files.count} files found on the launchpad"
+    @log.info "#{files.count} files found in the dropbox"
     return files
   end
   
@@ -118,10 +118,10 @@ class HTMLVideoAutomator
     case params[:format]
     when 'mp4'
       outfile = "#{name}.mp4"
-      status = system("ffmpeg -y -i #{file} -threads 0 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s #{params[:size]} #{@config['payload']}/#{outfile} 2>> #{@config['ffmpeg_log_file']}")
+      status = system("ffmpeg -y -i #{file} -threads 0 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s #{params[:size]} #{@config['outbox']}/#{outfile} 2>> #{@config['ffmpeg_log_file']}")
     when 'webm'
       outfile = "#{name}.webm"
-      status = system("ffmpeg -y -i #{file} -threads 0 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s #{params[:size]} #{@config['payload']}/#{outfile} 2>> #{@config['ffmpeg_log_file']}")
+      status = system("ffmpeg -y -i #{file} -threads 0 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s #{params[:size]} #{@config['outbox']}/#{outfile} 2>> #{@config['ffmpeg_log_file']}")
     end
     
     if ! status
@@ -137,7 +137,7 @@ class HTMLVideoAutomator
     name = filename(file) # Get the file name, without extension
     outfile = "#{name}.jpg"
     
-    status = system("ffmpeg -i #{file} -r 1 -ss 00:00:15.00 -vcodec mjpeg -vframes 1 -f image2 -s #{params[:size]} #{@config['payload']}/#{outfile} 2>> #{@config['ffmpeg_log_file']}")
+    status = system("ffmpeg -i #{file} -r 1 -ss 00:00:15.00 -vcodec mjpeg -vframes 1 -f image2 -s #{params[:size]} #{@config['outbox']}/#{outfile} 2>> #{@config['ffmpeg_log_file']}")
     
     if ! status
       @log.error "ffmpeg returned an error creating poster for #{name}"
@@ -154,7 +154,7 @@ class HTMLVideoAutomator
     
     erb = ERB.new File.new("views/video.rhtml").read, nil, "%"
     
-    File.open("#{@config['payload']}/#{name}.html", 'w') do |f|
+    File.open("#{@config['outbox']}/#{name}.html", 'w') do |f|
       f.write erb.result(binding)
     end
     

@@ -15,30 +15,44 @@ Une boîte de dépôt est définie dans laquelle on place les fichiers à traite
 
 ### Boucle de traitement
 
-  1. Liste les fichiers présents sur le launchpad
-  2. Encode les fichiers dans les formats mp4 et webm à l'aide de ffmpeg
+  1. Liste les fichiers présents dans la boîte de dépôt (dropbox)
+  2. Encode les fichiers dans les formats mp4 et webm et crée un poster à l'aide de ffmpeg
   3. Génère un document HTML par vidéo en utilisant la syntaxe videojs
   4. Copie sur le serveur web les fichiers encodés et le document HTML
-  5. Archive les sources sur un autre serveur/volume?
-  6. Vérifie éventuellement que les fichiers ont bien été transmis.
-  7. Nettoie les fichiers restés en local (Fichiers encodés et sources).
+  5. Archive les sources sur un autre serveur/volume, sinon sur le serveur web.
+  6. Nettoie les fichiers restés en local (Fichiers encodés et sources).
+  7. Reliste la boîte de dépôt pour voir si quelque chose de nouveau y est, si oui: goto 2
 
 Un log des opérations effectuées peut être utile
 
 ## Design
 
-Le fichiers copiés depuis les clients distants arrivent dans `arrival`. Une fois la copie terminée, le client déplace les fichiers dans `launchpad`. Ils seront alors automatiquement encodés et placés dans `payload`. Ils seront ensuite copié sur le serveur web.
+### Les fichiers doivent être prêts au traitement avant lancement du script
 
-Ceci permet d'assurer que les fichiers présents dans la boîte de dépôt soient tous complets et prêts au traitement. Car sinon il n'y a pas de moyen fiable d'être sûr que le fichier ait été entièrement copié. Une validation de la part du client est le plus simple et le plus sûr.
+Il n'y a pas de moyen sûr pour savoir si un fichier à bien été copié rien qu'en le regardant. Un notification ou autre élément en provenance du client est nécessaire (Client: celui qui à copié le(s) fichier(s) dans la boîte de dépôt)
 
-La surveillance de la boîte de dépôt `launchpad` est prise en charge par launchd et sa méchanique de *watchpaths*. Un exemple de fichier .plist préparé pour le dev se trouve juste à coté: `ch.unil.hva.plist`.
+Donc plusieurs solutions sont envisageables:
 
-Une fois la copie vers le serveur web effectuée, les fichiers n'ont plus besoin de rester en local. Ils sont alors sélectivement supprimés. (Fichiers sources dans `launchpad`, fichiers encodés et documents HTML dans `payload`. Le contenu de `arrival` n'est pas touché.)
+#### Solution 1:
+
+Les fichiers copiés depuis les clients distants arrivent dans un dossier X sur le serveur. Une fois la copie terminée, le client déplace les fichiers dans la `dropbox`. Ce qui déclenche l'execution du script (Qui repasse après avoir terminé ses tâches pour s'assurer qu'il n'y a rien de nouveau avant de quitter).
+
+La copie et le déplacement des fichiers peut éventuellement être automatisé par une application de transfert installée sur la machine du client. La copie serait se ferait alors par ssh (scp ou sftp). Avantage du sftp: *ForceCommand internal-sftp*
+
+La surveillance de la boîte de dépôt `dropbox` est prise en charge par launchd et sa méchanique de *watchpaths*. Un exemple de fichier .plist préparé pour le dev se trouve juste à coté: `ch.unil.hva.plist`.
+
+#### Solution 2:
+
+Les fichiers sont copiés dans la dropbox (inerte) et une deuxième étape permet de séléctionner les fichiers à traiter et de lancer le script. (webapp ou fichier manifest) TODO: Elaborer
+
+### Nettoyage
+
+Une fois la copie vers le serveur web effectuée, les fichiers n'ont plus besoin de rester en local. Ils sont alors sélectivement supprimés. (Fichiers sources dans la `dropbox`, fichiers encodés et documents HTML. Le contenu du dossier X de la solution 1 ne serait pas touché.)
 
 # Problèmes à résoudre / Questions
 
-  - Profils vidéo pour l'encodage (Quelle cible visons-nous: taille, débit, qualité, etc... )
-  - Assurer que les fichiers soient d'abord copiés dans `arrival` avant d'être déplacé dans `launchpad`. Ceci de manière sécurisée. (sftp: *ForceCommand internal-sftp*?)
+  - Profils vidéo pour l'encodage (Quelle cible visons-nous: taille, débit, qualité, etc... ): Vérifier!
+  - Archiver les sources ailleurs que sur le serveur web? Ou?
 
 # Configuration
 
@@ -51,5 +65,7 @@ Prévoir de pouvoir configurer:
 # TODO
 
   - Plus bcp
+  - Créer une variable d'instance stockant les fichiers à copier sur le serveur web
+  - Fichier HTML spécifique listant les fichiers présents / traités et leur statut (mis à jour à chaque étape) (Pourrait être utilisé pour lancer la conversion plutôt qu'avec launchd... ?)
   - Réfléchir à implications de tagguer les noms de fichiers en sortie avec date ou trier dans struct. datée (YYYY/MM/JJ) pour permettre doublons de noms
   
