@@ -5,7 +5,7 @@ module HTMLVideoAutomator
     class << self
       def load
         dev_config_file = File.dirname(__FILE__) + '/../../config/config.yml'
-        prod_config_file = File.dirname(__FILE__) + '/etc/hva.config.yml'
+        prod_config_file = '/etc/hva.config.yml'
 
         if File.exists?(prod_config_file)
           config_file = prod_config_file
