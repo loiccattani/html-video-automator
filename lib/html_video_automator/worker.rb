@@ -65,6 +65,21 @@ module HTMLVideoAutomator
         $log.info "Built HTML document for #{video.name}"
       end
       
+      def gen_job_report(job_id, videos, start_time)
+        elapsed = "#{Time.now - start_time}s"
+        
+        begin
+          erb = ERB.new File.new(File.dirname(__FILE__) + '/../../views/job-report.rhtml').read, nil, "%"
+          File.open("#{Config.path('outbox')}/job-report-#{job_id}.html", 'w') do |f|
+            f.write erb.result(binding)
+          end
+        rescue Exception => e
+          $log.error "Unexpected error building job report: #{e}"
+          return false
+        end
+        
+        $log.info "Built job report"
+      end
     end
   end
 end

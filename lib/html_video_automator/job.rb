@@ -8,6 +8,7 @@ module HTMLVideoAutomator
     end
     
     def start
+      @start_time = Time.now
       try_lock if Config['environment'] == 'production'
       
       files = list_dropbox
@@ -30,6 +31,7 @@ module HTMLVideoAutomator
       end
       
       # TODO: Generate html job report
+      Worker.gen_job_report(@id, @videos, @start_time)
       
       unlock if Config['environment'] == 'production'
     end
@@ -47,14 +49,15 @@ module HTMLVideoAutomator
     
     def get_new_id
       jobs = Dir.glob("#{Config.path('jobs')}/*").count
-      @id = jobs + 1
+      job_id = jobs + 1
       begin
-        FileUtils.touch("#{Config.path('jobs')}/#{@id}")
+        FileUtils.touch("#{Config.path('jobs')}/#{job_id}")
       rescue Exception => e
         $log.fatal "Error getting new job id: #{e}"
         abort("Error getting new job id: #{e}")
       end
-      $log.debug "Got job id ##{@id}"
+      $log.debug "Got job id ##{job_id}"
+      return job_id
     end
     
     def try_lock
