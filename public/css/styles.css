@@ -175,16 +175,18 @@ th:nth-child(8), td:nth-child(8) {
   height: 16px;
   text-indent: 9999px;
   overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 
-th:nth-child(2) { background: url('../images/icons/film.png') no-repeat 50% 50%; }
-th:nth-child(3) { background: url('../images/icons/document-attribute-m.png') no-repeat 50% 50%; }
-th:nth-child(4) { background: url('../images/icons/document-attribute-w.png') no-repeat 50% 50%; }
-th:nth-child(5) { background: url('../images/icons/document-image.png') no-repeat 50% 50%; }
-th:nth-child(6) { background: url('../images/icons/document-globe.png') no-repeat 50% 50%; }
-th:nth-child(7) { background: url('../images/icons/globe.png') no-repeat 50% 50%; }
-th:nth-child(8) { background: url('../images/icons/server.png') no-repeat 50% 50%; }
+th:nth-child(2) { background-image: url('../images/icons/film.png'); }
+th:nth-child(3) { background-image: url('../images/icons/document-attribute-m.png'); }
+th:nth-child(4) { background-image: url('../images/icons/document-attribute-w.png'); }
+th:nth-child(5) { background-image: url('../images/icons/document-image.png'); }
+th:nth-child(6) { background-image: url('../images/icons/document-globe.png'); }
+th:nth-child(7) { background-image: url('../images/icons/globe.png'); }
+th:nth-child(8) { background-image: url('../images/icons/server.png'); }
 
-td.done { background: url('../images/icons/tick-circle.png') no-repeat 50% 50%; }
-td.failed { background: url('../images/icons/exclamation-red.png') no-repeat 50% 50%; }
+td.done { background-image: url('../images/icons/tick-circle.png'); }
+td.failed { background-image: url('../images/icons/exclamation-red.png'); }
 
