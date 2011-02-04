@@ -70,4 +70,5 @@ Prévoir de pouvoir configurer:
   - Réfléchir à implications de tagguer les noms de fichiers en sortie avec date ou trier dans struct. datée (YYYY/MM/JJ) pour permettre doublons de noms
   - Prendre poster à 50% de la vidéo
   - Ajouter métadonnées (Ce qu'on a) dans la template HTML pour info
+  - Permettre la génération d'un poster en png
   

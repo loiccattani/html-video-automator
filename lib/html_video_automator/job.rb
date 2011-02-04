@@ -3,23 +3,23 @@ require 'fileutils'
 module HTMLVideoAutomator
   class Job
     def initialize
-      
+      @videos = Array.new
     end
     
     def start
       $log.info "HTML Video Automator Started"
       try_lock if Config['environment'] == 'production'
       
-      paths = list_dropbox
-      paths.each do |path|
+      files = list_dropbox
+      files.each do |file|
+        $log.info "Processing #{File.basename(file)}"
         
-        $log.info "Processing #{File.basename(path)}"
-        
-        video = Video.new(path)
+        video = Video.new(file)
+        @videos.push(video)
         next unless video.valid?
         
-        next unless Worker.encode video, :format => 'mp4'
-        next unless Worker.encode video, :format => 'webm'
+        #next unless Worker.encode video, :format => 'mp4'
+        #next unless Worker.encode video, :format => 'webm'
         next unless Worker.gen_poster video # TODO: , :format => 'png'
         next unless Worker.gen_html video
 
@@ -28,6 +28,8 @@ module HTMLVideoAutomator
         # scp source movies to archive server
         # Clean local files
       end
+      
+      # TODO: Generate html job report
       
       unlock if Config['environment'] == 'production'
       $log.info "No more work! Will take a nap..."
