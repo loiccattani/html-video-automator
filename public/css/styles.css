@@ -60,10 +60,22 @@ body {
 header {
   margin: 3em 0;
   text-align: center;
+  font-family: Lobster, arial, serif;
+  text-shadow: 0px 0px 3px rgb(255,255,255), 0px -1px 20px rgb(255,0,255);
+  /* Transform */
   -webkit-transform: rotate(-3deg);
   -moz-transform: rotate(-3deg);
   -o-transform: rotate(-3deg);
   transform: rotate(-3deg);
+  /* Transition */
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+header:hover {
+  text-shadow: 0px 0px 3px rgb(255,255,255), 0px -8px 120px rgb(255,0,255);
 }
 
 footer {
@@ -83,11 +95,6 @@ footer:hover {
 
 footer a {
   margin-left: 1em;
-}
-
-h1, h2 {
-  font-family: Lobster, arial, serif;
-  text-shadow: 0px 0px 3px rgb(255,255,255), 3px 3px 3px rgb(0,0,0);
 }
 
 h1 {
