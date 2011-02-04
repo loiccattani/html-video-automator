@@ -6,12 +6,12 @@ global:
   max_height: 480
 
 development:
-  log_file: /Users/arko/work/hva/log/hva.log
-  ffmpeg_log_file: /Users/arko/work/hva/log/ffmpeg.log
+  log_file: ~/work/hva/log/hva.log
+  ffmpeg_log_file: ~/work/hva/log/ffmpeg.log
 
-  dropbox: /Users/arko/work/hva/dropbox
-  outbox: /Users/arko/work/hva/public
-  pub_url: /Users/arko/work/hva/public
+  dropbox: ~/work/hva/dropbox
+  outbox: ~/work/hva/public
+  pub_url: ~/work/hva/public
 
 production:
   log_file: /var/log/hva/hva.log

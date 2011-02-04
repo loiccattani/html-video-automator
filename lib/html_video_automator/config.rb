@@ -28,6 +28,10 @@ module HTMLVideoAutomator
         c
       end
       
+      def path(path)
+        File.expand_path(@config[path])
+      end
+      
     end
   end
 end

@@ -11,10 +11,10 @@ module HTMLVideoAutomator
         case params[:format]
         when 'mp4'
           filename = "#{video.name}.mp4"
-          status = system("ffmpeg -y -i #{video.path} -threads 0 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s #{wxh} #{Config['outbox']}/#{filename} 2>> #{Config['ffmpeg_log_file']}")
+          status = system("ffmpeg -y -i #{video.path} -threads 0 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s #{wxh} #{Config.path('outbox')}/#{filename} 2>> #{Config.path('ffmpeg_log_file')}")
         when 'webm'
           filename = "#{video.name}.webm"
-          status = system("ffmpeg -y -i #{video.path} -threads 0 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s #{wxh} #{Config['outbox']}/#{filename} 2>> #{Config['ffmpeg_log_file']}")
+          status = system("ffmpeg -y -i #{video.path} -threads 0 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s #{wxh} #{Config.path('outbox')}/#{filename} 2>> #{Config.path('ffmpeg_log_file')}")
         end
         
         if status
@@ -32,7 +32,7 @@ module HTMLVideoAutomator
         filename = "#{video.name}.jpg"
         wxh = "#{video.maxed_size[:width]}x#{video.maxed_size[:height]}"
 
-        status = system("ffmpeg -i #{video.path} -r 1 -ss 00:00:15.00 -vcodec mjpeg -vframes 1 -f image2 -s #{wxh} #{Config['outbox']}/#{filename} 2>> #{Config['ffmpeg_log_file']}")
+        status = system("ffmpeg -i #{video.path} -r 1 -ss 00:00:15.00 -vcodec mjpeg -vframes 1 -f image2 -s #{wxh} #{Config.path('outbox')}/#{filename} 2>> #{Config.path('ffmpeg_log_file')}")
 
         if status
           video.status[:poster] = true
@@ -48,11 +48,11 @@ module HTMLVideoAutomator
       def gen_html(video)
         name = video.name
         size = video.maxed_size
-        pub_url = Config['pub_url']
+        pub_url = Config.path('pub_url')
         
         begin
           erb = ERB.new File.new(File.dirname(__FILE__) + '/../../views/video.rhtml').read, nil, "%"
-          File.open("#{Config['outbox']}/#{video.name}.html", 'w') do |f|
+          File.open("#{Config.path('outbox')}/#{video.name}.html", 'w') do |f|
             f.write erb.result(binding)
           end
         rescue Exception => e
