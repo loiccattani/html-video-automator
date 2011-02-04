@@ -18,10 +18,10 @@ module HTMLVideoAutomator
         video = Video.new(path)
         next unless video.valid?
         
-        #next if ! encode file, :format => 'mp4', :size => wxh
-        #next if ! encode file, :format => 'webm', :size => wxh
-        #next if ! gen_poster file, :size => wxh
-        #next if ! gen_html name, :pub_url => @config['pub_url'], :size => size
+        next unless Worker.encode video, :format => 'mp4'
+        next unless Worker.encode video, :format => 'webm'
+        next unless Worker.gen_poster video # TODO: , :format => 'png'
+        next unless Worker.gen_html video
 
         # TODO:
         # scp encoded movies and html doc to www server

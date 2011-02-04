@@ -1,7 +1,8 @@
 module HTMLVideoAutomator
   class Video
-    attr_accessor :path, :filename, :name, :size, :maxed_size
-    attr_writer :status
+    attr_accessor :path, :filename, :name, :size, :maxed_size, :status, :fail_reason
+    attr_writer :status, :fail_reason
+    STATUS = [:unknown, :success, :fail]
     
     def initialize(path)
       @path = path
@@ -9,11 +10,18 @@ module HTMLVideoAutomator
       @name = @filename[/(.*)\.(.*)/,1] # Isolate filename from extension #TODO: test this against plenty of filenames...
       @size = get_size
       @maxed_size = get_maxed_size
+      @status = :unknown
+      @fail_reason = nil
     end
     
     def valid?
       match = ffmpeg_info[/Stream[^\n\r]+Video/]
-      $log.debug match ? "Video stream found" : "No video stream found" 
+      if match
+        $log.debug "Video stream found"
+      else
+        @status = :fail
+        $log.error @fail_reason = 'No video stream found'
+      end
       return match
     end
     
@@ -54,7 +62,7 @@ module HTMLVideoAutomator
 
       $log.debug "Maxed size: #{w}x#{h} (#{r.round(2)})"
 
-      return "#{w}x#{h}"
+      return :width => w, :height => h
     end
     
     def aspect_ratio(width, height)
