@@ -4,6 +4,7 @@ module HTMLVideoAutomator
   class Job
     def initialize
       @videos = Array.new
+      @id = get_new_id
     end
     
     def start
@@ -42,6 +43,18 @@ module HTMLVideoAutomator
       files = Dir.glob("#{Config.path('dropbox')}/*") # TODO: use `find` instead => get all files in subdirectories
       $log.info "#{files.count} files found in the dropbox"
       return files
+    end
+    
+    def get_new_id
+      jobs = Dir.glob("#{Config.path('jobs')}/*").count
+      @id = jobs + 1
+      begin
+        FileUtils.touch("#{Config.path('jobs')}/#{@id}")
+      rescue Exception => e
+        $log.fatal "Error getting new job id: #{e}"
+        abort("Error getting new job id: #{e}")
+      end
+      $log.debug "Got job id ##{@id}"
     end
     
     def try_lock
