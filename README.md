@@ -71,4 +71,6 @@ Prévoir de pouvoir configurer:
   - Prendre poster à 50% de la vidéo
   - Ajouter métadonnées (Ce qu'on a) dans la template HTML pour info
   - Permettre la génération d'un poster en png
+  - Ajouter logo Ruby dans footer html
+  - Ajouter lien fugue dans job report
   

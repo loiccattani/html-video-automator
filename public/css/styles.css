@@ -60,6 +60,10 @@ body {
 header {
   margin: 3em 0;
   text-align: center;
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  transform: rotate(-3deg);
 }
 
 footer {
@@ -81,14 +85,22 @@ footer a {
   margin-left: 1em;
 }
 
-h1 {
-  font-size: 44px;
+h1, h2 {
   font-family: Lobster, arial, serif;
   text-shadow: 0px 0px 3px rgb(255,255,255), 3px 3px 3px rgb(0,0,0);
-  -webkit-transform: rotate(-3deg);
-  -moz-transform: rotate(-3deg);
-  -o-transform: rotate(-3deg);
-  transform: rotate(-3deg);
+}
+
+h1 {
+  font-size: 44px;
+}
+
+h2 {
+  font-size: 36px;
+}
+
+h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
 }
 
 #main {
@@ -107,13 +119,6 @@ h1 {
   margin-top: 7px;
 }
 
-.video-js-box {
-  margin: 0 auto;
-  -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-  -moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-}
-
 a:link,
 a:visited {
   color: #999;
@@ -124,4 +129,36 @@ a:hover,
 a:active {
   color: #fff;
   text-shadow: 0px 0px 2px rgb(255,255,255);
+}
+
+.video-js-box {
+  margin: 0 auto;
+  -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  -moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+#report {
+  margin-bottom: 15px;
+}
+
+table {
+  width: 640px;
+}
+
+tr:nth-of-type(odd) {
+  background-color: rgba(255,255,255,0.05);
+}
+
+tr:first-child {
+  background-color: rgba(255,255,255,0.1);
+  border-bottom: 1px rgba(255,255,255,0.3) solid;
+}
+
+th {
+  text-align: left;
+}
+
+td, #report th {
+  padding: 3px 4px;
 }

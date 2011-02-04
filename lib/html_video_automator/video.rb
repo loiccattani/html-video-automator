@@ -2,7 +2,6 @@ module HTMLVideoAutomator
   class Video
     attr_accessor :path, :filename, :name, :size, :maxed_size, :status, :fail_reason
     attr_writer :status, :fail_reason
-    STATUS = [:unknown, :success, :fail]
     
     def initialize(path)
       @path = path
@@ -10,16 +9,17 @@ module HTMLVideoAutomator
       @name = @filename[/(.*)\.(.*)/,1] # Isolate filename from extension #TODO: test this against plenty of filenames...
       @size = get_size
       @maxed_size = get_maxed_size
-      @status = :unknown
+      @status = { :valid => nil, :mp4 => nil, :webm => nil, :poster => nil, :html => nil, :published => nil, :archived => nil }
       @fail_reason = nil
     end
     
     def valid?
       match = ffmpeg_info[/Stream[^\n\r]+Video/]
       if match
+        @status[:valid] = true
         $log.debug "Video stream found"
       else
-        @status = :fail
+        @status[:valid] = false
         $log.error @fail_reason = 'No video stream found'
       end
       return match

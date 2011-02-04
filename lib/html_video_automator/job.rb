@@ -18,8 +18,8 @@ module HTMLVideoAutomator
         @videos.push(video)
         next unless video.valid?
         
-        #next unless Worker.encode video, :format => 'mp4'
-        #next unless Worker.encode video, :format => 'webm'
+        next unless Worker.encode video, :format => 'mp4'
+        next unless Worker.encode video, :format => 'webm'
         next unless Worker.gen_poster video # TODO: , :format => 'png'
         next unless Worker.gen_html video
 

@@ -18,10 +18,11 @@ module HTMLVideoAutomator
         end
         
         if status
+          video.status[params[:format].to_sym] = true
           $log.info "Done encoding #{filename}. Elapsed #{(Time.now - start_time).to_i}s"
           return true
         else
-          video.status = :fail
+          video.status[params[:format].to_sym] = false
           $log.error video.fail_reason = "ffmpeg returned an error encoding #{filename}"
           return false
         end
@@ -34,10 +35,11 @@ module HTMLVideoAutomator
         status = system("ffmpeg -i #{video.path} -r 1 -ss 00:00:15.00 -vcodec mjpeg -vframes 1 -f image2 -s #{wxh} #{Config['outbox']}/#{filename} 2>> #{Config['ffmpeg_log_file']}")
 
         if status
+          video.status[:poster] = true
           $log.info "Done poster for #{video.name}"
           return true
         else
-          video.status = :fail
+          video.status[:poster] = false
           $log.error video.fail_reason = "ffmpeg returned an error creating poster for #{video.name}"
           return false
         end
@@ -54,11 +56,12 @@ module HTMLVideoAutomator
             f.write erb.result(binding)
           end
         rescue Exception => e
-          video.status = :fail
+          video.status[:html] = false
           $log.error video.fail_reason = "Unexpected error building HTML document for #{video.name}: #{e}"
           return false
         end
-
+        
+        video.status[:html] = true
         $log.info "Built HTML document for #{video.name}"
       end
       
