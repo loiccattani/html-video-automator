@@ -50,17 +50,24 @@
         </tr>
 <% videos.each do |video| %>        <tr>
           <td><%= video.filename %></td>
-<%   video.status.each do |status,value| 
-       case value
-       when nil %>
+<%   video.tasks.each do |task,status| 
+       case status
+       when :unknown %>
           <td></td>
-<%     when false %>          
+<%     when :failed %>          
           <td class="failed">Failed</td>
-<%     when true %>
+<%     when :done %>
           <td class="done">Done</td>
-<%     end 
-     end %>
-          <td><a href="Link">Done!</a></td>
+<%     end
+     end
+     
+     if video.tasks.count == video.tasks.count{|task,status| status == :done} %>
+          <td><a href="<%= "#{pub_url}/#{video.name}.html" %>" title="See the work done!">Done!</a></td>
+<%   elsif video.tasks.count{|task,status| status == :failed} > 0 %>
+          <td>Failed: <%= video.fail_reason %></td>
+<%   else %>          
+          <td>In Progress...</td>
+<%   end %>
         </tr>
 <% end %>
       </table>
