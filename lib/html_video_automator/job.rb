@@ -31,7 +31,7 @@ module HTMLVideoAutomator
       end
       
       # TODO: Generate html job report
-      Worker.gen_job_report(@id, @videos, @start_time)
+      Worker.gen_job_report(@id, @videos, @start_time, :final)
       
       unlock if Config['environment'] == 'production'
     end

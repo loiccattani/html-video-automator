@@ -36,6 +36,23 @@
         
     <section id="report">
       <h3>Job #<%= job_id %></h3>
+      
+<% if report_type == :in_progress %>
+      <div id="status" class="in_progress">
+        <p>
+          <strong>Working hard!</strong><br>
+          Hold on please...
+        </p>
+      </div>
+<% else %>
+      <div id="status" class="finished">
+        <p>
+          <strong>Done!</strong><br>
+          Will take a nap...
+        </p>
+      </div>
+<% end %>
+      
       <table border="0" cellspacing="5" cellpadding="5">
         <tr>
           <th>File</th>
@@ -65,6 +82,8 @@
           <td><a href="<%= "#{pub_url}/#{video.name}.html" %>" title="See the work done!">Done!</a></td>
 <%   elsif video.tasks.count{|task,status| status == :failed} > 0 %>
           <td>Failed: <%= video.fail_reason %></td>
+<%   elsif report_type == :final %>          
+          <td>Aborted</td>
 <%   else %>          
           <td>In Progress...</td>
 <%   end %>
@@ -73,7 +92,6 @@
       </table>
       <p>Elapsed: <%= elapsed %></p>
     </section>
-    
   </div>
   
   <footer>

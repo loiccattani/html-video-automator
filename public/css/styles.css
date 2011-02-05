@@ -83,6 +83,7 @@ footer {
   margin: 1em auto;
   text-align: right;
   opacity: 0.3;
+  /* Transitions */
   -webkit-transition: opacity 0.3s ease;
   -moz-transition: opacity 0.3s ease;
   -o-transition: opacity 0.3s ease;
@@ -115,6 +116,7 @@ h3 {
   margin: 0 auto;
   padding: 40px 40px 25px 40px;
   background-color: rgba(0,0,0,0.3);
+  /* Border Radius */
   -webkit-border-radius: 40px;
   -moz-border-radius: 40px;
   border-radius: 40px;
@@ -129,7 +131,11 @@ h3 {
 a:link,
 a:visited {
   color: #999;
+  /* Transitions */
   -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  -o-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
 }
 
 a:hover,
@@ -140,6 +146,7 @@ a:active {
 
 .video-js-box {
   margin: 0 auto;
+  /* Box Shadow */
   -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
   -moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
   box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
@@ -197,3 +204,45 @@ th:nth-child(8) { background-image: url('../images/icons/server.png'); }
 td.done { background-image: url('../images/icons/tick-circle.png'); }
 td.failed { background-image: url('../images/icons/exclamation-red.png'); }
 
+#status {
+  position: relative;
+  top: -30px;
+  left: 200px;
+  width: 180px;
+  padding: 10px 20px;
+  text-align: center;
+  /* Box Shadow */
+  -webkit-box-shadow: 2px 2px 3px rgba(0,0,0,0.8);
+  -moz-box-shadow: 2px 2px 3px rgba(0,0,0,0.8);
+  box-shadow: 2px 2px 3px rgba(0,0,0,0.8);
+  /* Inset Box Shadow */
+  -webkit-box-shadow: inset 0px 0px 3px rgb(255,255,255);
+  -moz-box-shadow: inset 0px 0px 3px rgb(255,255,255);
+  box-shadow: inset 0px 0px 3px rgb(255,255,255);
+  /* Border Radius */
+  -webkit-border-radius: 35px;
+  -moz-border-radius: 35px;
+  border-radius: 35px;
+}
+
+#status.in_progress {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(255,171,62)), to(rgb(224,120,28)));
+}
+
+#status.finished {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(78,207,108)), to(rgb(25,171,60)));
+}
+
+#status p {
+  color: rgba(0,0,0,0.4);
+  font-style: italic;
+  line-height: 160%;
+}
+
+#status strong {
+  font-size: 28px;
+  font-style: normal;
+  font-family: Lobster, arial, serif;
+  color: rgb(255,255,255);
+  text-shadow: -1px -1px 2px rgba(0,0,0,0.2);
+}

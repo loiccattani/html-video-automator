@@ -65,7 +65,7 @@ module HTMLVideoAutomator
         $log.info "Built HTML document for #{video.name}"
       end
       
-      def gen_job_report(job_id, videos, start_time)
+      def gen_job_report(job_id, videos, start_time, report_type = :in_progress)
         elapsed = "#{Time.now - start_time}s"
         
         begin
