@@ -71,6 +71,8 @@
        case status
        when :unknown %>
           <td></td>
+<%     when :working %>          
+          <td class="working">Working</td>
 <%     when :failed %>          
           <td class="failed">Failed</td>
 <%     when :done %>

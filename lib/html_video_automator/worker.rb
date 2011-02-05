@@ -78,7 +78,7 @@ module HTMLVideoAutomator
           return false
         end
         
-        $log.info "Built job report"
+        $log.debug "Built job report"
       end
     end
   end

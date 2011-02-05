@@ -53,15 +53,15 @@ body {
   width: 900px;
   margin: 0 auto;
   color: #fff;
-  background: #222 url(../images/bg2.jpg) fixed;
+  background: #222 url(../images/bg.jpg) fixed;
   font-family: 'Droid Sans', arial, serif;
 }
 
 .cssgradients body {
   background-color: #222;
-  background-image: -moz-radial-gradient(center 45deg, circle farthest-side, rgba(0,0,0,0) 0%, rgba(0,0,0,.8) 150%), url(../images/bg2.jpg) ;
-  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 800, from(rgba(0,0,0,0)), to(rgba(0,0,0,.8))), url(../images/bg2.jpg) ;
-  background-image: radial-gradient(center 45deg, circle farthest-side, rgba(0,0,0,0) 0%, rgba(0,0,0,.8) 150%), url(../images/bg2.jpg) ;
+  background-image: -moz-radial-gradient(center 45deg, circle farthest-side, rgba(0,0,0,0) 0%, rgba(0,0,0,.8) 150%), url(../images/bg.jpg) ;
+  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 800, from(rgba(0,0,0,0)), to(rgba(0,0,0,.8))), url(../images/bg.jpg) ;
+  background-image: radial-gradient(center 45deg, circle farthest-side, rgba(0,0,0,0) 0%, rgba(0,0,0,.8) 150%), url(../images/bg.jpg) ;
   background-attachment: fixed;
 }
 
@@ -209,6 +209,7 @@ th:nth-child(6) { background-image: url('../images/icons/document-globe.png'); }
 th:nth-child(7) { background-image: url('../images/icons/globe.png'); }
 th:nth-child(8) { background-image: url('../images/icons/server.png'); }
 
+td.working { background-image: url('../images/icons/navigation.png'); }
 td.done { background-image: url('../images/icons/tick-circle.png'); }
 td.failed { background-image: url('../images/icons/exclamation-red.png'); }
 
@@ -219,26 +220,45 @@ td.failed { background-image: url('../images/icons/exclamation-red.png'); }
   width: 180px;
   padding: 10px 20px;
   text-align: center;
-  /* Box Shadow */
-  -webkit-box-shadow: 2px 2px 3px rgba(0,0,0,0.8);
-  -moz-box-shadow: 2px 2px 3px rgba(0,0,0,0.8);
-  box-shadow: 2px 2px 3px rgba(0,0,0,0.8);
-  /* Inset Box Shadow */
-  -webkit-box-shadow: inset 0px 0px 3px rgb(255,255,255);
-  -moz-box-shadow: inset 0px 0px 3px rgb(255,255,255);
-  box-shadow: inset 0px 0px 3px rgb(255,255,255);
   /* Border Radius */
   -webkit-border-radius: 35px;
   -moz-border-radius: 35px;
   border-radius: 35px;
+  /* Transition */
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 #status.in_progress {
+  /* Box Shadow */
+  -webkit-box-shadow: 0px 0px 20px rgb(224,120,28), inset 0px 0px 3px rgb(255,255,255);
+  -moz-box-shadow: 0px 0px 20px rgb(224,120,28), inset 0px 0px 3px rgb(255,255,255);
+  box-shadow: 0px 0px 20px rgb(224,120,28), inset 0px 0px 3px rgb(255,255,255);
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(255,171,62)), to(rgb(224,120,28)));
 }
 
+#status.in_progress:hover {
+  /* Box Shadow */
+  -webkit-box-shadow: 0px 0px 60px rgb(224,120,28), inset 0px 0px 5px rgb(255,255,255);
+  -moz-box-shadow: 0px 0px 60px rgb(224,120,28), inset 0px 0px 5px rgb(255,255,255);
+  box-shadow: 0px 0px 60px rgb(224,120,28), inset 0px 0px 5px rgb(255,255,255);
+}
+
 #status.finished {
+  /* Box Shadow */
+  -webkit-box-shadow: 0px 0px 20px rgb(25,171,60), inset 0px 0px 3px rgb(255,255,255);
+  -moz-box-shadow: 0px 0px 20px rgb(25,171,60), inset 0px 0px 3px rgb(255,255,255);
+  box-shadow: 0px 0px 20px rgb(25,171,60), inset 0px 0px 3px rgb(255,255,255);
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(78,207,108)), to(rgb(25,171,60)));
+}
+
+#status.finished:hover {
+  /* Box Shadow */
+  -webkit-box-shadow: 0px 0px 60px rgb(25,171,60), inset 0px 0px 5px rgb(255,255,255);
+  -moz-box-shadow: 0px 0px 60px rgb(25,171,60), inset 0px 0px 5px rgb(255,255,255);
+  box-shadow: 0px 0px 60px rgb(25,171,60), inset 0px 0px 5px rgb(255,255,255);
 }
 
 #status p {

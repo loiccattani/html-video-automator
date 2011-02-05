@@ -17,17 +17,12 @@ module HTMLVideoAutomator
         
         video = Video.new(file)
         @videos.push(video)
-        next unless video.valid?
-        report
+        next unless report video.valid?
         
-        #next unless Worker.encode video, :format => 'mp4'
-        #report
-        #next unless Worker.encode video, :format => 'webm'
-        #report
-        #next unless Worker.gen_poster video # TODO: , :format => 'png'
-        #report
-        #next unless Worker.gen_html video
-        #report
+        next unless report Worker.encode video, :format => 'mp4'
+        next unless report Worker.encode video, :format => 'webm'
+        next unless report Worker.gen_poster video # TODO: , :format => 'png'
+        next unless report Worker.gen_html video
 
         # TODO:
         # scp encoded movies and html doc to www server
@@ -35,8 +30,7 @@ module HTMLVideoAutomator
         # Clean local files
       end
       
-      # TODO: Generate html job report
-      report(:final)
+      report(true, :final)
       
       unlock if Config['environment'] == 'production'
     end
@@ -65,8 +59,15 @@ module HTMLVideoAutomator
       return job_id
     end
     
-    def report(type = :in_progress)
+    def report(result, type = :in_progress)
+      if result and type == :in_progress
+        # Buckle up: Assign the :working status to the key (:task) of the first occurence of :unknown status for the last video
+        # TODO: Rewrite that
+        next_task = @videos.last.tasks.rassoc(:unknown)
+        @videos.last.tasks[next_task.first] = :working
+      end
       Worker.gen_job_report(@id, @videos, @start_time, type)
+      return result
     end
     
     def try_lock

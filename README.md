@@ -73,4 +73,5 @@ Prévoir de pouvoir configurer:
   - Permettre la génération d'un poster en png
   - Ajouter logo Ruby dans footer html
   - Ajouter lien fugue dans job report
+  - Ajouté dès le départ tous les fichiers dans la liste du rapport de job avec la mention "Waiting..."
   
