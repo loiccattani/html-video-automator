@@ -18,11 +18,16 @@ module HTMLVideoAutomator
         video = Video.new(file)
         @videos.push(video)
         next unless video.valid?
+        report
         
         #next unless Worker.encode video, :format => 'mp4'
+        #report
         #next unless Worker.encode video, :format => 'webm'
+        #report
         #next unless Worker.gen_poster video # TODO: , :format => 'png'
+        #report
         #next unless Worker.gen_html video
+        #report
 
         # TODO:
         # scp encoded movies and html doc to www server
@@ -31,7 +36,7 @@ module HTMLVideoAutomator
       end
       
       # TODO: Generate html job report
-      Worker.gen_job_report(@id, @videos, @start_time, :final)
+      report(:final)
       
       unlock if Config['environment'] == 'production'
     end
@@ -58,6 +63,10 @@ module HTMLVideoAutomator
       end
       $log.debug "Got job id ##{job_id}"
       return job_id
+    end
+    
+    def report(type = :in_progress)
+      Worker.gen_job_report(@id, @videos, @start_time, type)
     end
     
     def try_lock
