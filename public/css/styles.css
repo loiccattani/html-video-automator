@@ -103,7 +103,18 @@ footer:hover {
 }
 
 footer a {
+  float: right;
+  height: 32px;
   margin-left: 1em;
+}
+
+footer a[title] {
+  font-size: 16px;
+  padding: 7px 0;
+}
+
+footer a[href='http://unil.ch'] {
+  float: left;
 }
 
 h1 {
