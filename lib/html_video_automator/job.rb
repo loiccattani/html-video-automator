@@ -13,15 +13,23 @@ module HTMLVideoAutomator
       
       files = list_dropbox
       files.each do |file|
-        $log.info "Processing #{File.basename(file)}"
-        
         video = Video.new(file)
         @videos.push(video)
+      end
+      
+      @videos.each do |video|
+        $log.info "Processing #{video.filename}"
+        
+        video.tasks[:valid] = :working
         next unless report video.valid?
         
+        video.tasks[:mp4] = :working
         next unless report Worker.encode video, :format => 'mp4'
+        video.tasks[:webm] = :working
         next unless report Worker.encode video, :format => 'webm'
+        video.tasks[:poster] = :working
         next unless report Worker.gen_poster video # TODO: , :format => 'png'
+        video.tasks[:html] = :working
         next unless report Worker.gen_html video
 
         # TODO:
@@ -60,12 +68,6 @@ module HTMLVideoAutomator
     end
     
     def report(result, type = :in_progress)
-      if result and type == :in_progress
-        # Buckle up: Assign the :working status to the key (:task) of the first occurence of :unknown status for the last video
-        # TODO: Rewrite that
-        next_task = @videos.last.tasks.rassoc(:unknown)
-        @videos.last.tasks[next_task.first] = :working
-      end
       Worker.gen_job_report(@id, @videos, @start_time, type)
       return result
     end

@@ -82,6 +82,8 @@
      
      if video.tasks.count == video.tasks.count{|task,status| status == :done} %>
           <td><a href="<%= "#{pub_url}/#{video.name}.html" %>" title="See the work done!">Done!</a></td>
+<%   elsif video.tasks.count == video.tasks.count{|task,status| status == :unknown} %>
+          <td>Waiting...</td>
 <%   elsif video.tasks.count{|task,status| status == :failed} > 0 %>
           <td>Failed: <%= video.fail_reason %></td>
 <%   elsif report_type == :final %>          
