@@ -257,7 +257,7 @@ td.failed { background-image: url('../images/icons/exclamation-red.png'); }
   box-shadow: 0px 0px 60px rgb(224,120,28), inset 0px 0px 5px rgb(255,255,255);
 }
 
-#status.finished {
+#status.final {
   /* Box Shadow */
   -webkit-box-shadow: 0px 0px 20px rgb(25,171,60), inset 0px 0px 3px rgb(255,255,255);
   -moz-box-shadow: 0px 0px 20px rgb(25,171,60), inset 0px 0px 3px rgb(255,255,255);
@@ -265,7 +265,7 @@ td.failed { background-image: url('../images/icons/exclamation-red.png'); }
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(78,207,108)), to(rgb(25,171,60)));
 }
 
-#status.finished:hover {
+#status.final:hover {
   /* Box Shadow */
   -webkit-box-shadow: 0px 0px 60px rgb(25,171,60), inset 0px 0px 5px rgb(255,255,255);
   -moz-box-shadow: 0px 0px 60px rgb(25,171,60), inset 0px 0px 5px rgb(255,255,255);

@@ -18,11 +18,9 @@ module HTMLVideoAutomator
         end
         
         if status
-          video.tasks[params[:format].to_sym] = :done
           $log.info "Done encoding #{filename}. Elapsed #{(Time.now - start_time).to_i}s"
           return true
         else
-          video.tasks[params[:format].to_sym] = :failed
           $log.error video.fail_reason = "ffmpeg returned an error encoding #{filename}"
           return false
         end
@@ -32,14 +30,10 @@ module HTMLVideoAutomator
         filename = "#{video.name}.jpg"
         wxh = "#{video.maxed_size[:width]}x#{video.maxed_size[:height]}"
 
-        status = system("ffmpeg -i #{video.path} -r 1 -ss 00:00:15.00 -vcodec mjpeg -vframes 1 -f image2 -s #{wxh} #{Config.path('outbox')}/#{filename} 2>> #{Config.path('ffmpeg_log_file')}")
-
-        if status
-          video.tasks[:poster] = :done
+        if system("ffmpeg -i #{video.path} -r 1 -ss 00:00:15.00 -vcodec mjpeg -vframes 1 -f image2 -s #{wxh} #{Config.path('outbox')}/#{filename} 2>> #{Config.path('ffmpeg_log_file')}")
           $log.info "Done poster for #{video.name}"
           return true
         else
-          video.tasks[:poster] = :failed
           $log.error video.fail_reason = "ffmpeg returned an error creating poster for #{video.name}"
           return false
         end
@@ -56,13 +50,12 @@ module HTMLVideoAutomator
             f.write erb.result(binding)
           end
         rescue Exception => e
-          video.tasks[:html] = :failed
           $log.error video.fail_reason = "Unexpected error building HTML document for #{video.name}: #{e}"
           return false
         end
         
-        video.tasks[:html] = :done
         $log.info "Built HTML document for #{video.name}"
+        return true
       end
       
       def gen_job_report(job_id, videos, start_time, report_type)
@@ -79,6 +72,7 @@ module HTMLVideoAutomator
         end
         
         $log.debug "Built job report"
+        return true
       end
     end
   end

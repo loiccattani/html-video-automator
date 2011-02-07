@@ -20,17 +20,12 @@ module HTMLVideoAutomator
       @videos.each do |video|
         $log.info "Processing #{video.filename}"
         
-        video.tasks[:valid] = :working
-        next unless report video.valid?
+        next unless do_task :validate, video
         
-        video.tasks[:mp4] = :working
-        next unless report Worker.encode video, :format => 'mp4'
-        video.tasks[:webm] = :working
-        next unless report Worker.encode video, :format => 'webm'
-        video.tasks[:poster] = :working
-        next unless report Worker.gen_poster video # TODO: , :format => 'png'
-        video.tasks[:html] = :working
-        next unless report Worker.gen_html video
+        next unless do_task :encode_mp4, video
+        next unless do_task :encode_webm, video
+        next unless do_task :gen_poster, video
+        next unless do_task :gen_html, video
 
         # TODO:
         # scp encoded movies and html doc to www server
@@ -38,12 +33,42 @@ module HTMLVideoAutomator
         # Clean local files
       end
       
-      report(true, :final)
+      report(:final)
       
       unlock if Config['environment'] == 'production'
     end
     
     private
+    
+    def do_task(task, video)
+      video.tasks[task] = :working
+      report
+      
+      case task
+      when :validate
+        result = video.valid?
+      when :encode_mp4
+        result = Worker.encode video, :format => 'mp4'
+      when :encode_webm
+        result = Worker.encode video, :format => 'webm'
+      when :gen_poster
+        result = Worker.gen_poster video # TODO: , :format => 'png'
+      when :gen_html
+        result = Worker.gen_html video
+      when :publish
+        result = false
+      when :archive
+        result = false
+      end
+      
+      update_task(video, task, result)
+      report
+      return result
+    end
+    
+    def update_task(video, task, result)
+      video.tasks[task] = result ? :done : :failed
+    end
     
     def list_dropbox
       # TODO: May need to filter input here...
@@ -67,9 +92,8 @@ module HTMLVideoAutomator
       return job_id
     end
     
-    def report(result, type = :in_progress)
+    def report(type = :in_progress)
       Worker.gen_job_report(@id, @videos, @start_time, type)
-      return result
     end
     
     def try_lock

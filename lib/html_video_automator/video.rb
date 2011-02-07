@@ -9,17 +9,15 @@ module HTMLVideoAutomator
       @name = @filename[/(.*)\.(.*)/,1] # Isolate filename from extension #TODO: test this against plenty of filenames...
       @size = get_size
       @maxed_size = get_maxed_size
-      @tasks = { :valid => :unknown, :mp4 => :unknown, :webm => :unknown, :poster => :unknown, :html => :unknown, :published => :unknown, :archived => :unknown }
+      @tasks = { :validate => :unknown, :encode_mp4 => :unknown, :encode_webm => :unknown, :gen_poster => :unknown, :gen_html => :unknown, :publish => :unknown, :archive => :unknown }
       @fail_reason = nil
     end
     
     def valid?
       match = ffmpeg_info[/Stream[^\n\r]+Video/]
       if match
-        @tasks[:valid] = :done
         $log.debug "Video stream found"
       else
-        @tasks[:valid] = :failed
         $log.error @fail_reason = 'No video stream found'
       end
       return match

@@ -37,18 +37,18 @@
     <section id="report">
       <h3>Job #<%= job_id %></h3>
       
-<% if report_type == :in_progress %>
+<% if report_type == :final %>
+      <div id="status" class="final">
+        <p>
+          <strong>Done!</strong><br>
+          Will take a nap...
+        </p>
+      </div>
+<% else %>
       <div id="status" class="in_progress">
         <p>
           <strong>Working hard!</strong><br>
           Hold on please...
-        </p>
-      </div>
-<% else %>
-      <div id="status" class="finished">
-        <p>
-          <strong>Done!</strong><br>
-          Will take a nap...
         </p>
       </div>
 <% end %>
