@@ -85,7 +85,7 @@
 <%   elsif video.tasks.count == video.tasks.count{|task,status| status == :unknown} %>
           <td>Waiting...</td>
 <%   elsif video.tasks.count{|task,status| status == :failed} > 0 %>
-          <td>Failed: <%= video.fail_reason %></td>
+          <td>Failed: <small><%= video.fail_reason %></small></td>
 <%   elsif report_type == :final %>          
           <td>Aborted</td>
 <%   else %>          

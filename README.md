@@ -64,14 +64,11 @@ Prévoir de pouvoir configurer:
 
 # TODO
 
-  - Plus bcp
   - "Slugifier" les noms de fichiers en entrée (Pour URLs)
   - Fichier HTML spécifique listant les fichiers présents / traités et leur statut (mis à jour à chaque étape) (Pourrait être utilisé pour lancer la conversion plutôt qu'avec launchd... ?)
   - Réfléchir à implications de tagguer les noms de fichiers en sortie avec date ou trier dans struct. datée (YYYY/MM/JJ) pour permettre doublons de noms
   - Prendre poster à 50% de la vidéo
   - Ajouter métadonnées (Ce qu'on a) dans la template HTML pour info
   - Permettre la génération d'un poster en png
-  - Ajouter logo Ruby dans footer html
-  - Ajouter lien fugue dans job report
-  - Ajouté dès le départ tous les fichiers dans la liste du rapport de job avec la mention "Waiting..."
+  - Moyen plus efficace de compter les numéros de jobs
   

@@ -175,6 +175,10 @@ a:active {
   margin-bottom: 15px;
 }
 
+small {
+  font-size: 10px;
+}
+
 table {
   width: 640px;
 }
@@ -194,6 +198,10 @@ th {
 
 td, th {
   padding: 3px 4px;
+}
+
+td:first-child, th:first-child {
+  width: 220px;
 }
 
 th:nth-child(2), td:nth-child(2),
