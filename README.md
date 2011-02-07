@@ -73,4 +73,3 @@ Prévoir de pouvoir configurer:
   - Centrer ou aligner les liens de téléchargements dans video.rhtml
   - Changelog dès initial release
   - Marquer tâches avortées par une îcône
-  

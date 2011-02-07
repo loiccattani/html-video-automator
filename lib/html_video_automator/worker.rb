@@ -76,21 +76,21 @@ module HTMLVideoAutomator
       end
       
       def publish(video)
-        if result = system("scp #{Config.path('outbox')}/#{video.name}* #{Config['publish']['user']}@#{Config['publish']['server']}:#{Config['publish']['path']}/ 2>&1")
+        if system("scp #{Config.path('outbox')}/#{video.name}* #{Config['publish']['user']}@#{Config['publish']['server']}:#{Config['publish']['path']}/")
           $log.info "Published #{video.name} to #{Config['publish']['server']}"
           return true
         else
-          $log.error video.fail_reason = "Error publishing #{video.name}: #{result}"
+          $log.error video.fail_reason = "Error publishing #{video.name}"
           return false
         end
       end
       
       def archive(video)
-        if result = system("scp #{video.path} #{Config['archive']['user']}@#{Config['archive']['server']}:#{Config['archive']['path']}/ 2>&1")
+        if system("scp #{video.path} #{Config['archive']['user']}@#{Config['archive']['server']}:#{Config['archive']['path']}/")
           $log.info "Archived #{video.name} source to #{Config['archive']['server']}"
           return true
         else
-          $log.error video.fail_reason = "Error archiving #{video.name} source: #{result}"
+          $log.error video.fail_reason = "Error archiving #{video.name} source"
           return false
         end
       end
