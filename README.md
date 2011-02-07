@@ -65,7 +65,7 @@ Prévoir de pouvoir configurer:
 # TODO
 
   - "Slugifier" les noms de fichiers en entrée (Pour URLs)
-  - Fichier HTML spécifique listant les fichiers présents / traités et leur statut (mis à jour à chaque étape) (Pourrait être utilisé pour lancer la conversion plutôt qu'avec launchd... ?)
+  - Page listant les fichiers présents dans dropbox et permettant de lancer la conversion manuellement
   - Réfléchir à implications de tagguer les noms de fichiers en sortie avec date ou trier dans struct. datée (YYYY/MM/JJ) pour permettre doublons de noms
   - Prendre poster à 50% de la vidéo
   - Ajouter métadonnées (Ce qu'on a) dans la template HTML pour info
