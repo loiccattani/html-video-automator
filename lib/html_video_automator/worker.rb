@@ -42,7 +42,7 @@ module HTMLVideoAutomator
       def gen_html(video)
         name = video.name
         size = video.maxed_size
-        pub_url = Config.path('pub_url')
+        pub_url = Config['pub_url']
         
         begin
           erb = ERB.new File.new(File.dirname(__FILE__) + '/../../views/video.rhtml').read, nil, "%"
@@ -60,6 +60,7 @@ module HTMLVideoAutomator
       
       def gen_job_report(job_id, videos, start_time, report_type)
         elapsed = "#{Time.now - start_time}s"
+        pub_url = Config['pub_url']
         
         begin
           erb = ERB.new File.new(File.dirname(__FILE__) + '/../../views/job-report.rhtml').read, nil, "%"

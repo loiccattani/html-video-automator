@@ -4,6 +4,7 @@ global:
   environment: development # development || production
   max_width: 640
   max_height: 480
+  pub_url: http://av.unil.ch
 
   publish:
     user: hva
@@ -21,7 +22,6 @@ development:
 
   dropbox: ~/work/hva/dropbox
   outbox: ~/work/hva/public
-  pub_url: ~/work/hva/public
 
 production:
   log_file: /var/log/hva/hva.log
@@ -29,4 +29,3 @@ production:
 
   dropbox: /var/hva/dropbox
   outbox: /tmp/hva/outbox
-  pub_url: http://podcast.unil.ch/hva
