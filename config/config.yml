@@ -11,7 +11,6 @@ development:
 
   dropbox: ~/work/hva/dropbox
   outbox: ~/work/hva/public
-  jobs: ~/work/hva/jobs
   pub_url: ~/work/hva/public
 
 production:
@@ -19,6 +18,5 @@ production:
   ffmpeg_log_file: /var/log/hva/ffmpeg.log
 
   dropbox: /var/hva/dropbox
-  jobs: /var/hva/jobs
   outbox: /tmp/hva/outbox
   pub_url: http://podcast.unil.ch/hva

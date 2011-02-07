@@ -22,10 +22,10 @@ module HTMLVideoAutomator
         
         next unless do_task :validate, video
         
-        next unless do_task :encode_mp4, video
-        next unless do_task :encode_webm, video
-        next unless do_task :gen_poster, video
-        next unless do_task :gen_html, video
+        #next unless do_task :encode_mp4, video
+        #next unless do_task :encode_webm, video
+        #next unless do_task :gen_poster, video
+        #next unless do_task :gen_html, video
 
         # TODO:
         # scp encoded movies and html doc to www server
@@ -80,14 +80,18 @@ module HTMLVideoAutomator
     end
     
     def get_new_id
-      jobs = Dir.glob("#{Config.path('jobs')}/*").count
-      job_id = jobs + 1
+      job_id_file = "#{Config.path('outbox')}/.job_id"
+      job_id = File.exists?(job_id_file) ? File.open(job_id_file, 'r').read.to_i + 1 : 1
+      
       begin
-        FileUtils.touch("#{Config.path('jobs')}/#{job_id}")
+        File.open(job_id_file, 'w') do |f|
+          f.write job_id
+        end
       rescue Exception => e
         $log.fatal "Error getting new job id: #{e}"
         abort("Error getting new job id: #{e}")
       end
+      
       $log.debug "Got job id ##{job_id}"
       return job_id
     end
