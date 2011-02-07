@@ -22,14 +22,15 @@ module HTMLVideoAutomator
         
         next unless do_task :validate, video
         
-        #next unless do_task :encode_mp4, video
-        #next unless do_task :encode_webm, video
-        #next unless do_task :gen_poster, video
-        #next unless do_task :gen_html, video
-
+        next unless do_task :encode_mp4, video
+        next unless do_task :encode_webm, video
+        next unless do_task :gen_poster, video
+        next unless do_task :gen_html, video
+        
+        next unless do_task :publish, video
+        next unless do_task :archive, video
+        
         # TODO:
-        # scp encoded movies and html doc to www server
-        # scp source movies to archive server
         # Clean local files
       end
       
@@ -56,9 +57,9 @@ module HTMLVideoAutomator
       when :gen_html
         result = Worker.gen_html video
       when :publish
-        result = false
+        result = Worker.publish video
       when :archive
-        result = false
+        result = Worker.archive video
       end
       
       update_task(video, task, result)

@@ -5,6 +5,16 @@ global:
   max_width: 640
   max_height: 480
 
+  publish:
+    user: hva
+    server: av.unil.ch
+    path: /var/www/av-medias
+  
+  archive:
+    user: hva
+    server: av.unil.ch
+    path: /var/hva/sources
+
 development:
   log_file: ~/work/hva/log/hva.log
   ffmpeg_log_file: ~/work/hva/log/ffmpeg.log
