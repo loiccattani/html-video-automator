@@ -70,7 +70,6 @@ Prévoir de pouvoir configurer:
   - Prendre poster à 50% de la vidéo
   - Ajouter métadonnées (Ce qu'on a) dans la template HTML pour info
   - Permettre la génération d'un poster en png
-  - Centrer ou aligner les liens de téléchargements dans video.rhtml
   - Changelog dès initial release
   - Etudier et corriger ce problème de texte avec double transparence
   

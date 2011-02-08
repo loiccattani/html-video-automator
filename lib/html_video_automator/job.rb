@@ -30,8 +30,7 @@ module HTMLVideoAutomator
         next unless do_task :publish, video
         next unless do_task :archive, video
         
-        # TODO:
-        # Clean local files
+        clean_local_files(video)
       end
       
       report(:final)
@@ -43,6 +42,7 @@ module HTMLVideoAutomator
     
     def do_task(task, video)
       video.tasks[task] = :working
+      $log.debug "Tagged #{task.to_s} to working for #{video.name}"
       report
       
       case task
@@ -99,6 +99,12 @@ module HTMLVideoAutomator
     
     def report(type = :in_progress)
       Worker.gen_job_report(@id, @videos, @start_time, type)
+    end
+    
+    def clean_local_files(video)
+      $log.info "Cleaning local source and deliverables for #{video.name}"
+      FileUtils.rm video.deliverables
+      FileUtils.rm video.path
     end
     
     def try_lock

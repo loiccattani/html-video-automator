@@ -1,7 +1,7 @@
 module HTMLVideoAutomator
   class Video
-    attr_accessor :path, :filename, :name, :size, :maxed_size, :tasks, :fail_reason
-    attr_writer :tasks, :fail_reason
+    attr_accessor :path, :filename, :name, :size, :maxed_size, :tasks, :fail_reason, :deliverables
+    attr_writer :tasks, :fail_reason, :deliverables
     
     def initialize(path)
       @path = path
@@ -11,6 +11,7 @@ module HTMLVideoAutomator
       @maxed_size = get_maxed_size
       @tasks = { :validate => :unknown, :encode_mp4 => :unknown, :encode_webm => :unknown, :gen_poster => :unknown, :gen_html => :unknown, :publish => :unknown, :archive => :unknown }
       @fail_reason = nil
+      @deliverables = Array.new
     end
     
     def valid?

@@ -304,6 +304,7 @@ td.failed { background-image: url('../images/icons/exclamation-red.png'); }
   color: rgba(0,0,0,0.4);
   font-style: italic;
   line-height: 160%;
+  margin: 7px 0 0 0;
 }
 
 #status strong {
