@@ -72,3 +72,5 @@ Prévoir de pouvoir configurer:
   - Permettre la génération d'un poster en png
   - Centrer ou aligner les liens de téléchargements dans video.rhtml
   - Changelog dès initial release
+  - Etudier et corriger ce problème de texte avec double transparence
+  

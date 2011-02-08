@@ -144,7 +144,34 @@ h3 {
 #main p {
   color: #999;
   font-size: 13px;
-  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+#main.video p, #main.video h2 {
+  color: #fff;
+  opacity: 0.3;
+  /* Transitions */
+  -webkit-transition: opacity 0.3s ease;
+  -moz-transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+
+#main.video h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+#main.video p:hover, #main.video h2:hover {
+  opacity: 1;
+}
+
+.video-js-box {
+  margin: 0 auto 10px auto;
+  /* Box Shadow */
+  -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  -moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
 a:link,
@@ -163,14 +190,6 @@ a:active {
   text-shadow: 0px 0px 2px rgb(255,255,255);
 }
 
-.video-js-box {
-  margin: 0 auto;
-  /* Box Shadow */
-  -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-  -moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-}
-
 #report {
   margin-bottom: 15px;
 }
@@ -181,6 +200,7 @@ small {
 
 table {
   width: 640px;
+  margin-bottom: 10px;
 }
 
 tr:nth-child(odd) {
