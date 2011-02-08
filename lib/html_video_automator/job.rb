@@ -7,6 +7,18 @@ module HTMLVideoAutomator
       @id = get_new_id
     end
     
+    def prepare(files)
+      # TODO: Job.prepare(files)
+      # Get dropbox's content and generate hashes based on filenames or files
+      # Compare those hashes with the 'files' arg and generate an array of matching elements
+      #  Those will be the files to process through HVA
+      # load @videos with this array
+      
+      # return true only if each hash from 'files' matches with a file present in the dropbox
+      
+      # Think where to lock mutex
+    end
+    
     def start
       @start_time = Time.now
       try_lock if Config['environment'] == 'production'

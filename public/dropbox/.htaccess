@@ -1,0 +1,8 @@
+AddHandler cgi-script .rb
+Options +ExecCGI
+
+# Réecriture d'URL
+# /dropbox/* -> /dropbox/test.rb
+RewriteEngine On
+RewriteBase /dropbox
+RewriteRule . joblauncher.rb

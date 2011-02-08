@@ -43,7 +43,13 @@ La surveillance de la boîte de dépôt `dropbox` est prise en charge par launch
 
 #### Solution 2:
 
-Les fichiers sont copiés dans la dropbox (inerte) et une deuxième étape permet de séléctionner les fichiers à traiter et de lancer le script. (webapp ou fichier manifest) TODO: Elaborer
+Les fichiers sont copiés dans la dropbox (inerte) et une deuxième étape permet de séléctionner les fichiers à traiter et de lancer le script.
+
+Cette étape est contituée d'une page générée à la demande (page web dynamique) et listant les fichiers présents dans la dropbox. Des cases à cocher permettent de séléctionner les fichiers à soumettre par POST. Ceci lancant un nouveau job HVA.
+
+Pour des raisons de sécurité, les valeurs soumises ne devraient pas contenir les noms de fichiers mais plutôt un digest de ces derniers.
+
+Un script ruby CGI s'occupe de tout ceci.
 
 ### Nettoyage
 
