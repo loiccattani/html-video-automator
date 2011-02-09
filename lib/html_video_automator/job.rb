@@ -5,6 +5,7 @@ module HTMLVideoAutomator
     def initialize
       @videos = Array.new
       @id = get_new_id
+      @report_url = "#{Config['hva_host']}/job-report-#{@id}.html"
     end
     
     def prepare(files)
@@ -14,7 +15,9 @@ module HTMLVideoAutomator
       #  Those will be the files to process through HVA
       # load @videos with this array
       
-      # return true only if each hash from 'files' matches with a file present in the dropbox
+      report # Generate initial report for CGI request response
+      
+      return false # return true only if each hash from 'files' matches with a file present in the dropbox
       
       # Think where to lock mutex
     end
@@ -22,8 +25,8 @@ module HTMLVideoAutomator
     def start
       @start_time = Time.now
       try_lock if Config['environment'] == 'production'
-      
-      files = list_dropbox
+
+      files = Dropbox.list
       files.each do |file|
         video = Video.new(file)
         @videos.push(video)
@@ -81,15 +84,6 @@ module HTMLVideoAutomator
     
     def update_task(video, task, result)
       video.tasks[task] = result ? :done : :failed
-    end
-    
-    def list_dropbox
-      # TODO: May need to filter input here...
-      # but for now let's go with all files, ffmpeg's hungry.
-      # And what about people placing extension-less files?
-      files = Dir.glob("#{Config.path('dropbox')}/*") # TODO: use `find` instead => get all files in subdirectories
-      $log.info "#{files.count} files found in the dropbox"
-      return files
     end
     
     def get_new_id
