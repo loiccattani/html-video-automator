@@ -55,6 +55,10 @@ Un script ruby CGI s'occupe de tout ceci.
 
 Une fois la copie vers le serveur web effectuée, les fichiers n'ont plus besoin de rester en local. Ils sont alors sélectivement supprimés. (Fichiers sources dans la `dropbox`, fichiers encodés et documents HTML. Le contenu du dossier X de la solution 1 ne serait pas touché.)
 
+### Ecrasement de fichiers déjà présents
+
+Si un fichier portant le même nom qu'un fichier déjà traité est soumis à HVA, il sera traité sans distinction et le fichier précedemment traité sera écrasé. Cela est souhaité afin de permettre le réencodage d'un fichier qui aurait été modifié depuis son premier traitement.
+
 # Problèmes à résoudre / Questions
 
   - Profils vidéo pour l'encodage (Quelle cible visons-nous: taille, débit, qualité, etc... ): Vérifier!
@@ -65,14 +69,12 @@ Une fois la copie vers le serveur web effectuée, les fichiers n'ont plus besoin
 Prévoir de pouvoir configurer:
 
   - Profils utilisés pour l'encodage
-  - L'adresse du serveur www (et autres params SSH?)
-  - L'adresse du serveur d'archivage (et autres params SSH?)
 
 # TODO
 
   - "Slugifier" les noms de fichiers en entrée (Pour URLs)
   - Page listant les fichiers présents dans dropbox et permettant de lancer la conversion manuellement
-  - Réfléchir à implications de tagguer les noms de fichiers en sortie avec date ou trier dans struct. datée (YYYY/MM/JJ) pour permettre doublons de noms
+  - Afficher warning en cas de nom déjà existant dans publish ou archive.
   - Prendre poster à 50% de la vidéo
   - Ajouter métadonnées (Ce qu'on a) dans la template HTML pour info
   - Permettre la génération d'un poster en png

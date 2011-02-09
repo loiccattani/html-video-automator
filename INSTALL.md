@@ -1,49 +1,22 @@
 # Installation
 
-## Développement
+## prérequis
 
-App: `~/work/hva/bin/hva`  
-Config: `~/work/hva/config/config.yml`  
-Dropbox: `~/work/hva/dropbox/`  
-Outbox: `~/work/hva/public/`  
-Launchd job file: `~/Library/LaunchAgents/ch.unil.HTMLVideoAutomator.plist`  
+- Un machine ou serveur puissant (HVA) pour l'application HVA avec (Versions min):
+  - Mac OS X 10.6
+  - ruby 1.9
+  - Apache 2
+- Un serveur web (www) pour la publication du contenu
 
-### 1. Install
-*(En tant qu'utilisateur)*
+### Optionnel:
 
-    cp ch.unil.HTMLVideoAutomator.plist ~/Library/LaunchAgents/
+- Un serveur d'archivage pour la sauvegarde des sources.
 
-### 2. Configurer le job launchd et config/config.yml
+Sinon utiliser le serveur web
 
-    nano config/config.yml
-    nano ~/Library/LaunchAgents/ch.unil.HTMLVideoAutomator.plist
+## Marche à suivre
 
-### 3. Lancer le job launchd
-
-    launchctl load ~/Library/LaunchAgents/ch.unil.HTMLVideoAutomator.plist
-
-## Production
-
-App: `/usr/local/hva/bin/hva`  
-Config: `/etc/hva.config.yml`  
-Dropbox: `/var/hva/dropbox/`  
-Outbox: `/tmp/hva/outbox/`  
-Launchd job file: `/Library/LaunchDaemons/ch.unil.HTMLVideoAutomator.plist`  
-
-### 1. Install
-*(Toujours en tant que root)*
-
-    mkdir /usr/local/hva/
-    cp -R bin lib views README.md /usr/local/hva/
-    mkdir -p /var/hva/dropbox /tmp/hva/outbox
-    cp config/config.yml /etc/hva.config.yml
-    cp ch.unil.HTMLVideoAutomator.plist /Library/LaunchDaemons/
-
-### 2. Configurer le job launchd et hva.config.yml
-
-    nano /etc/hva.config.yml
-    nano /Library/LaunchDaemons/ch.unil.HTMLVideoAutomator.plist
-
-### 3. Lancer le job launchd
-
-    launchctl load /Library/LaunchDaemons/ch.unil.hva.plist
+- Copier le dossier hva à un endroit adéquat (p.ex. Prod: /var/hva Dev: ~/work/hva)
+- Configurer hva/config/config.yml
+- Configurer apache sur HVA pour que le DocumentRoot pointe sur hva/public
+- Générer si besoin paire de clés ssh et copier la clé publique sur le(s) serveur(s) de publication et d'archivage
