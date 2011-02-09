@@ -15,7 +15,7 @@ log_file: log/hva.log
 ffmpeg_log_file: log/ffmpeg.log
 
 # Public access URLs
-app_root_url: http://hva.unil.ch # Serving documents from the app's 'public' directory
+app_root_url: http://hva.dev # Serving documents from the app's 'public' directory
 pub_url: http://av.unil.ch/hva # Serving documents from 'publish[path]'
 
 # Where to publish content
