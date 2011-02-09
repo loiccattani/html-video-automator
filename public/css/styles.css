@@ -190,7 +190,7 @@ a:active {
   text-shadow: 0px 0px 2px rgb(255,255,255);
 }
 
-#report {
+#main>section {
   margin-bottom: 15px;
 }
 
@@ -220,17 +220,41 @@ td, th {
   padding: 3px 4px;
 }
 
-td:first-child, th:first-child {
+#dropbox td:first-child,
+#dropbox th:first-child {
+  width: 20px;
+}
+
+#dropbox label {
+  color: #999;
+  /* Transitions */
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  -o-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+}
+
+#dropbox label:hover {
+  color: #fff;
+  text-shadow: 0px 0px 2px rgb(255,255,255);
+}
+
+#dropbox p {
+  text-align: right;
+}
+
+#report td:first-child,
+#report th:first-child {
   width: 220px;
 }
 
-th:nth-child(2), td:nth-child(2),
-th:nth-child(3), td:nth-child(3),
-th:nth-child(4), td:nth-child(4),
-th:nth-child(5), td:nth-child(5),
-th:nth-child(6), td:nth-child(6),
-th:nth-child(7), td:nth-child(7),
-th:nth-child(8), td:nth-child(8) {
+#report th:nth-child(2), #report td:nth-child(2),
+#report th:nth-child(3), #report td:nth-child(3),
+#report th:nth-child(4), #report td:nth-child(4),
+#report th:nth-child(5), #report td:nth-child(5),
+#report th:nth-child(6), #report td:nth-child(6),
+#report th:nth-child(7), #report td:nth-child(7),
+#report th:nth-child(8), #report td:nth-child(8) {
   width: 16px;
   max-width: 16px;
   height: 16px;
@@ -240,17 +264,17 @@ th:nth-child(8), td:nth-child(8) {
   background-position: 50% 50%;
 }
 
-th:nth-child(2) { background-image: url('../images/icons/film.png'); }
-th:nth-child(3) { background-image: url('../images/icons/document-attribute-m.png'); }
-th:nth-child(4) { background-image: url('../images/icons/document-attribute-w.png'); }
-th:nth-child(5) { background-image: url('../images/icons/document-image.png'); }
-th:nth-child(6) { background-image: url('../images/icons/document-globe.png'); }
-th:nth-child(7) { background-image: url('../images/icons/globe.png'); }
-th:nth-child(8) { background-image: url('../images/icons/server.png'); }
+#report th:nth-child(2) { background-image: url('../images/icons/film.png'); }
+#report th:nth-child(3) { background-image: url('../images/icons/document-attribute-m.png'); }
+#report th:nth-child(4) { background-image: url('../images/icons/document-attribute-w.png'); }
+#report th:nth-child(5) { background-image: url('../images/icons/document-image.png'); }
+#report th:nth-child(6) { background-image: url('../images/icons/document-globe.png'); }
+#report th:nth-child(7) { background-image: url('../images/icons/globe.png'); }
+#report th:nth-child(8) { background-image: url('../images/icons/server.png'); }
 
-td.working { background-image: url('../images/icons/navigation.png'); }
-td.done { background-image: url('../images/icons/tick-circle.png'); }
-td.failed { background-image: url('../images/icons/exclamation-red.png'); }
+#report td.working { background-image: url('../images/icons/navigation.png'); }
+#report td.done { background-image: url('../images/icons/tick-circle.png'); }
+#report td.failed { background-image: url('../images/icons/exclamation-red.png'); }
 
 #status {
   position: relative;
