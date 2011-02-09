@@ -5,7 +5,7 @@ module HTMLVideoAutomator
     def initialize
       @videos = Array.new
       @id = get_new_id
-      @report_url = "#{Config['hva_host']}/job-report-#{@id}.html"
+      @report_url = "#{Config['app_root_url']}/jobs/job-report-#{@id}.html" # TODO: Move that sub path in config (also in worker.rb)
     end
     
     def prepare(files)
@@ -24,7 +24,7 @@ module HTMLVideoAutomator
     
     def start
       @start_time = Time.now
-      try_lock if Config['environment'] == 'production'
+      try_lock if Config['enable_mutex'] == true
 
       files = Dropbox.list
       files.each do |file|
@@ -50,7 +50,7 @@ module HTMLVideoAutomator
       
       report(:final)
       
-      unlock if Config['environment'] == 'production'
+      unlock if Config['enable_mutex'] == true
     end
     
     private
@@ -87,7 +87,7 @@ module HTMLVideoAutomator
     end
     
     def get_new_id
-      job_id_file = "#{Config.path('outbox')}/.job_id"
+      job_id_file = "#{Config.path('home')}/config/.job_id"
       job_id = File.exists?(job_id_file) ? File.open(job_id_file, 'r').read.to_i + 1 : 1
       
       begin

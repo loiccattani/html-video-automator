@@ -4,19 +4,11 @@ module HTMLVideoAutomator
   class Config
     class << self
       def load
-        dev_config_file = File.dirname(__FILE__) + '/../../config/config.yml'
-        prod_config_file = '/etc/hva.config.yml'
+        config_file = File.dirname(__FILE__) + '/../../config/config.yml'
 
-        if File.exists?(prod_config_file)
-          config_file = prod_config_file
-        elsif File.exists?(dev_config_file)
-          config_file = dev_config_file
-        else
-          abort("Can't find config file!")
-        end
+        abort("Can't find config file!") unless File.exists?(config_file)
         
-        @config = YAML.load_file(config_file)['global']
-        @config.merge! YAML.load_file(config_file)[@config['environment']]
+        @config = YAML.load_file(config_file)
       end
       
       def [](*path)
@@ -29,7 +21,13 @@ module HTMLVideoAutomator
       end
       
       def path(path)
-        File.expand_path(@config[path])
+        if path.chr == '/' # Absolute path
+          return path
+        elsif path == 'home' # App's home path (Which may be like '~/work/hva')
+          return File.expand_path(@config['home']) 
+        else # Relative path from home
+          return File.expand_path("#{@config['home']}/#{@config['path']}")
+        end
       end
       
     end
