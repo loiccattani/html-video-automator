@@ -40,10 +40,10 @@
             <th></th>
             <th>File</th>
           </tr>
-<% files.each do |file| %>
+<% videos.each do |video| %>
           <tr>
-            <td><input type="checkbox" name="files[<%= file.hash %>]" value="1" id="file_<%= file.hash %>"></td>
-            <td><label for="file_<%= file.hash %>"><%= file.path %></label></td>
+            <td><input type="checkbox" name="hashes[<%= video.hash %>]" value="1" id="file_<%= video.hash %>"></td>
+            <td><label for="file_<%= video.hash %>"><%= video.filename %></label></td>
           </tr>
 <% end %>
         </table>

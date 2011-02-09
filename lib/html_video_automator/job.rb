@@ -8,29 +8,30 @@ module HTMLVideoAutomator
       @report_url = "#{Config['app_root_url']}/jobs/job-report-#{@id}.html" # TODO: Move that sub path in config (also in worker.rb)
     end
     
-    def prepare(files)
-      # TODO: Job.prepare(files)
-      # Get dropbox's content and generate hashes based on filenames or files
-      # Compare those hashes with the 'files' arg and generate an array of matching elements
-      #  Those will be the files to process through HVA
-      # load @videos with this array
+    def prepare(hashes)
+      dropbox_videos = Dropbox.load
       
-      report # Generate initial report for CGI request response
+      # Compare each files in dropbox with POSTed hashes and push matches to @videos
+      dropbox_videos.each do |video|
+        if hashes.include? video.digest
+          @videos.push video
+        end
+      end
       
-      return false # return true only if each hash from 'files' matches with a file present in the dropbox
+      if @videos.count == hashes.count
+        report # Generate initial report for CGI request response redirect
+        return true # return true only if each hash matches with a file in the dropbox
+      else
+        return false
+      end
       
-      # Think where to lock mutex
+      # TODO: Think where to lock mutex
     end
     
     def start
       @start_time = Time.now
       try_lock if Config['enable_mutex'] == true
-
-      files = Dropbox.list
-      files.each do |file|
-        video = Video.new(file)
-        @videos.push(video)
-      end
+      $log.info "Job ##{job.id} Started"
       
       @videos.each do |video|
         $log.info "Processing #{video.filename}"
@@ -51,6 +52,7 @@ module HTMLVideoAutomator
       report(:final)
       
       unlock if Config['enable_mutex'] == true
+      $log.info "No more work! Will take a nap..."
     end
     
     private

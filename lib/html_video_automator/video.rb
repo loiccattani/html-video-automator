@@ -1,12 +1,17 @@
+require 'digest/sha1'
+
 module HTMLVideoAutomator
   class Video
-    attr_accessor :path, :filename, :name, :size, :maxed_size, :tasks, :fail_reason, :deliverables
+    attr_accessor :path, :relative_path, :filename, :name, :digest, :size, :maxed_size, :tasks, :fail_reason, :deliverables
     attr_writer :tasks, :fail_reason, :deliverables
     
     def initialize(path)
       @path = path
+      @relative_path = nil # TODO: Relative path from dropbox
       @filename = File.basename(@path)
       @name = @filename[/(.*)\.(.*)/,1] # Isolate filename from extension #TODO: test this against plenty of filenames...
+      @digest = Digest::SHA1.hexdigest(@path)
+      # TODO: load @ffmpeg_info here... Think about it
       @size = get_size
       @maxed_size = get_maxed_size
       @tasks = { :validate => :unknown, :encode_mp4 => :unknown, :encode_webm => :unknown, :gen_poster => :unknown, :gen_html => :unknown, :publish => :unknown, :archive => :unknown }
