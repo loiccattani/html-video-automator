@@ -15,45 +15,24 @@ Une boîte de dépôt est définie dans laquelle on place les fichiers à traite
 
 ### Boucle de traitement
 
-  1. Liste les fichiers présents dans la boîte de dépôt (dropbox)
+  1. Liste et vérifie les fichiers soumis et présents dans la dropbox
   2. Encode les fichiers dans les formats mp4 et webm et crée un poster à l'aide de ffmpeg
   3. Génère un document HTML par vidéo en utilisant la syntaxe videojs
   4. Copie sur le serveur web les fichiers encodés et le document HTML
   5. Archive les sources sur un autre serveur/volume, sinon sur le serveur web.
-  6. Nettoie les fichiers restés en local (Fichiers encodés et sources).
-  7. Reliste la boîte de dépôt pour voir si quelque chose de nouveau y est, si oui: goto 2
+  6. Nettoie les fichiers restés en local.
 
-Un log des opérations effectuées peut être utile
+L'application loggue les opérations effectuées
 
 ## Design
 
-### Les fichiers doivent être prêts au traitement avant lancement du script
+Dans un premier temps, les fichiers vidéo sont téléchargés dans la dropbox. Une deuxième étape permet de séléctionner les fichiers à traiter et lancer le script.
 
-Il n'y a pas de moyen sûr pour savoir si un fichier à bien été copié rien qu'en le regardant. Un notification ou autre élément en provenance du client est nécessaire (Client: celui qui à copié le(s) fichier(s) dans la boîte de dépôt)
-
-Donc plusieurs solutions sont envisageables:
-
-#### Solution 1:
-
-Les fichiers copiés depuis les clients distants arrivent dans un dossier X sur le serveur. Une fois la copie terminée, le client déplace les fichiers dans la `dropbox`. Ce qui déclenche l'execution du script (Qui repasse après avoir terminé ses tâches pour s'assurer qu'il n'y a rien de nouveau avant de quitter).
-
-La copie et le déplacement des fichiers peut éventuellement être automatisé par une application de transfert installée sur la machine du client. La copie serait se ferait alors par ssh (scp ou sftp). Avantage du sftp: *ForceCommand internal-sftp*
-
-La surveillance de la boîte de dépôt `dropbox` est prise en charge par launchd et sa méchanique de *watchpaths*. Un exemple de fichier .plist préparé pour le dev se trouve juste à coté: `ch.unil.hva.plist`.
-
-#### Solution 2:
-
-Les fichiers sont copiés dans la dropbox (inerte) et une deuxième étape permet de séléctionner les fichiers à traiter et de lancer le script.
-
-Cette étape est contituée d'une page générée à la demande (page web dynamique) et listant les fichiers présents dans la dropbox. Des cases à cocher permettent de séléctionner les fichiers à soumettre par POST. Ceci lancant un nouveau job HVA.
+Cette seconde étape est contituée d'une page web générée dynamiquement et listant les fichiers présents dans la dropbox. Des cases à cocher permettent de séléctionner les fichiers à soumettre par POST. Ceci lancant un nouveau job HVA.
 
 Pour des raisons de sécurité, les valeurs soumises ne devraient pas contenir les noms de fichiers mais plutôt un digest de ces derniers.
 
 Un script ruby CGI s'occupe de tout ceci.
-
-### Nettoyage
-
-Une fois la copie vers le serveur web effectuée, les fichiers n'ont plus besoin de rester en local. Ils sont alors sélectivement supprimés. (Fichiers sources dans la `dropbox`, fichiers encodés et documents HTML. Le contenu du dossier X de la solution 1 ne serait pas touché.)
 
 ### Ecrasement de fichiers déjà présents
 
@@ -80,3 +59,4 @@ Prévoir de pouvoir configurer:
   - Permettre la génération d'un poster en png
   - Changelog dès initial release
   - Etudier et corriger ce problème de texte avec double transparence
+  - Ajouter validation et infos video dans la vue dropbox
