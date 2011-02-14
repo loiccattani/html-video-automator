@@ -1,8 +1,8 @@
 # HVA - HTML Video Automator
 
-This is a ruby application for automating video conversion and publishing on the web. It uses the HTML5 `<video>` element for browsers supporting it, and a Flash fallback for others.
+This is a ruby application for automating video conversion and publishing on the web. It uses the HTML5 `<video>` element for browsers supporting it, and provide a Flash fallback for other browsers.
 
-**This project is currently under active development.**
+**This project is currently under active development.**  
 Beta versions may come pretty soon.
 
 Oh, and you may find some french words here and there. Don't be afraid.
@@ -12,6 +12,10 @@ Oh, and you may find some french words here and there. Don't be afraid.
 Things have to be simple: Upload some videos in a dropbox, point your browser at the app's url, select one or more videos and hit "Automate!". That's it!
 
 The app take care of the rest and provide you with links to HTML documents presenting your videos.
+
+## How to make it working?
+
+See `INSTALL.md`
 
 ## Technology
 

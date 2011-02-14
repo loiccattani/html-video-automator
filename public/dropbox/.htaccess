@@ -1,3 +1,4 @@
+# This should be specified in the Apache site configuration file
 AddHandler cgi-script .rb
 Options +ExecCGI
 

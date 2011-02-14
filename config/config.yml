@@ -4,13 +4,13 @@
 # When in production, turn this on
 enable_mutex: false
 
-# App's working directories (Relative paths to 'home' accepted)
+# App's working directories (Relative paths from 'home' accepted)
 home: ~/work/hva # Change this to where the app's root is located
 dropbox: dropbox
 deliverables: deliverables
 public: public
 
-# Log files (Relative paths to 'home' accepted)
+# Log files (Relative paths from 'home' accepted)
 log_file: log/hva.log
 ffmpeg_log_file: log/ffmpeg.log
 

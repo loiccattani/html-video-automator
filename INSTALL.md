@@ -1,22 +1,26 @@
-# Installation
+# Install
 
-## prérequis
+## Prerequisites
 
-- Un machine ou serveur puissant (HVA) pour l'application HVA avec (Versions min):
-  - Mac OS X 10.6
-  - ruby 1.9
-  - Apache 2
-- Un serveur web (www) pour la publication du contenu
+- HVA server: A powerful computer or server to host the HVA app. With:
+  - Ruby 1.9 or later
+  - Apache 2.2
+  - ffmpeg 0.6.1 or later
+- Content server: A web server to publish content
 
-### Optionnel:
+### Optional:
 
-- Un serveur d'archivage pour la sauvegarde des sources.
+- Sources server: A data server to archive sources
 
-Sinon utiliser le serveur web
+### SSH with public-key authentication
 
-## Marche à suivre
+The *content* and *sources* server must be configured with SSH public-key authentication from the HVA server.
 
-- Copier le dossier hva à un endroit adéquat (p.ex. Prod: /var/hva Dev: ~/work/hva)
-- Configurer hva/config/config.yml
-- Configurer apache sur HVA pour que le DocumentRoot pointe sur hva/public
-- Générer si besoin paire de clés ssh et copier la clé publique sur le(s) serveur(s) de publication et d'archivage
+## How to install
+
+On the HVA server:
+
+- Install the HVA app directory in an appropriate location (i.e. Prod: /usr/local/hva, Dev: ~/work/hva)
+- Configure hva/config/config.yml
+- Configure Apache to serve hva/public as the DocumentRoot
+- Generate a new ssh key pair if needed and copy the public-key to the *content* and *sources* server.
