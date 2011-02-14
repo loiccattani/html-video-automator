@@ -18,7 +18,7 @@ module HTMLVideoAutomator
       if @cgi.request_method == 'GET'
         show_dropbox
       elsif @cgi.request_method == 'POST' and ! @cgi.params['hashes'].empty?
-        launch_job(cgi.params['hashes'])
+        launch_job(@cgi.params['hashes'])
       else
         $log.fatal "Unhandled method or missing parameters"
       end
@@ -33,7 +33,8 @@ module HTMLVideoAutomator
       $log.info "Trying to launch job"
       @job = HTMLVideoAutomator::Job.new
       if @job.prepare(hashes)
-        @cgi.header("status" => "302", "location" => @job.report_url) # Initial job report ready, redirect to it!
+        @cgi.out("status" => "302", "location" => @job.report_url) {''} # Initial job report ready, redirect to it!
+        @cgi.out{''}
         @job.start
       else
         $log.error "Can't launch job, bad hashes or missing files in dropbox"

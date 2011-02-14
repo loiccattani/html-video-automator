@@ -15,6 +15,7 @@ module HTMLVideoAutomator
       
       def show
         videos = self.load
+        script_url = Config['app_root_url'] + "/dropbox/job-launcher.rb"
         
         begin
           erb = ERB.new File.new(File.dirname(__FILE__) + '/../../views/dropbox.rhtml').read, nil, "%"

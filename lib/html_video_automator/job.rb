@@ -2,6 +2,8 @@ require 'fileutils'
 
 module HTMLVideoAutomator
   class Job
+    attr_accessor :report_url
+    
     def initialize
       @videos = Array.new
       @id = get_new_id
@@ -9,6 +11,7 @@ module HTMLVideoAutomator
     end
     
     def prepare(hashes)
+      @start_time = Time.now
       dropbox_videos = Dropbox.load
       
       # Compare each files in dropbox with POSTed hashes and push matches to @videos
@@ -29,9 +32,8 @@ module HTMLVideoAutomator
     end
     
     def start
-      @start_time = Time.now
       try_lock if Config['enable_mutex'] == true
-      $log.info "Job ##{job.id} Started"
+      $log.info "Job ##{@id} Started"
       
       @videos.each do |video|
         $log.info "Processing #{video.filename}"

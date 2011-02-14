@@ -34,7 +34,7 @@
     <section id="dropbox">
       <h3>Dropbox</h3>
       
-      <form action="#" method="post" accept-charset="utf-8">
+      <form action="<%= script_url %>" method="POST" accept-charset="utf-8">
         <table border="0" cellspacing="5" cellpadding="5">
           <tr>
             <th></th>
@@ -42,8 +42,8 @@
           </tr>
 <% videos.each do |video| %>
           <tr>
-            <td><input type="checkbox" name="hashes[<%= video.hash %>]" value="1" id="file_<%= video.hash %>"></td>
-            <td><label for="file_<%= video.hash %>"><%= video.filename %></label></td>
+            <td><input type="checkbox" name="hashes" value="<%= video.digest %>" id="file_<%= video.digest %>"></td>
+            <td><label for="file_<%= video.digest %>"><%= video.filename %></label></td>
           </tr>
 <% end %>
 <% if videos.empty? %>
