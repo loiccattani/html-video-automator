@@ -9,7 +9,7 @@ module HTMLVideoAutomator
           videos.push Video.new(path)
         end
         
-        $log.info "#{files.count} files found in the dropbox"
+        $log.info "#{paths.count} files found in the dropbox"
         return videos
       end
       

@@ -6,4 +6,10 @@ Options +ExecCGI
 # /dropbox/* -> /dropbox/test.rb
 RewriteEngine On
 RewriteBase /dropbox
-RewriteRule . joblauncher.rb
+
+# On laisse passer les fichiers images, css et js
+RewriteCond %{REQUEST_URI} !\.png$
+RewriteCond %{REQUEST_URI} !\.js$
+RewriteCond %{REQUEST_URI} !\.css$
+
+RewriteRule . job-launcher.rb

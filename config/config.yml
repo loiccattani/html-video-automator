@@ -5,7 +5,7 @@
 enable_mutex: false
 
 # App's working directories (Relative paths from 'home' accepted)
-home: ~/work/hva # Change this to where the app's root is located
+home: /var/www/html-video-automator # Change this to where the app's root is located
 dropbox: dropbox
 deliverables: deliverables
 public: public
