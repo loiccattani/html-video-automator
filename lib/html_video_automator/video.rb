@@ -2,7 +2,7 @@ require 'digest/sha1'
 
 module HTMLVideoAutomator
   class Video
-    attr_accessor :path, :relative_path, :filename, :name, :digest, :size, :maxed_size, :tasks, :fail_reason, :deliverables
+    attr_accessor :path, :relative_path, :filename, :name, :digest, :size, :maxed_size, :duration, :filesize, :tasks, :fail_reason, :deliverables
     attr_writer :tasks, :fail_reason, :deliverables
     
     def initialize(path)
@@ -14,6 +14,8 @@ module HTMLVideoAutomator
       # TODO: load @ffmpeg_info here... Think about it
       @size = get_size
       @maxed_size = get_maxed_size
+      @duration = '0s' #TODO: duration
+      @filesize = '0kb' #TODO: filesize
       @tasks = { :validate => :unknown, :encode_mp4 => :unknown, :encode_webm => :unknown, :gen_poster => :unknown, :gen_html => :unknown, :publish => :unknown, :archive => :unknown }
       @fail_reason = nil
       @deliverables = Array.new

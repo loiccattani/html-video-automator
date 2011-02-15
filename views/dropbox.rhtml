@@ -39,17 +39,33 @@
           <tr>
             <th></th>
             <th>File</th>
+            <th title="Valid video document">Valid</th>
+            <th>Video size</th>
+            <th>Duration</th>
+            <th>File size</th>
           </tr>
 <% videos.each do |video| %>
           <tr>
             <td><input type="checkbox" name="hashes" value="<%= video.digest %>" id="file_<%= video.digest %>"></td>
             <td><label for="file_<%= video.digest %>"><%= video.filename %></label></td>
+<% if video.valid? %>
+            <td class="done">Done</td>
+<% else %>
+            <td class="failed">Failed</td>
+<% end %>
+            <td><%= video.size[:width].to_s + "&times;" + video.size[:height].to_s %></td>
+            <td><%= video.duration %></td>
+            <td><%= video.filesize %></td>
           </tr>
 <% end %>
 <% if videos.empty? %>
           <tr>
             <td></td>
             <td>No files found</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
 <% end %>
         </table>

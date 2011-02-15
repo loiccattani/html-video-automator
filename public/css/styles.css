@@ -243,11 +243,19 @@ td, th {
   text-align: right;
 }
 
+#dropbox th:nth-child(4), #dropbox td:nth-child(4),
+#dropbox th:nth-child(5), #dropbox td:nth-child(5),
+#dropbox th:nth-child(6), #dropbox td:nth-child(6) {
+  width: 100px;
+  padding-left: 20px;
+}
+
 #report td:first-child,
 #report th:first-child {
   width: 220px;
 }
 
+#dropbox th:nth-child(3), #dropbox td:nth-child(3),
 #report th:nth-child(2), #report td:nth-child(2),
 #report th:nth-child(3), #report td:nth-child(3),
 #report th:nth-child(4), #report td:nth-child(4),
@@ -264,7 +272,7 @@ td, th {
   background-position: 50% 50%;
 }
 
-#report th:nth-child(2) { background-image: url('../images/icons/film.png'); }
+#dropbox th:nth-child(3), #report th:nth-child(2) { background-image: url('../images/icons/film.png'); }
 #report th:nth-child(3) { background-image: url('../images/icons/document-attribute-m.png'); }
 #report th:nth-child(4) { background-image: url('../images/icons/document-attribute-w.png'); }
 #report th:nth-child(5) { background-image: url('../images/icons/document-image.png'); }
@@ -272,9 +280,9 @@ td, th {
 #report th:nth-child(7) { background-image: url('../images/icons/globe.png'); }
 #report th:nth-child(8) { background-image: url('../images/icons/server.png'); }
 
-#report td.working { background-image: url('../images/icons/navigation.png'); }
-#report td.done { background-image: url('../images/icons/tick-circle.png'); }
-#report td.failed { background-image: url('../images/icons/exclamation-red.png'); }
+#dropbox td.working, #report td.working { background-image: url('../images/icons/navigation.png'); }
+#dropbox td.done, #report td.done { background-image: url('../images/icons/tick-circle.png'); }
+#dropbox td.failed, #report td.failed { background-image: url('../images/icons/exclamation-red.png'); }
 
 #status {
   position: relative;

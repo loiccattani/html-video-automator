@@ -67,3 +67,6 @@ Prévoir de pouvoir configurer:
   - Changelog dès initial release
   - Etudier et corriger ce problème de texte avec double transparence
   - Ajouter validation et infos video dans la vue dropbox
+  - p2: Afficher partie de log propre au job dans job report
+  - Ajouter plus d'infos comme ou sont publiés et archivés les fichiers
+  - p2: Empêcher séléction de la case à cocher si vidéo non valide
