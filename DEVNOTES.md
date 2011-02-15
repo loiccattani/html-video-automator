@@ -60,3 +60,4 @@ Prévoir de pouvoir configurer:
   - Changelog dès initial release
   - Etudier et corriger ce problème de texte avec double transparence
   - Ajouter validation et infos video dans la vue dropbox
+  - Définir à poster 50% de la durée de la vidéo
