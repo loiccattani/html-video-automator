@@ -52,12 +52,10 @@ Prévoir de pouvoir configurer:
 # TODO
 
   - "Slugifier" les noms de fichiers en entrée (Pour URLs)
-  - Page listant les fichiers présents dans dropbox et permettant de lancer la conversion manuellement
-  - Afficher warning en cas de nom déjà existant dans publish ou archive.
+  - Afficher warning en cas de nom déjà existant dans publish ou archive. (?)
   - Prendre poster à 50% de la vidéo
   - Ajouter métadonnées (Ce qu'on a) dans la template HTML pour info
   - Permettre la génération d'un poster en png
   - Changelog dès initial release
   - Etudier et corriger ce problème de texte avec double transparence
   - Ajouter validation et infos video dans la vue dropbox
-  - Définir à poster 50% de la durée de la vidéo
