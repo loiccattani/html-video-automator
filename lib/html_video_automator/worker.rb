@@ -85,7 +85,8 @@ module HTMLVideoAutomator
       end
       
       def publish(video)
-        if system("scp #{video.deliverables.join(' ')} #{Config['publish']['user']}@#{Config['publish']['server']}:#{Config['publish']['path']}/")
+        cmd = "scp -i ~/.ssh/#{Config['ssh_key']} #{video.deliverables.join(' ')} #{Config['publish']['user']}@#{Config['publish']['server']}:#{Config['publish']['path']}/"
+        if system(cmd)
           $log.info "Published #{video.name} to #{Config['publish']['server']}"
           return true
         else
@@ -95,7 +96,8 @@ module HTMLVideoAutomator
       end
       
       def archive(video)
-        if system("scp #{video.path} #{Config['archive']['user']}@#{Config['archive']['server']}:#{Config['archive']['path']}/")
+        cmd = "scp -i ~/.ssh/#{Config['ssh_key']} #{video.path} #{Config['archive']['user']}@#{Config['archive']['server']}:#{Config['archive']['path']}/"
+        if system(cmd)
           $log.info "Archived #{video.name} source to #{Config['archive']['server']}"
           return true
         else
