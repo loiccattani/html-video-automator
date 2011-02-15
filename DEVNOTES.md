@@ -11,7 +11,7 @@ Nous avons des vidéos qui arrivent dans n'importe quels formats et nous voulons
 
 ## Besoins fonctionnels
 
-Une boîte de dépôt est définie dans laquelle on place les fichiers à traiter. Cette boîte est surveillée et un script est lancé dès qu'un fichier s'y trouve ajouté. Ce script encode les vidéos dans les formats requis et génère un document HTML présentant la vidéo à l'aide de l'élément HTML5 `<video>` et des scripts/styles [videojs](http://videojs.com/). Il copie ensuite l'ensemble des fichiers sur un serveur web.
+Une boîte de dépôt est définie dans laquelle on place les fichiers à traiter. Cette boîte est surveillée et un script est lancé dès qu'un fichier s'y trouve ajouté. Ce script encode les vidéos dans les formats requis et génère un document HTML présentant la vidéo. Il copie ensuite l'ensemble des fichiers sur un serveur web.
 
 ### Boucle de traitement
 
@@ -26,9 +26,18 @@ L'application loggue les opérations effectuées
 
 ## Design
 
-Dans un premier temps, les fichiers vidéo sont téléchargés dans la dropbox. Une deuxième étape permet de séléctionner les fichiers à traiter et lancer le script.
+La vidéo est présentée à l'aide de l'élément HTML5 `<video>` et de [VideoJS](http://videojs.com/).
 
-Cette seconde étape est contituée d'une page web générée dynamiquement et listant les fichiers présents dans la dropbox. Des cases à cocher permettent de séléctionner les fichiers à soumettre par POST. Ceci lancant un nouveau job HVA.
+### Workflow type
+
+1. Les fichiers vidéo sont téléchargés dans la dropbox.
+2. Une page web permet de séléctionner les fichiers à traiter et lancer un nouveau 'job'.
+3. La progression du travail est affichée (auto refresh) et des liens vers les vidéos sont proposés une fois le 'job' terminé
+4. On visite, utilise tel quel ou copie le code généré pour chaque vidéo.
+
+### Détails
+
+L'étape numéro 2 est contituée d'une page web générée dynamiquement et listant les fichiers présents dans la dropbox. Des cases à cocher permettent de séléctionner les fichiers à soumettre par POST. Ceci lancant un nouveau job HVA.
 
 Pour des raisons de sécurité, les valeurs soumises ne devraient pas contenir les noms de fichiers mais plutôt un digest de ces derniers.
 
@@ -41,7 +50,6 @@ Si un fichier portant le même nom qu'un fichier déjà traité est soumis à HV
 # Problèmes à résoudre / Questions
 
   - Profils vidéo pour l'encodage (Quelle cible visons-nous: taille, débit, qualité, etc... ): Vérifier!
-  - Archiver les sources ailleurs que sur le serveur web? Ou?
 
 # Configuration
 

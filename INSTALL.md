@@ -1,6 +1,6 @@
 # Install
 
-Unfortunately there is no easy one-step install wizard... You'll need to get your hands a little dirty. But, if you already got at least 2 web servers running, it should be pretty straight-forward.
+Unfortunately there is no easy one-step install wizard... You'll need to get your hands a bit dirty. But, if you already got at least 2 web servers running, it should be pretty straight-forward.
 
 ## Prerequisites
 
@@ -30,8 +30,8 @@ Install the HVA app's directory in an appropriate location (i.e. Prod: `/var/www
 
 No stable release for now:
 
-- cd `/var/www`
-- Either download source or clone the git repo: `git clone git://github.com/Arko/html-video-automator.git`
+1. cd `/var/www`
+2. Either download source or clone the git repo: `git clone git://github.com/Arko/html-video-automator.git`
 
 ### Configure HTML Video Automator
 
