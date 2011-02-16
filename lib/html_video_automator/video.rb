@@ -10,7 +10,7 @@ module HTMLVideoAutomator
       @path = path
       @relative_path = nil # TODO: Relative path from dropbox
       @filename = File.basename(@path)
-      @name = @filename[/(.*)\.(.*)/,1] # Isolate filename from extension #TODO: test this against plenty of filenames...
+      @name = transliterate(@filename[/(.*)\.(.*)/,1]) # Isolate filename from extension #TODO: test this against plenty of filenames...
       @digest = Digest::SHA1.hexdigest(@path)
       @ffmpeg_info = get_ffmpeg_info
       @size = get_size
@@ -117,6 +117,30 @@ module HTMLVideoAutomator
       secs = ((seconds % 3600) % 60).round(2)
       decimal = ((secs - secs.floor) * 100).to_i
       sprintf("%02d", hours) + ":" + sprintf("%02d", mins) + ":" + sprintf("%02d", secs) + "." + sprintf("%02d", decimal)
+    end
+    
+    def transliterate(str) #TODO: Refactor this as an helper method
+      # Based on permalink_fu by Rick Olsen
+
+      # Escape str by transliterating to UTF-8 with Iconv
+      s = Iconv.iconv('ascii//ignore//translit', 'utf-8', str).to_s
+
+      # Downcase string
+      s.downcase!
+
+      # Remove apostrophes so isn't changes to isnt
+      s.gsub!(/'/, '')
+
+      # Replace any non-letter or non-number character with a space
+      s.gsub!(/[^A-Za-z0-9]+/, ' ')
+
+      # Remove spaces from beginning and end of string
+      s.strip!
+
+      # Replace groups of spaces with single hyphen
+      s.gsub!(/\ +/, '-')
+
+      return s
     end
 
   end

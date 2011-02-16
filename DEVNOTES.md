@@ -57,8 +57,9 @@ Prévoir de pouvoir configurer:
 
 # TODO
 
-  - "Slugifier" les noms de fichiers en entrée (Pour URLs)
   - Afficher warning en cas de nom déjà existant dans publish ou archive. (?)
   - Ajouter métadonnées (Ce qu'on a) dans la template HTML pour info
   - Changelog dès initial release
   - p2: Afficher partie de log propre au job dans job report
+  - Déplacer les fichiers en traitement pour ne plus les avoir dans la dropbox
+  
