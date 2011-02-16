@@ -82,7 +82,6 @@ module HTMLVideoAutomator
       end
       
       update_task(video, task, result)
-      report
       return result
     end
     
