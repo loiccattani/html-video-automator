@@ -11,10 +11,10 @@ module HTMLVideoAutomator
       @filename = File.basename(@path)
       @name = @filename[/(.*)\.(.*)/,1] # Isolate filename from extension #TODO: test this against plenty of filenames...
       @digest = Digest::SHA1.hexdigest(@path)
-      # TODO: load @ffmpeg_info here... Think about it
+      @ffmpeg_info = get_ffmpeg_info
       @size = get_size
       @maxed_size = get_maxed_size
-      @duration = '0'
+      @duration = get_duration
       @file_size = File.size(@path)
       @tasks = { :validate => :unknown, :encode_mp4 => :unknown, :encode_webm => :unknown, :gen_poster => :unknown, :gen_html => :unknown, :publish => :unknown, :archive => :unknown }
       @fail_reason = nil
@@ -22,7 +22,7 @@ module HTMLVideoAutomator
     end
     
     def valid?
-      match = ffmpeg_info[/Stream[^\n\r]+Video/]
+      match = @ffmpeg_info[/Stream[^\n\r]+Video/]
       if match
         $log.debug "Video stream found"
       else
@@ -51,17 +51,31 @@ module HTMLVideoAutomator
       end
     end
     
+    def poster_time
+      seconds_to_duration(get_seconds * 0.5)
+    end
+        
     private
     
+    def get_ffmpeg_info
+      `ffmpeg -i #{@path} 2>&1` # ffmpeg outputs to stderr!
+    end
+    
     def get_size
-      width = ffmpeg_info[/Video.*\s([0-9]{2,4})x([0-9]{2,4})/, 1].to_i
-      height = ffmpeg_info[/Video.*\s([0-9]{2,4})x([0-9]{2,4})/, 2].to_i
+      width = @ffmpeg_info[/Video.*\s([0-9]{2,4})x([0-9]{2,4})/, 1].to_i
+      height = @ffmpeg_info[/Video.*\s([0-9]{2,4})x([0-9]{2,4})/, 2].to_i
       return :width => width, :height => height
     end
     
-    def ffmpeg_info
-      @ffmpeg_info = `ffmpeg -i #{@path} 2>&1` if ! defined? @ffmpeg_info # ffmpeg outputs to stderr!
-      return @ffmpeg_info
+    def get_duration()
+      @ffmpeg_info[/Duration:\s([0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{2})/, 1]
+    end
+    
+    def get_seconds(precision = 2)
+      hours = @duration[/([0-9]{2}):([0-9]{2}):([0-9]{2})\.([0-9]{2})/, 1].to_i
+      minutes = @duration[/([0-9]{2}):([0-9]{2}):([0-9]{2})\.([0-9]{2})/, 2].to_i
+      seconds = @duration[/([0-9]{2}):([0-9]{2}):([0-9]{2}\.[0-9]{2})/, 3].to_f
+      duration = hours * 3600 + minutes * 60 + seconds.round(precision)
     end
     
     def get_maxed_size
@@ -93,6 +107,14 @@ module HTMLVideoAutomator
     
     def aspect_ratio(width, height)
       return width.to_f / height.to_f
+    end
+    
+    def seconds_to_duration(seconds)
+      hours = (seconds / 3600).floor
+      mins = ((seconds % 3600) / 60).floor
+      secs = ((seconds % 3600) % 60).round(2)
+      decimal = ((secs - secs.floor) * 100).to_i
+      sprintf("%02d", hours) + ":" + sprintf("%02d", mins) + ":" + sprintf("%02d", secs) + "." + sprintf("%02d", decimal)
     end
 
   end
