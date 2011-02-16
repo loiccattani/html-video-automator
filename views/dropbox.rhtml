@@ -35,7 +35,7 @@
       <h3>Dropbox</h3>
       
       <form action="<%= script_url %>" method="POST" accept-charset="utf-8">
-        <table border="0" cellspacing="5" cellpadding="5">
+        <table border="0" cellspacing="0" cellpadding="0">
           <tr>
             <th></th>
             <th>File</th>
@@ -45,7 +45,7 @@
             <th>File size</th>
           </tr>
 <% videos.each do |video| %>
-          <tr>
+          <tr class='video'>
             <td><input type="checkbox" name="hashes" value="<%= video.digest %>" id="file_<%= video.digest %>"></td>
             <td><label for="file_<%= video.digest %>"><%= video.filename %></label></td>
 <% if video.valid? %>
@@ -84,6 +84,15 @@
       <img src="../images/logo-unil.png" alt="University of Lausanne" title="Made in Unicom, University of Lausanne">
     </a>
   </footer>
+  
+  <!-- Javascript at the bottom for fast page loading -->
+
+  <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="../js/libs/jquery-1.5.min.js"%3E%3C/script%3E'))</script>
+  
+  <!-- Custom script -->
+  <script src="../js/utils.js"></script>
   
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
   <script>
