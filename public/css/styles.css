@@ -148,22 +148,12 @@ h3 {
 }
 
 #main.video p, #main.video h2 {
-  color: #fff;
-  opacity: 0.3;
-  /* Transitions */
-  -webkit-transition: opacity 0.3s ease;
-  -moz-transition: opacity 0.3s ease;
-  -o-transition: opacity 0.3s ease;
-  transition: opacity 0.3s ease;
+  color: #999;
 }
 
 #main.video h2 {
   font-size: 18px;
   margin-bottom: 10px;
-}
-
-#main.video p:hover, #main.video h2:hover {
-  opacity: 1;
 }
 
 .video-js-box {

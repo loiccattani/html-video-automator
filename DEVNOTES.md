@@ -1,9 +1,7 @@
-# HVA - HTML Video Automator
+# HTML Video Automator (HVA)
 
-Author: Loïc Cattani "Arko" <loic.cattani@gmail.com>
+Author: Loïc Cattani "Arko" <loic.cattani@gmail.com>  
 Begin:  2011.01.28
-
-# Projet
 
 ## Définition du problème
 
@@ -47,11 +45,11 @@ Un script ruby CGI s'occupe de tout ceci.
 
 Si un fichier portant le même nom qu'un fichier déjà traité est soumis à HVA, il sera traité sans distinction et le fichier précedemment traité sera écrasé. Cela est souhaité afin de permettre le réencodage d'un fichier qui aurait été modifié depuis son premier traitement.
 
-# Problèmes à résoudre / Questions
+## Problèmes à résoudre / Questions
 
   - Profils vidéo pour l'encodage (Quelle cible visons-nous: taille, débit, qualité, etc... ): Vérifier!
 
-# Configuration
+## Configuration
 
 Prévoir de pouvoir configurer:
 
@@ -64,7 +62,4 @@ Prévoir de pouvoir configurer:
   - Ajouter métadonnées (Ce qu'on a) dans la template HTML pour info
   - Permettre la génération d'un poster en png
   - Changelog dès initial release
-  - Etudier et corriger ce problème de texte avec double transparence
   - p2: Afficher partie de log propre au job dans job report
-  - Ajouter plus d'infos comme ou sont publiés et archivés les fichiers
-  - p2: Empêcher séléction de la case à cocher si vidéo non valide
