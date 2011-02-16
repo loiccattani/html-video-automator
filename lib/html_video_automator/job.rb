@@ -72,7 +72,7 @@ module HTMLVideoAutomator
       when :encode_webm
         result = Worker.encode video, :format => 'webm'
       when :gen_poster
-        result = Worker.gen_poster video # TODO: , :format => 'png'
+        result = Worker.gen_poster video
       when :gen_html
         result = Worker.gen_html video
       when :publish

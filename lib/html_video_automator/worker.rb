@@ -30,11 +30,11 @@ module HTMLVideoAutomator
       end
       
       def gen_poster(video)
-        filename = "#{video.name}.jpg"
+        filename = "#{video.name}.png"
         path = Config.path('deliverables') + "/" + filename
         wxh = "#{video.maxed_size[:width]}x#{video.maxed_size[:height]}"
 
-        if system("ffmpeg -i #{video.path} -r 1 -ss #{video.poster_time} -vcodec mjpeg -vframes 1 -f image2 -s #{wxh} #{path} 2>> #{Config.path('ffmpeg_log_file')}")
+        if system("ffmpeg -i #{video.path} -r 1 -ss #{video.poster_time} -vcodec png -vframes 1 -f image2 -s #{wxh} #{path} 2>> #{Config.path('ffmpeg_log_file')}")
           video.deliverables.push path
           $log.info "Done poster for #{video.name}"
           return true

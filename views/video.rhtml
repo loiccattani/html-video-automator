@@ -45,7 +45,7 @@
     <!-- Begin VideoJS -->
     <div class="video-js-box">
       <!-- Using the Video for Everybody Embed Code http://camendesign.com/code/video_for_everybody -->
-      <video class="video-js" width="<%= size[:width] %>" height="<%= size[:height] %>" controls preload poster="<%= "#{pub_url}/#{name}" %>.jpg">
+      <video class="video-js" width="<%= size[:width] %>" height="<%= size[:height] %>" controls preload poster="<%= "#{pub_url}/#{name}" %>.png">
         <source src="<%= "#{pub_url}/#{name}" %>.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
         <source src="<%= "#{pub_url}/#{name}" %>.webm" type='video/webm; codecs="vp8, vorbis"' />
         <!-- Flash Fallback. Use any flash video player here. Make sure to keep the vjs-flash-fallback class. -->
@@ -54,9 +54,9 @@
           <param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" />
           <param name="allowfullscreen" value="true" />
           <param name="flashvars" 
-            value='config={"playlist":["<%= "#{pub_url}/#{name}" %>.jpg", {"url": "<%= "#{pub_url}/#{name}" %>.mp4","autoPlay":false,"autoBuffering":true}]}' />
+            value='config={"playlist":["<%= "#{pub_url}/#{name}" %>.png", {"url": "<%= "#{pub_url}/#{name}" %>.mp4","autoPlay":false,"autoBuffering":true}]}' />
           <!-- Image Fallback. Typically the same as the poster image. -->
-          <img src="<%= "#{pub_url}/#{name}" %>.jpg" width="<%= size[:width] %>" height="<%= size[:height] %>" alt="Poster Image" 
+          <img src="<%= "#{pub_url}/#{name}" %>.png" width="<%= size[:width] %>" height="<%= size[:height] %>" alt="Poster Image" 
             title="No video playback capabilities." />
         </object>
       </video>
