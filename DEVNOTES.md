@@ -62,6 +62,8 @@ Prévoir de pouvoir configurer:
   - Changelog dès initial release
   - p2: Afficher partie de log propre au job dans job report
   - Déplacer les fichiers en traitement pour ne plus les avoir dans la dropbox
+  - Vérifier propriétés CSS3 pour autres pour autres navigateurs (vendor prefixes)
+  - Utiliser les classes modernizr pour styler en fonction des capacités des navigateurs
   
 # Failles de sécurité
 
