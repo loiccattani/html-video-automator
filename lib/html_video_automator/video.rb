@@ -2,7 +2,7 @@ require 'digest/sha1'
 
 module HTMLVideoAutomator
   class Video
-    attr_accessor :path, :relative_path, :filename, :name, :digest, :size, :maxed_size, :duration, :filesize, :tasks, :fail_reason, :deliverables
+    attr_accessor :path, :relative_path, :filename, :name, :digest, :size, :maxed_size, :duration, :file_size, :tasks, :fail_reason, :deliverables
     attr_writer :tasks, :fail_reason, :deliverables
     
     def initialize(path)
@@ -14,8 +14,8 @@ module HTMLVideoAutomator
       # TODO: load @ffmpeg_info here... Think about it
       @size = get_size
       @maxed_size = get_maxed_size
-      @duration = '0s' #TODO: duration
-      @filesize = '0kb' #TODO: filesize
+      @duration = '0'
+      @file_size = File.size(@path)
       @tasks = { :validate => :unknown, :encode_mp4 => :unknown, :encode_webm => :unknown, :gen_poster => :unknown, :gen_html => :unknown, :publish => :unknown, :archive => :unknown }
       @fail_reason = nil
       @deliverables = Array.new
@@ -29,6 +29,26 @@ module HTMLVideoAutomator
         $log.error @fail_reason = 'No video stream found'
       end
       return match
+    end
+    
+    def human_size(precision = 2) # TODO: Refactor this as an helper method
+      storage_units = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+
+      number = @file_size.to_f
+
+      if number.to_i < 1024
+        unit = "Bytes"
+        return "#{number.to_i} #{unit}"
+      else
+        max_exp  = storage_units.size - 1
+        exponent = (Math.log(number) / Math.log(1024)).to_i # Convert to base 1024
+        exponent = max_exp if exponent > max_exp # we need this to avoid overflow for the highest unit
+        number  /= 1024 ** exponent
+
+        unit = storage_units[exponent]
+        formatted_number = number.round(precision)
+        return "#{formatted_number} #{unit}"
+      end
     end
     
     private

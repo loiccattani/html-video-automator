@@ -55,7 +55,7 @@
 <% end %>
             <td><%= video.size[:width].to_s + "&times;" + video.size[:height].to_s %></td>
             <td><%= video.duration %></td>
-            <td><%= video.filesize %></td>
+            <td><%= video.human_size %></td>
           </tr>
 <% end %>
 <% if videos.empty? %>
