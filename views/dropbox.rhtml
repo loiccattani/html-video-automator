@@ -53,9 +53,9 @@
 <% else %>
             <td class="failed">Failed</td>
 <% end %>
-            <td><%= video.size[:width].to_s + "&times;" + video.size[:height].to_s %></td>
-            <td><%= video.duration %></td>
-            <td><%= video.human_size %></td>
+            <td><%= video.size[:width].to_s + "&times;" + video.size[:height].to_s if video.valid? %></td>
+            <td><%= video.duration if video.valid? %></td>
+            <td><%= number_to_human_size(video.file_size) %></td>
           </tr>
 <% end %>
 <% if videos.empty? %>

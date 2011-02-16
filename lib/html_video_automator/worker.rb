@@ -33,8 +33,9 @@ module HTMLVideoAutomator
         filename = "#{video.name}.png"
         path = Config.path('deliverables') + "/" + filename
         wxh = "#{video.maxed_size[:width]}x#{video.maxed_size[:height]}"
+        poster_time = seconds_to_duration(duration_to_seconds(video.duration) * 0.5)
 
-        if system("ffmpeg -i #{video.path} -r 1 -ss #{video.poster_time} -vcodec png -vframes 1 -f image2 -s #{wxh} #{path} 2>> #{Config.path('ffmpeg_log_file')}")
+        if system("ffmpeg -i #{video.path} -r 1 -ss #{video.duration} -vcodec png -vframes 1 -f image2 -s #{wxh} #{path} 2>> #{Config.path('ffmpeg_log_file')}")
           video.deliverables.push path
           $log.info "Done poster for #{video.name}"
           return true

@@ -31,30 +31,6 @@ module HTMLVideoAutomator
       end
       return match
     end
-    
-    def human_size(precision = 2) # TODO: Refactor this as an helper method
-      storage_units = ['Bytes', 'KB', 'MB', 'GB', 'TB']
-
-      number = @file_size.to_f
-
-      if number.to_i < 1024
-        unit = "Bytes"
-        return "#{number.to_i} #{unit}"
-      else
-        max_exp  = storage_units.size - 1
-        exponent = (Math.log(number) / Math.log(1024)).to_i # Convert to base 1024
-        exponent = max_exp if exponent > max_exp # we need this to avoid overflow for the highest unit
-        number  /= 1024 ** exponent
-
-        unit = storage_units[exponent]
-        formatted_number = number.round(precision)
-        return "#{formatted_number} #{unit}"
-      end
-    end
-    
-    def poster_time
-      seconds_to_duration(get_seconds * 0.5)
-    end
         
     private
     
@@ -71,13 +47,6 @@ module HTMLVideoAutomator
     
     def get_duration()
       @ffmpeg_info[/Duration:\s([0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{2})/, 1]
-    end
-    
-    def get_seconds(precision = 2)
-      hours = @duration[/([0-9]{2}):([0-9]{2}):([0-9]{2})\.([0-9]{2})/, 1].to_i
-      minutes = @duration[/([0-9]{2}):([0-9]{2}):([0-9]{2})\.([0-9]{2})/, 2].to_i
-      seconds = @duration[/([0-9]{2}):([0-9]{2}):([0-9]{2}\.[0-9]{2})/, 3].to_f
-      duration = hours * 3600 + minutes * 60 + seconds.round(precision)
     end
     
     def get_maxed_size
@@ -109,38 +78,6 @@ module HTMLVideoAutomator
     
     def aspect_ratio(width, height)
       return width.to_f / height.to_f
-    end
-    
-    def seconds_to_duration(seconds)
-      hours = (seconds / 3600).floor
-      mins = ((seconds % 3600) / 60).floor
-      secs = ((seconds % 3600) % 60).round(2)
-      decimal = ((secs - secs.floor) * 100).to_i
-      sprintf("%02d", hours) + ":" + sprintf("%02d", mins) + ":" + sprintf("%02d", secs) + "." + sprintf("%02d", decimal)
-    end
-    
-    def transliterate(str) #TODO: Refactor this as an helper method
-      # Based on permalink_fu by Rick Olsen
-
-      # Escape str by transliterating to UTF-8 with Iconv
-      s = Iconv.iconv('ascii//ignore//translit', 'utf-8', str).to_s
-
-      # Downcase string
-      s.downcase!
-
-      # Remove apostrophes so isn't changes to isnt
-      s.gsub!(/'/, '')
-
-      # Replace any non-letter or non-number character with a space
-      s.gsub!(/[^A-Za-z0-9]+/, ' ')
-
-      # Remove spaces from beginning and end of string
-      s.strip!
-
-      # Replace groups of spaces with single hyphen
-      s.gsub!(/\ +/, '-')
-
-      return s
     end
 
   end
