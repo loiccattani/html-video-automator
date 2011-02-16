@@ -35,7 +35,7 @@ module HTMLVideoAutomator
     private
     
     def get_ffmpeg_info
-      str = `ffmpeg -i #{@path} 2>&1` # ffmpeg outputs to stderr!
+      str = `ffmpeg -i "#{@path}" 2>&1` # ffmpeg outputs to stderr!
       Iconv.iconv('ascii//ignore//translit', 'utf-8', str).to_s
     end
     

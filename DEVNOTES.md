@@ -63,3 +63,11 @@ Prévoir de pouvoir configurer:
   - p2: Afficher partie de log propre au job dans job report
   - Déplacer les fichiers en traitement pour ne plus les avoir dans la dropbox
   
+# Failles de sécurité
+
+  1. Un nom de fichier préparé pour exploiter cette faille peut executer du code en ligne de commande sous l'utilisateur actuel
+     In: worker.rb, lines 15, 19, 38, 100
+     In: video.rb, line 38
+     => Partout ou le chemin du fichier (video.path) est utilisé dans une commande système
+     Priorité: moyenne (La dropbox n'étant pas en libre accès)
+  

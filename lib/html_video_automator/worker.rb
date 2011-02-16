@@ -12,11 +12,11 @@ module HTMLVideoAutomator
         when 'mp4'
           filename = "#{video.name}.mp4"
           path = Config.path('deliverables') + "/" + filename
-          status = system("ffmpeg -y -i #{video.path} -threads 0 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s #{wxh} #{path} 2>> #{Config.path('ffmpeg_log_file')}")
+          status = system("ffmpeg -y -i '#{video.path}' -threads 0 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s #{wxh} #{path} 2>> #{Config.path('ffmpeg_log_file')}")
         when 'webm'
           filename = "#{video.name}.webm"
           path = Config.path('deliverables') + "/" + filename
-          status = system("ffmpeg -y -i #{video.path} -threads 0 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s #{wxh} #{path} 2>> #{Config.path('ffmpeg_log_file')}")
+          status = system("ffmpeg -y -i '#{video.path}' -threads 0 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s #{wxh} #{path} 2>> #{Config.path('ffmpeg_log_file')}")
         end
         
         if status
@@ -35,7 +35,7 @@ module HTMLVideoAutomator
         wxh = "#{video.maxed_size[:width]}x#{video.maxed_size[:height]}"
         poster_time = seconds_to_duration(duration_to_seconds(video.duration) * 0.5)
 
-        if system("ffmpeg -i #{video.path} -r 1 -ss #{video.duration} -vcodec png -vframes 1 -f image2 -s #{wxh} #{path} 2>> #{Config.path('ffmpeg_log_file')}")
+        if system("ffmpeg -i '#{video.path}' -r 1 -ss #{poster_time} -vcodec png -vframes 1 -f image2 -s #{wxh} #{path} 2>> #{Config.path('ffmpeg_log_file')}")
           video.deliverables.push path
           $log.info "Done poster for #{video.name}"
           return true
@@ -97,7 +97,7 @@ module HTMLVideoAutomator
       end
       
       def archive(video)
-        cmd = "scp -i ~/.ssh/#{Config['ssh_key']} #{video.path} #{Config['archive']['user']}@#{Config['archive']['server']}:#{Config['archive']['path']}/"
+        cmd = "scp -i ~/.ssh/#{Config['ssh_key']} '#{video.path}' #{Config['archive']['user']}@#{Config['archive']['server']}:#{Config['archive']['path']}/"
         if system(cmd)
           $log.info "Archived #{video.name} source to #{Config['archive']['server']}"
           return true
