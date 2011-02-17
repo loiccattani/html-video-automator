@@ -210,6 +210,31 @@ td, th {
   padding: 3px 4px;
 }
 
+#home header {
+  margin: 18em 0 5em 0;
+  text-shadow: 0px 0px 3px rgb(255,255,255), 0px -1px 50px rgb(255,0,255);
+  
+}
+
+#home header:hover {
+  text-shadow: 0px 0px 3px rgb(255,255,255), 0px -1px 120px rgb(255,0,255);
+}
+
+#home header h1 {
+  font-size: 56px;
+}
+
+#home #main {
+  text-align: center;
+  padding: 1em;
+}
+
+#home #main a {
+  margin: 1em 0;
+  font-size: 120%;
+  text-decoration: none;
+}
+
 #dropbox td:first-child,
 #dropbox th:first-child {
   width: 20px;
