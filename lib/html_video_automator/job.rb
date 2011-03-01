@@ -71,13 +71,13 @@ module HTMLVideoAutomator
       when :validate
         result = video.valid?
       when :encode_mp4
-        result = Worker.encode video, :format => 'mp4'
+        result = video.encode 'mp4'
       when :encode_webm
-        result = Worker.encode video, :format => 'webm'
+        result = video.encode 'webm'
       when :gen_poster
-        result = Worker.gen_poster video
+        result = video.gen_poster
       when :gen_html
-        result = Worker.gen_html video
+        result = video.gen_html
       when :publish
         result = publish video
       when :archive
@@ -129,12 +129,6 @@ module HTMLVideoAutomator
       return true
     end
     
-    def clean_local_files(video)
-      $log.info "Cleaning local source and deliverables for #{video.name}"
-      FileUtils.rm video.deliverables
-      FileUtils.rm video.path
-    end
-    
     def prepare_publish_server
       # Create job-id directory
       cmd = "ssh -q -i ~/.ssh/#{Config['ssh_key']} #{Config['publish']['user']}@#{Config['publish']['server']} \'mkdir -p #{Config['publish']['path']}/job-#{@id}\'"
@@ -173,6 +167,12 @@ module HTMLVideoAutomator
         $log.error video.fail_reason = "Error archiving #{video.name} source"
         return false
       end
+    end
+    
+    def clean_local_files(video)
+      $log.info "Cleaning local source and deliverables for #{video.name}"
+      FileUtils.rm video.deliverables
+      FileUtils.rm video.path
     end
     
     def try_lock

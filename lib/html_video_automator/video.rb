@@ -31,6 +31,69 @@ module HTMLVideoAutomator
       end
       return match
     end
+    
+    def encode(format)
+      start_time = Time.now
+      wxh = "#{@maxed_size[:width]}x#{@maxed_size[:height]}"
+
+      case format
+      when 'mp4'
+        filename = "#{@name}.mp4"
+        output_path = Config.path('deliverables') + "/" + filename
+        status = system("ffmpeg -y -i '#{@path}' -threads 0 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s #{wxh} #{output_path} 2>> #{Config.path('ffmpeg_log_file')}")
+      when 'webm'
+        filename = "#{@name}.webm"
+        output_path = Config.path('deliverables') + "/" + filename
+        status = system("ffmpeg -y -i '#{@path}' -threads 0 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s #{wxh} #{output_path} 2>> #{Config.path('ffmpeg_log_file')}")
+      end
+      
+      if status
+        @deliverables.push output_path
+        $log.info "Done encoding #{filename}. Elapsed #{(Time.now - start_time).to_i}s"
+        return true
+      else
+        $log.error @fail_reason = "ffmpeg returned an error encoding #{filename}"
+        return false
+      end
+    end
+    
+    def gen_poster
+      filename = "#{@name}.png"
+      output_path = Config.path('deliverables') + "/" + filename
+      wxh = "#{@maxed_size[:width]}x#{@maxed_size[:height]}"
+      poster_time = seconds_to_duration(duration_to_seconds(@duration) * 0.5)
+
+      if system("ffmpeg -i '#{@path}' -r 1 -ss #{poster_time} -vcodec png -vframes 1 -f image2 -s #{wxh} #{output_path} 2>> #{Config.path('ffmpeg_log_file')}")
+        @deliverables.push output_path
+        $log.info "Done poster for #{@name}"
+        return true
+      else
+        $log.error @fail_reason = "ffmpeg returned an error creating poster for #{@name}"
+        return false
+      end
+    end
+    
+    def gen_html
+      name = @name
+      filename = "#{@name}.html"
+      output_path = Config.path('deliverables') + "/" + filename
+      size = @maxed_size
+      pub_url = Config['pub_url']
+      
+      begin
+        erb = ERB.new File.new(File.dirname(__FILE__) + '/../../views/video.rhtml').read, nil, "%"
+        File.open("#{output_path}", 'w') do |f|
+          f.write erb.result(binding)
+        end
+      rescue Exception => e
+        $log.error @fail_reason = "Unexpected error building HTML document for #{@name}: #{e}"
+        return false
+      end
+      
+      @deliverables.push output_path
+      $log.info "Built HTML document for #{@name}"
+      return true
+    end
         
     private
     
