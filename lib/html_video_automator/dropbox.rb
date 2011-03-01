@@ -1,3 +1,5 @@
+require "erb"
+
 module HTMLVideoAutomator
   class Dropbox
     class << self
