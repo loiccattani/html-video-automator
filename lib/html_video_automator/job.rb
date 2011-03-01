@@ -110,7 +110,23 @@ module HTMLVideoAutomator
     end
     
     def report(type = :in_progress)
-      Worker.gen_job_report(@id, @videos, @start_time, type)
+      elapsed = "#{Time.now - @start_time}s"
+      pub_url = Config['pub_url']
+      job_id = @id
+      videos = @videos
+      
+      begin
+        erb = ERB.new File.new(File.dirname(__FILE__) + '/../../views/job-report.rhtml').read, nil, "%"
+        File.open("#{Config.path('public')}/jobs/job-report-#{@id}.html", 'w') do |f|
+          f.write erb.result(binding)
+        end
+      rescue Exception => e
+        $log.error "Unexpected error building job report: #{e}"
+        return false
+      end
+      
+      $log.debug "Built job report"
+      return true
     end
     
     def clean_local_files(video)

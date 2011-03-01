@@ -2,7 +2,7 @@
 <html class="no-js">
 <head>
   <meta charset="utf-8">
-  <% if report_type == :in_progress %>
+  <% if  type == :in_progress %>
   <meta http-equiv="refresh" content="2" >
   <% end %>
   <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
@@ -39,7 +39,7 @@
     <section id="report">
       <h3>Job #<%= job_id %></h3>
       
-<% if report_type == :final %>
+<% if  type == :final %>
       <div id="status" class="final">
         <p>
           <strong>Done!</strong><br>
