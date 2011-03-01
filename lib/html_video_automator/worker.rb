@@ -84,28 +84,6 @@ module HTMLVideoAutomator
         $log.debug "Built job report"
         return true
       end
-      
-      def publish(video)
-        cmd = "scp -i ~/.ssh/#{Config['ssh_key']} #{video.deliverables.join(' ')} #{Config['publish']['user']}@#{Config['publish']['server']}:#{Config['publish']['path']}/"
-        if system(cmd)
-          $log.info "Published #{video.name} to #{Config['publish']['server']}"
-          return true
-        else
-          $log.error video.fail_reason = "Error publishing #{video.name}"
-          return false
-        end
-      end
-      
-      def archive(video)
-        cmd = "scp -i ~/.ssh/#{Config['ssh_key']} '#{video.path}' #{Config['archive']['user']}@#{Config['archive']['server']}:#{Config['archive']['path']}/"
-        if system(cmd)
-          $log.info "Archived #{video.name} source to #{Config['archive']['server']}"
-          return true
-        else
-          $log.error video.fail_reason = "Error archiving #{video.name} source"
-          return false
-        end
-      end
     end
   end
 end

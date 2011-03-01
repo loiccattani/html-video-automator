@@ -35,6 +35,9 @@ module HTMLVideoAutomator
       try_lock if Config['enable_mutex'] == true
       $log.info "Job ##{@id} Started"
       
+      prepare_publish_server
+      prepare_archive_server
+      
       @videos.each do |video|
         $log.info "Processing #{video.filename}"
         
@@ -76,9 +79,9 @@ module HTMLVideoAutomator
       when :gen_html
         result = Worker.gen_html video
       when :publish
-        result = Worker.publish video
+        result = publish video
       when :archive
-        result = Worker.archive video
+        result = archive video
       end
       
       update_task(video, task, result)
@@ -114,6 +117,46 @@ module HTMLVideoAutomator
       $log.info "Cleaning local source and deliverables for #{video.name}"
       FileUtils.rm video.deliverables
       FileUtils.rm video.path
+    end
+    
+    def prepare_publish_server
+      # Create job-id directory
+      cmd = "ssh -q -i ~/.ssh/#{Config['ssh_key']} #{Config['publish']['user']}@#{Config['publish']['server']} \'mkdir -p #{Config['publish']['path']}/job-#{@id}\'"
+      unless system(cmd)
+        $log.fatal "Error creating job directory on publish server"
+        abort
+      end
+    end
+    
+    def prepare_archive_server
+      # Create job-id directory
+      cmd = "ssh -q -i ~/.ssh/#{Config['ssh_key']} #{Config['archive']['user']}@#{Config['archive']['server']} \'mkdir -p #{Config['archive']['path']}/job-#{@id}\'"
+      unless system(cmd)
+        $log.fatal "Error creating job directory on archive server"
+        abort
+      end
+    end
+    
+    def publish(video)
+      cmd = "scp -q -i ~/.ssh/#{Config['ssh_key']} #{video.deliverables.join(' ')} #{Config['publish']['user']}@#{Config['publish']['server']}:#{Config['publish']['path']}/job-#{@id}/"
+      if system(cmd)
+        $log.info "Published #{video.name} to #{Config['publish']['server']}"
+        return true
+      else
+        $log.error video.fail_reason = "Error publishing #{video.name}"
+        return false
+      end
+    end
+    
+    def archive(video)
+      cmd = "scp -q -i ~/.ssh/#{Config['ssh_key']} '#{video.path}' #{Config['archive']['user']}@#{Config['archive']['server']}:#{Config['archive']['path']}/job-#{@id}/"
+      if system(cmd)
+        $log.info "Archived #{video.name} source to #{Config['archive']['server']}"
+        return true
+      else
+        $log.error video.fail_reason = "Error archiving #{video.name} source"
+        return false
+      end
     end
     
     def try_lock

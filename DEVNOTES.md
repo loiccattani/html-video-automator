@@ -62,12 +62,13 @@ Prévoir de pouvoir configurer:
   - Changelog dès initial release
   - p2: Afficher partie de log propre au job dans job report
   - Déplacer les fichiers en traitement pour ne plus les avoir dans la dropbox
-  - Vérifier propriétés CSS3 pour autres pour autres navigateurs (vendor prefixes)
+  - Vérifier propriétés CSS3 pour autres navigateurs (vendor prefixes)
   - Utiliser les classes modernizr pour styler en fonction des capacités des navigateurs
   - Options parametrables (Bien réfléchir à comment l'implémenter pour que cela reste simple, limpide et inobtrusif)
     - Taille de la vidéo (p.ex 565 max width pr Jahia)
     - Position temporelle du poster
-  - Publier et Archiver les fichiers dans dossier numéroté par job
+  - Uniformiser appelations publish/content et archive/source servers
+  - Se poser la question de du fondement de la classe Worker
   
 # Failles de sécurité
 
