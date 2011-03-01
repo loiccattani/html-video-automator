@@ -57,7 +57,6 @@ Prévoir de pouvoir configurer:
 
 # TODO
 
-  - Afficher warning en cas de nom déjà existant dans publish ou archive. (?)
   - Ajouter métadonnées (Ce qu'on a) dans la template HTML pour info
   - Changelog dès initial release
   - p2: Afficher partie de log propre au job dans job report
@@ -67,8 +66,6 @@ Prévoir de pouvoir configurer:
   - Options parametrables (Bien réfléchir à comment l'implémenter pour que cela reste simple, limpide et inobtrusif)
     - Taille de la vidéo (p.ex 565 max width pr Jahia)
     - Position temporelle du poster
-  - Uniformiser appelations publish/content et archive/source servers
-  - Se poser la question de du fondement de la classe Worker
   
 # Failles de sécurité
 

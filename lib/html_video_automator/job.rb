@@ -35,8 +35,8 @@ module HTMLVideoAutomator
       try_lock if Config['enable_mutex'] == true
       $log.info "Job ##{@id} Started"
       
-      prepare_publish_server
-      prepare_archive_server
+      prepare_content_server
+      prepare_sources_server
       
       @videos.each do |video|
         $log.info "Processing #{video.filename}"
@@ -129,28 +129,28 @@ module HTMLVideoAutomator
       return true
     end
     
-    def prepare_publish_server
+    def prepare_content_server
       # Create job-id directory
-      cmd = "ssh -q -i ~/.ssh/#{Config['ssh_key']} #{Config['publish']['user']}@#{Config['publish']['server']} \'mkdir -p #{Config['publish']['path']}/job-#{@id}\'"
+      cmd = "ssh -q -i ~/.ssh/#{Config['ssh_key']} #{Config['content_server']['user']}@#{Config['content_server']['host']} \'mkdir -p #{Config['content_server']['path']}/job-#{@id}\'"
       unless system(cmd)
-        $log.fatal "Error creating job directory on publish server"
+        $log.fatal "Error creating job directory on content server"
         abort
       end
     end
     
-    def prepare_archive_server
+    def prepare_sources_server
       # Create job-id directory
-      cmd = "ssh -q -i ~/.ssh/#{Config['ssh_key']} #{Config['archive']['user']}@#{Config['archive']['server']} \'mkdir -p #{Config['archive']['path']}/job-#{@id}\'"
+      cmd = "ssh -q -i ~/.ssh/#{Config['ssh_key']} #{Config['sources_server']['user']}@#{Config['sources_server']['host']} \'mkdir -p #{Config['sources_server']['path']}/job-#{@id}\'"
       unless system(cmd)
-        $log.fatal "Error creating job directory on archive server"
+        $log.fatal "Error creating job directory on sources server"
         abort
       end
     end
     
     def publish(video)
-      cmd = "scp -q -i ~/.ssh/#{Config['ssh_key']} #{video.deliverables.join(' ')} #{Config['publish']['user']}@#{Config['publish']['server']}:#{Config['publish']['path']}/job-#{@id}/"
+      cmd = "scp -q -i ~/.ssh/#{Config['ssh_key']} #{video.deliverables.join(' ')} #{Config['content_server']['user']}@#{Config['content_server']['host']}:#{Config['content_server']['path']}/job-#{@id}/"
       if system(cmd)
-        $log.info "Published #{video.name} to #{Config['publish']['server']}"
+        $log.info "Published #{video.name} to #{Config['content_server']['host']}"
         return true
       else
         $log.error video.fail_reason = "Error publishing #{video.name}"
@@ -159,9 +159,9 @@ module HTMLVideoAutomator
     end
     
     def archive(video)
-      cmd = "scp -q -i ~/.ssh/#{Config['ssh_key']} '#{video.path}' #{Config['archive']['user']}@#{Config['archive']['server']}:#{Config['archive']['path']}/job-#{@id}/"
+      cmd = "scp -q -i ~/.ssh/#{Config['ssh_key']} '#{video.path}' #{Config['sources_server']['user']}@#{Config['sources_server']['host']}:#{Config['sources_server']['path']}/job-#{@id}/"
       if system(cmd)
-        $log.info "Archived #{video.name} source to #{Config['archive']['server']}"
+        $log.info "Archived #{video.name} source to #{Config['sources_server']['host']}"
         return true
       else
         $log.error video.fail_reason = "Error archiving #{video.name} source"

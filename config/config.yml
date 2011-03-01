@@ -16,21 +16,21 @@ ffmpeg_log_file: log/ffmpeg.log
 
 # Public access URLs
 app_root_url: http://hva.dev # Serving documents from the app's 'public' directory
-pub_url: http://av.unil.ch/hva # Serving documents from 'publish[path]'
+pub_url: http://av.unil.ch/hva # Serving documents from 'content_server[path]'
 
 # SSH key for public key authentication to content and sources servers
 ssh_key: hva-key-2011 # To be found in the hva user's home .ssh directory
 
 # Where to publish content
-publish:
+content_server:
   user: hva
-  server: av.unil.ch
+  host: av.unil.ch
   path: /var/www/av-medias/hva
 
 # Where to archive source files
-archive:
+sources_server:
   user: hva
-  server: av.unil.ch
+  host: av.unil.ch
   path: /var/hva/sources
 
 # Video output settings

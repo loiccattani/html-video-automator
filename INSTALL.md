@@ -8,11 +8,11 @@ Unfortunately there is no easy one-step install wizard... You'll need to get you
   - Ruby 1.9.2 or later
   - Apache 2.2 with mod_rewrite and suEXEC properly configured
   - ffmpeg 0.6.1 or later #TODO: Specify external libraries used and configure options
-- A *content* web publishing server
+- A *content* server for web publishing
 
 ### Optional:
 
-- A *sources* archiving server
+- A *sources* server to archive source video files
 
 ### SSH with public key authentication
 
@@ -41,7 +41,7 @@ Edit the file `config/config.yml` and set any value needed, at least:
 - `app_root_url` to the public access URL to the HVA main server
 - `pub_url` to the public access URL where the files will be published
 - `ssh_key` to the private key name used to SSH in the *content* and *sources* servers
-- `publish` and `archive` sections
+- `content_server` and `sources_server` sections
 
 ### Configure the web server
 
