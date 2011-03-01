@@ -5,11 +5,11 @@ Begin:  2011.01.28
 
 ## Définition du problème
 
-Nous avons des vidéos qui arrivent dans n'importe quels formats et nous voulons les rendre disponible à tous sur internet
+Nous avons des vidéos qui arrivent dans divers formats et nous voulons les rendre disponible à tous via internet
 
 ## Besoins fonctionnels
 
-Une boîte de dépôt est définie dans laquelle on place les fichiers à traiter. Cette boîte est surveillée et un script est lancé dès qu'un fichier s'y trouve ajouté. Ce script encode les vidéos dans les formats requis et génère un document HTML présentant la vidéo. Il copie ensuite l'ensemble des fichiers sur un serveur web.
+On place les fichiers à traiter dans une boîte de dépôt. Un script encode les vidéos dans les formats requis et génère un document HTML présentant la vidéo. Il copie ensuite l'ensemble des fichiers sur un serveur web.
 
 ### Boucle de traitement
 
@@ -41,10 +41,6 @@ Pour des raisons de sécurité, les valeurs soumises ne devraient pas contenir l
 
 Un script ruby CGI s'occupe de tout ceci.
 
-### Ecrasement de fichiers déjà présents
-
-Si un fichier portant le même nom qu'un fichier déjà traité est soumis à HVA, il sera traité sans distinction et le fichier précedemment traité sera écrasé. Cela est souhaité afin de permettre le réencodage d'un fichier qui aurait été modifié depuis son premier traitement.
-
 ## Problèmes à résoudre / Questions
 
   - Profils vidéo pour l'encodage (Quelle cible visons-nous: taille, débit, qualité, etc... ): Vérifier!
@@ -66,6 +62,7 @@ Prévoir de pouvoir configurer:
   - Options parametrables (Bien réfléchir à comment l'implémenter pour que cela reste simple, limpide et inobtrusif)
     - Taille de la vidéo (p.ex 565 max width pr Jahia)
     - Position temporelle du poster
+  - Ajouter zone de texte dans la vue vidéo permettant de copier le code HTML afin de l'inclure dans un autre document.
   
 # Failles de sécurité
 
