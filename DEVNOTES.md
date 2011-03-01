@@ -64,6 +64,10 @@ Prévoir de pouvoir configurer:
   - Déplacer les fichiers en traitement pour ne plus les avoir dans la dropbox
   - Vérifier propriétés CSS3 pour autres pour autres navigateurs (vendor prefixes)
   - Utiliser les classes modernizr pour styler en fonction des capacités des navigateurs
+  - Options parametrables (Bien réfléchir à comment l'implémenter pour que cela reste simple, limpide et inobtrusif)
+    - Taille de la vidéo (p.ex 565 max width pr Jahia)
+    - Position temporelle du poster
+  - Publier et Archiver les fichiers dans dossier numéroté par job
   
 # Failles de sécurité
 
