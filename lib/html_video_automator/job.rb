@@ -102,7 +102,7 @@ module HTMLVideoAutomator
         end
       rescue Exception => e
         $log.fatal "Error getting new job id: #{e}"
-        abort("Error getting new job id: #{e}")
+        abort
       end
       
       $log.debug "Got job id ##{job_id}"
@@ -163,8 +163,8 @@ module HTMLVideoAutomator
       begin
         FileUtils.mkdir '/tmp/hva-lock'
       rescue Exception => e
-        $log.info "HVA already running. Aborting..."
-        abort("HVA already running. #{e}")
+        $log.fatal "HVA already running. Aborting..."
+        abort
       end
       $log.debug "Successfully locked mutex"
     end
