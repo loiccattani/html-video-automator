@@ -7,7 +7,7 @@ module HTMLVideoAutomator
     def initialize
       @videos = Array.new
       @id = get_new_id
-      @report_url = "#{Config['app_root_url']}/jobs/job-report-#{@id}.html" # TODO: Move that sub path in config (also in worker.rb)
+      @report_url = "#{Config['app_root_url']}/jobs/job-report-#{@id}.html" # TODO: Move that sub path in config
     end
     
     def prepare(hashes)
@@ -32,7 +32,7 @@ module HTMLVideoAutomator
     end
     
     def start
-      try_lock if Config['enable_mutex'] == true
+      try_lock if Config['enable_mutex']
       $log.info "Job ##{@id} Started"
       
       prepare_content_server
@@ -56,7 +56,7 @@ module HTMLVideoAutomator
       
       report(:final)
       
-      unlock if Config['enable_mutex'] == true
+      unlock if Config['enable_mutex']
       $log.info "No more work! Will take a nap..."
     end
     
@@ -64,7 +64,7 @@ module HTMLVideoAutomator
     
     def do_task(task, video)
       video.tasks[task] = :working
-      $log.debug "Tagged #{task.to_s} to working for #{video.name}"
+      $log.debug "Tagged task '#{task.to_s}' to 'working' for #{video.name}"
       report
       
       case task
