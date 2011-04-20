@@ -45,7 +45,7 @@ module HTMLVideoAutomator
       when 'webm'
         filename = "#{@name}.webm"
         output_path = Config.path('deliverables') + "/" + filename
-        status = system("ffmpeg -y -i '#{@path}' -threads 0 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s #{wxh} #{output_path} 2>> #{Config.path('ffmpeg_log_file')}")
+        status = system("ffmpeg -y -i '#{@path}' -threads 8 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s #{wxh} #{output_path} 2>> #{Config.path('ffmpeg_log_file')}")
       end
       
       if status
