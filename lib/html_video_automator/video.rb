@@ -3,8 +3,8 @@ require 'iconv'
 
 module HTMLVideoAutomator
   class Video
-    attr_accessor :path, :relative_path, :filename, :name, :digest, :size, :maxed_size, :duration, :file_size, :tasks, :fail_reason, :deliverables
-    attr_writer :tasks, :fail_reason, :deliverables
+    attr_accessor :path, :relative_path, :filename, :name, :digest, :size, :maxed_size, :duration, :file_size, :tasks, :fail_reason, :deliverables, :pub_url
+    attr_writer :tasks, :fail_reason, :deliverables, :pub_url
     
     def initialize(path)
       @path = path
@@ -20,6 +20,7 @@ module HTMLVideoAutomator
       @tasks = { :validate => :unknown, :encode_mp4 => :unknown, :encode_webm => :unknown, :gen_poster => :unknown, :gen_html => :unknown, :publish => :unknown, :archive => :unknown }
       @fail_reason = nil
       @deliverables = Array.new
+      @pub_url = nil
     end
     
     def valid?
@@ -40,7 +41,7 @@ module HTMLVideoAutomator
       when 'mp4'
         filename = "#{@name}.mp4"
         output_path = Config.path('deliverables') + "/" + filename
-        status = system("ffmpeg -y -i '#{@path}' -threads 0 -f mp4 -vcodec libx264 -vpre slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s #{wxh} #{output_path} 2>> #{Config.path('ffmpeg_log_file')}")
+        status = system("ffmpeg -y -i '#{@path}' -threads 0 -f mp4 -vcodec libx264 -preset slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s #{wxh} #{output_path} 2>> #{Config.path('ffmpeg_log_file')}")
       when 'webm'
         filename = "#{@name}.webm"
         output_path = Config.path('deliverables') + "/" + filename
@@ -78,7 +79,7 @@ module HTMLVideoAutomator
       filename = "#{@name}.html"
       output_path = Config.path('deliverables') + "/" + filename
       size = @maxed_size
-      pub_url = Config['pub_url']
+      pub_url = @pub_url
       
       begin
         erb = ERB.new File.new(File.dirname(__FILE__) + '/../../views/video.rhtml').read, nil, "%"

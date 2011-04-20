@@ -8,6 +8,7 @@ module HTMLVideoAutomator
       @videos = Array.new
       @id = get_new_id
       @report_url = "#{Config['app_root_url']}/jobs/job-report-#{@id}.html" # TODO: Move that sub path in config
+      @pub_url = "#{Config['pub_url']}/job-#{@id}"
     end
     
     def prepare(hashes)
@@ -40,6 +41,7 @@ module HTMLVideoAutomator
       
       @videos.each do |video|
         $log.info "Processing #{video.filename}"
+        video.pub_url = @pub_url
         
         next unless do_task :validate, video
         
@@ -111,7 +113,7 @@ module HTMLVideoAutomator
     
     def report(type = :in_progress)
       elapsed = "#{Time.now - @start_time}s"
-      pub_url = Config['pub_url']
+      pub_url = @pub_url
       job_id = @id
       videos = @videos
       
