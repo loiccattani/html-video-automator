@@ -47,7 +47,7 @@ Edit the file `config/config.yml` and set any value needed, at least:
 
 Configure Apache to serve the `public` directory as the DocumentRoot.
 
-SuEXEC is used to specify which user runs the app. This is needed mainly for security reasons, but it comes handy to have a place where to put the SSH private key used to connect with other servers.
+SuEXEC is used to specify a who user runs the app. Typically we'll create a new user named 'hva'. This is needed mainly for security reasons, but it comes handy to have a place where to put the SSH private key used to connect with other servers.
 
 #### Example of virtual host configuration
     <VirtualHost *:80>
@@ -67,8 +67,8 @@ SuEXEC is used to specify which user runs the app. This is needed mainly for sec
 
 A little off-topic but can be useful:
 
-For security reasons suEXEC need to be configured at compile time with restrictive settings, such as the caller ID and document root from which suEXEC can be used. Don't forget to modify these in the `configure` command below.
+For security reasons, suEXEC need to be configured at compile time with restrictive settings, such as the caller ID and document root from which suEXEC can be used. Don't forget to modify these in the `configure` command below.
 
-`./configure --enable-mods-shared=all --enable-suexec --with-suexec-caller=www --with-suexec-docroot=/var/www`
+`./configure --enable-mods-shared=all --enable-suexec --with-suexec-caller=_www --with-suexec-docroot=/var/www`
 
 For more information, see: [http://httpd.apache.org/docs/2.2/suexec.html](http://httpd.apache.org/docs/2.2/suexec.html)
