@@ -12,4 +12,4 @@ RewriteCond %{REQUEST_URI} !\.png$
 RewriteCond %{REQUEST_URI} !\.js$
 RewriteCond %{REQUEST_URI} !\.css$
 
-RewriteRule . job-launcher.rb
+RewriteRule .* job-launcher.rb
