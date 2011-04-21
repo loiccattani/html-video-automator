@@ -52,6 +52,7 @@ table {
 body {
   width: 900px;
   margin: 0 auto;
+  line-height: 100%;
   color: #fff;
   background: #222 url(../images/bg.jpg) fixed;
   font-family: 'Droid Sans', arial, serif;
