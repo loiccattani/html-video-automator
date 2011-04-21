@@ -1,22 +1,23 @@
 # HVA - HTML Video Automator Config file
 # All URLs or paths without trailing slash ('http://example.com/hva' or '/var/hva')
+# Relative paths from the app's root ("home") are okay
 
 # When in production, turn this on
 enable_mutex: false
 
-# App's working directories (Relative paths from 'home' accepted)
+# App's working directories
 home: /var/www/html-video-automator # Change this to where the app's root is located
 dropbox: dropbox
 deliverables: deliverables
 public: public
 
-# Log files (Relative paths from 'home' accepted)
+# Log files
 log_file: log/hva.log
 ffmpeg_log_file: log/ffmpeg.log
 
 # Public access URLs
-app_root_url: http://hva.dev # Serving documents from the app's 'public' directory
-pub_url: http://av.unil.ch/hva # Serving documents from 'content_server[path]'
+app_root_url: http://hva.example.com # Serving documents from the app's 'public' directory
+pub_url: http://medias.example.com/hva # Serving documents from 'content_server[path]'
 
 # SSH key for public key authentication to content and sources servers
 ssh_key: hva-key-2011 # To be found in the hva user's home .ssh directory
@@ -24,13 +25,13 @@ ssh_key: hva-key-2011 # To be found in the hva user's home .ssh directory
 # Where to publish content
 content_server:
   user: hva
-  host: av.unil.ch
-  path: /var/www/av-medias/hva
+  host: medias.example.com
+  path: /var/www/medias/hva
 
 # Where to archive source files
 sources_server:
   user: hva
-  host: av.unil.ch
+  host: sources.example.com
   path: /var/hva/sources
 
 # Video output settings
