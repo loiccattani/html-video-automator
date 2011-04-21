@@ -31,11 +31,11 @@ This is needed for security reasons. But it also comes handy to have a place whe
 
 ### SSH with public key authentication
 
-HTML Video Automator use the `scp` command with SSH public key anthentication to publish and archive files to *content* and *sources* servers respectively.
+HTML Video Automator use the `scp` command with SSH public key authentication to publish and archive files to *content* and *sources* servers, respectively.
 
 You'll need a SSH key pair on the *main* server. The public key have to be installed on the *content* and *sources* servers.
 
-You may also want to tighten up your servers security by configuring sshd to accept only public key anthentication. Even accepting only specific users.
+You may also want to tighten up your servers security by configuring sshd to accept only public key authentication. Even accepting only specific users.
 
 ## Install the HVA app on the main server
 
@@ -65,7 +65,7 @@ Install the HVA app's directory in an appropriate location. For example, Prod: `
 
 Configure Apache to serve the `public` directory as the DocumentRoot.
 
-SuEXEC is used to specify a who user runs the app.
+SuEXEC is used to specify a user to run the app.
 
 #### Example of virtual host configuration
     <VirtualHost *:80>
@@ -101,7 +101,7 @@ After initial server setup (FW Config, User and groups, sshd config, sudoers, et
   - [libogg 1.2.2](http://www.xiph.org/downloads/)
   - [libvorbis 1.3.2](http://www.xiph.org/downloads/)
   - [libtheora 1.1.1](http://www.xiph.org/downloads/)
-  - [ffmpeg](http://www.ffmpeg.org/download.html) latest snapshot
+  - [ffmpeg](http://www.ffmpeg.org/download.html) latest snapshot (More information below)
 
 ## Compiling Apache from source with suEXEC
 
