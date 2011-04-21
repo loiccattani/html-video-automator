@@ -88,6 +88,7 @@ header:hover {
 
 footer {
   width: 720px;
+  height: 32px;
   margin: 1em auto;
   text-align: right;
   opacity: 0.3;
@@ -236,7 +237,8 @@ hr {
   white-space: pre;
   width: 620px;
   padding: 10px;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   font-size: 12px;
   font-family: Monaco, Courrier, monospace;
   border: 1px rgba(0,0,0,0.5) solid;
