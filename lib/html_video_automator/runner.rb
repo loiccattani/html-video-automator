@@ -19,6 +19,9 @@ module HTMLVideoAutomator
         show_dropbox
       elsif @cgi.request_method == 'POST' and ! @cgi.params['hashes'].empty?
         launch_job(@cgi.params['hashes'])
+      elsif @cgi.request_method == 'POST' and @cgi.params['hashes'].empty?
+        $log.warn "Can't launch job: No files selected"
+        show_dropbox
       else
         $log.fatal "Unhandled method or missing parameters"
       end
