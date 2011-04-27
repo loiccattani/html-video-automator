@@ -8,6 +8,7 @@ enable_mutex: false
 # App's working directories
 home: /var/www/html-video-automator # Change this to where the app's root is located
 dropbox: dropbox
+workbench: workbench
 deliverables: deliverables
 public: public
 

@@ -29,12 +29,25 @@ module HTMLVideoAutomator
         return false
       end
       
-      # TODO: Think where to lock mutex
     end
     
     def start
       try_lock if Config['enable_mutex']
       $log.info "Job ##{@id} Started"
+      
+      # Move videos to working directory
+      @videos.each do |video|
+        new_path = "#{Config.path('workbench')}/#{video.filename}"
+        begin
+          FileUtils.mv video.path, new_path
+          video.path = new_path
+        rescue Exception => e
+          # If the file is missing at this point, it's likely that another job stealed the file in a race condition.
+          # Pretty rare, so delete the video so that job may continue.
+          $log.warn "Wow! Race condition occured! Deleted #{video.filename} so we can finish that job. (#{e})"
+          @videos.delete(video)
+        end
+      end
       
       prepare_content_server
       prepare_sources_server
@@ -84,6 +97,13 @@ module HTMLVideoAutomator
         result = publish video
       when :archive
         result = archive video
+      end
+      
+      # If failed, move that video back to the dropbox immediately.
+      # So that the user can repair, or replace it and launch a new job without waiting.
+      unless result
+        FileUtils.mv video.path, "#{Config.path('dropbox')}/"
+        $log.warn "Failed video #{video.filename} moved back to dropbox"
       end
       
       update_task(video, task, result)
