@@ -40,6 +40,17 @@ module ApplicationHelper
     sprintf("%02d", hours) + ":" + sprintf("%02d", mins) + ":" + sprintf("%02d", secs) + "." + sprintf("%02d", decimal)
   end
   
+  def seconds_to_human_time(seconds)
+    hours = (seconds / 3600).floor
+    mins = ((seconds % 3600) / 60).floor
+    secs = ((seconds % 3600) % 60).floor
+    str = ''
+    str += "#{hours}h " if hours > 0
+    str += "#{mins}m " if mins > 0
+    str += "#{secs}s" if secs > 0
+    return str
+  end
+  
   def number_to_human_size(number, precision = 2)
     storage_units = ['Bytes', 'KB', 'MB', 'GB', 'TB']
 

@@ -132,7 +132,7 @@ module HTMLVideoAutomator
     end
     
     def report(type = :in_progress)
-      elapsed = "#{Time.now - @start_time}s"
+      elapsed = seconds_to_human_time(Time.now - @start_time)
       pub_url = @pub_url
       job_id = @id
       videos = @videos
