@@ -72,25 +72,28 @@
     <hr>
     
     <section id="code">
-      <h3>Ajouter cette vidéo dans wordpress avec le plug-in VideoJS</h3>
-      <p>Copier simplement le code ci-dessous dans la page.</p>
-      <code>[<span class="code-tag">video mp4=</span><span class="code-value">"<%= "#{pub_url}/#{name}" %>.mp4"</span> <span class="code-tag">ogg=</span><span class="code-value">"<%= "#{pub_url}/#{name}" %>.ogg"</span> <span class="code-tag">webm=</span><span class="code-value">"<%= "#{pub_url}/#{name}" %>.webm"</span> <span class="code-tag">poster=</span><span class="code-value">"<%= "#{pub_url}/#{name}" %>.png"</span> <span class="code-tag">preload=</span><span class="code-value">"true"</span> <span class="code-tag">width=</span><span class="code-value">"<%= size[:width] %>"</span> <span class="code-tag">height=</span><span class="code-value">"<%= size[:height] %>"</span>]</code>
-      <h3>Ajouter cette vidéo à une page web manuellement</h3>
-      <p>Tout d'abord, copier le code suivant dans l'en-tête de la page. S'il ne s'y trouve pas déjà.</p>
-      <code>&lt;<span class="code-tag">head</span>&gt;
-  ...
-  <span class="code-comment">&lt;!-- Begin VideoJS Head --&gt;</span>
-  &lt;<span class="code-tag">script src=</span><span class="code-value">&quot;http://podcast.unil.ch/videojs/current/video.js&quot;</span>&gt;&lt;/<span class="code-tag">script</span>&gt;
-  &lt;<span class="code-tag">link rel=</span><span class="code-value">&quot;stylesheet&quot;</span> <span class="code-tag">href=</span><span class="code-value">&quot;http://podcast.unil.ch/videojs/current/video-js.css&quot;</span> <span class="code-tag">media=</span><span class="code-value">&quot;screen&quot;</span> <span class="code-tag">title=</span><span class="code-value">&quot;Video JS&quot;</span>&gt;
-  &lt;<span class="code-tag">script type=</span><span class="code-value">&quot;text/javascript&quot;</span> <span class="code-tag">charset=</span><span class="code-value">&quot;utf-8&quot;</span>&gt;
-    <span class="code-comment">// Add VideoJS to all video tags on the page when the DOM is ready</span>
-    VideoJS.setupAllWhenReady();
-  &lt;/<span class="code-tag">script</span>&gt;
-  <span class="code-comment">&lt;!-- End VideoJS Head--&gt;</span>
-  ...
-&lt;/<span class="code-tag">head</span>&gt;</code>
-      <p>Ensuite, ajouter le code de la vidéo dans la page.</p>
-      <code><span class="code-comment">&lt;!-- Begin VideoJS --&gt;</span>
+      <h2>Instructions pour ajouter la vidéo sur une page web</h2>
+      <dl id="code_wordpress">
+        <dt>Dans wordpress avec le plug-in VideoJS</dt>
+        <dd>
+          <p>Copier simplement le code ci-dessous dans la page ou l'article.</p>
+          <code>[<span class="code-tag">video mp4=</span><span class="code-value">"<%= "#{pub_url}/#{name}" %>.mp4"</span> <span class="code-tag">ogg=</span><span class="code-value">"<%= "#{pub_url}/#{name}" %>.ogg"</span> <span class="code-tag">webm=</span><span class="code-value">"<%= "#{pub_url}/#{name}" %>.webm"</span> <span class="code-tag">poster=</span><span class="code-value">"<%= "#{pub_url}/#{name}" %>.png"</span> <span class="code-tag">preload=</span><span class="code-value">"true"</span> <span class="code-tag">width=</span><span class="code-value">"<%= size[:width] %>"</span> <span class="code-tag">height=</span><span class="code-value">"<%= size[:height] %>"</span>]</code>
+        </dd>
+      </dl>
+      <dl id="code_html">
+        <dt>Dans une page web statique</dt>
+        <dd>
+          <p>Tout d'abord, copier le code suivant dans l'en-tête <code class="inline">&lt;<span class="code-tag">head</span>&gt;</code> du document HTML. S'il ne s'y trouve pas déjà.</p>
+          <code><span class="code-comment">&lt;!-- Begin VideoJS Head --&gt;</span>
+&lt;<span class="code-tag">script src=</span><span class="code-value">&quot;http://podcast.unil.ch/videojs/current/video.js&quot;</span>&gt;&lt;/<span class="code-tag">script</span>&gt;
+&lt;<span class="code-tag">link rel=</span><span class="code-value">&quot;stylesheet&quot;</span> <span class="code-tag">href=</span><span class="code-value">&quot;http://podcast.unil.ch/videojs/current/video-js.css&quot;</span> <span class="code-tag">media=</span><span class="code-value">&quot;screen&quot;</span> <span class="code-tag">title=</span><span class="code-value">&quot;Video JS&quot;</span>&gt;
+&lt;<span class="code-tag">script type=</span><span class="code-value">&quot;text/javascript&quot;</span> <span class="code-tag">charset=</span><span class="code-value">&quot;utf-8&quot;</span>&gt;
+  <span class="code-comment">// Add VideoJS to all video tags on the page when the DOM is ready</span>
+  VideoJS.setupAllWhenReady();
+&lt;/<span class="code-tag">script</span>&gt;
+<span class="code-comment">&lt;!-- End VideoJS Head--&gt;</span></code>
+          <p>Ensuite, ajouter le code de la vidéo dans la page.</p>
+          <code><span class="code-comment">&lt;!-- Begin VideoJS --&gt;</span>
 &lt;<span class="code-tag">div class=</span><span class="code-value">&quot;video-js-box&quot;</span>&gt;
   <span class="code-comment">&lt;!-- Using the Video for Everybody Embed Code http://camendesign.com/code/video_for_everybody --&gt;</span>
   &lt;<span class="code-tag">video class=</span><span class="code-value">&quot;video-js&quot;</span> <span class="code-tag">width=</span><span class="code-value">&quot;<%= size[:width] %>&quot;</span> <span class="code-tag">height=</span><span class="code-value">&quot;<%= size[:height] %>&quot;</span> <span class="code-tag">controls preload poster=</span><span class="code-value">&quot;<%= "#{pub_url}/#{name}" %>.png&quot;</span>&gt;
@@ -116,6 +119,8 @@
   &lt;<span class="code-tag">a href=</span><span class="code-value">&quot;<%= "#{pub_url}/#{name}" %>.webm&quot;</span>&gt;WebM&lt;/<span class="code-tag">a</span>&gt;
 &lt;/<span class="code-tag">p</span>&gt;
 <span class="code-comment">&lt;!-- End VideoJS --&gt;</span></code>
+        </dd>
+      </dl>
     </section>
     
   </div>
@@ -131,6 +136,13 @@
       <img src="../images/logo-unil.png" alt="University of Lausanne" title="Made in Unicom, University of Lausanne">
     </a>
   </footer>
+  
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../js/libs/jquery-1.5.1.min.js">\x3C/script>')</script>
+  
+  <!-- Custom script -->
+  <script src="../js/utils.js"></script>
   
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
   <script>

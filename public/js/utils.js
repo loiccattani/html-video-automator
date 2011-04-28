@@ -13,3 +13,11 @@ $(document).ready(function() {
     }
   });
 });
+
+// A click on a #code .pad toggle class .open
+$(document).ready(function() {
+  $('#code dt').click(function(event) {
+    $(this).parent().toggleClass('open');
+    $(this).next().slideToggle();
+  });
+});

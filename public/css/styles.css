@@ -223,12 +223,7 @@ hr {
 
 #code h3 {
   font-size: 15px;
-  margin-top: 20px;
-}
-
-#code h4 {
-  font-size: 13px;
-  margin: 15px 0;
+  margin-top: 15px;
 }
 
 #code p {
@@ -247,6 +242,46 @@ hr {
   border: 1px rgba(0,0,0,0.5) solid;
   color: #eee;
   background-color: rgba(0,34,64,0.5);
+}
+
+#code code.inline {
+  display: inline;
+  width: auto;
+  padding: 2px 5px;
+}
+
+#code dl {
+  margin: 5px 0;
+}
+
+#code dt {
+  cursor: pointer;
+  margin-top: 10px;
+  color: #999;
+  font-size: 16px;
+  /* Transitions */
+  -webkit-transition: color 0.1s ease-out;
+  -moz-transition: color 0.1s ease-out;
+  -o-transition: color 0.1s ease-out;
+  transition: color 0.1s ease-out;
+}
+
+#code dt:hover {
+  color: #fff;
+  text-shadow: 0px 0px 2px rgb(255,255,255);
+}
+
+#code dd {
+  display: none;
+}
+
+.no-js #code dd {
+  display: block;
+}
+
+.no-js #code dt,
+#code .open dt {
+  color: #fff;
 }
 
 .code-comment {
