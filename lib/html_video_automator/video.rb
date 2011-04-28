@@ -80,6 +80,7 @@ module HTMLVideoAutomator
       output_path = Config.path('deliverables') + "/" + filename
       size = @maxed_size
       pub_url = @pub_url
+      jahia_size = get_jahia_size
       
       begin
         erb = ERB.new File.new(File.dirname(__FILE__) + '/../../views/video.rhtml').read, nil, "%"
@@ -138,6 +139,20 @@ module HTMLVideoAutomator
       $log.debug "Maxed size: #{w}x#{h} (#{r.round(2)})"
 
       return :width => w, :height => h
+    end
+    
+    def get_jahia_size
+      # Return the video size maxed by 565px wide
+      jahia_max_width = 565
+      
+      if @maxed_size[:width] > jahia_max_width
+        w = jahia_max_width
+        r = aspect_ratio(@maxed_size[:width], @maxed_size[:height])
+        h = (jahia_max_width / r).to_i
+        return :width => w, :height => h 
+      else
+        return @maxed_size
+      end
     end
     
     def aspect_ratio(width, height)
