@@ -8,7 +8,7 @@ module HTMLVideoAutomator
       @videos = Array.new
       @id = get_new_id
       @report_url = "#{Config['app_root_url']}/jobs/job-report-#{@id}.html" # TODO: Move that sub path in config
-      @pub_url = "#{Config['pub_url']}/job-#{@id}"
+      @pub_url = "#{Config['pub_url']}/#{@id}"
     end
     
     def prepare(hashes)
@@ -153,7 +153,7 @@ module HTMLVideoAutomator
     
     def prepare_content_server
       # Create job-id directory
-      cmd = "ssh -q -i ~/.ssh/#{Config['ssh_key']} #{Config['content_server']['user']}@#{Config['content_server']['host']} \'mkdir -p #{Config['content_server']['path']}/job-#{@id}\'"
+      cmd = "ssh -q -i ~/.ssh/#{Config['ssh_key']} #{Config['content_server']['user']}@#{Config['content_server']['host']} \'mkdir -p #{Config['content_server']['path']}/#{@id}\'"
       unless system(cmd)
         $log.fatal "Error creating job directory on content server"
         abort
@@ -162,7 +162,7 @@ module HTMLVideoAutomator
     
     def prepare_sources_server
       # Create job-id directory
-      cmd = "ssh -q -i ~/.ssh/#{Config['ssh_key']} #{Config['sources_server']['user']}@#{Config['sources_server']['host']} \'mkdir -p #{Config['sources_server']['path']}/job-#{@id}\'"
+      cmd = "ssh -q -i ~/.ssh/#{Config['ssh_key']} #{Config['sources_server']['user']}@#{Config['sources_server']['host']} \'mkdir -p #{Config['sources_server']['path']}/#{@id}\'"
       unless system(cmd)
         $log.fatal "Error creating job directory on sources server"
         abort
@@ -170,7 +170,7 @@ module HTMLVideoAutomator
     end
     
     def publish(video)
-      cmd = "scp -q -i ~/.ssh/#{Config['ssh_key']} #{video.deliverables.join(' ')} #{Config['content_server']['user']}@#{Config['content_server']['host']}:#{Config['content_server']['path']}/job-#{@id}/"
+      cmd = "scp -q -i ~/.ssh/#{Config['ssh_key']} #{video.deliverables.join(' ')} #{Config['content_server']['user']}@#{Config['content_server']['host']}:#{Config['content_server']['path']}/#{@id}/"
       if system(cmd)
         $log.info "Published #{video.name} to #{Config['content_server']['host']}"
         return true
@@ -181,7 +181,7 @@ module HTMLVideoAutomator
     end
     
     def archive(video)
-      cmd = "scp -q -i ~/.ssh/#{Config['ssh_key']} '#{video.path}' #{Config['sources_server']['user']}@#{Config['sources_server']['host']}:#{Config['sources_server']['path']}/job-#{@id}/"
+      cmd = "scp -q -i ~/.ssh/#{Config['ssh_key']} '#{video.path}' #{Config['sources_server']['user']}@#{Config['sources_server']['host']}:#{Config['sources_server']['path']}/#{@id}/"
       if system(cmd)
         $log.info "Archived #{video.name} source to #{Config['sources_server']['host']}"
         return true
