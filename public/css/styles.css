@@ -428,7 +428,7 @@ hr {
   box-shadow: 0px 0px 60px rgb(224,120,28), inset 0px 0px 5px rgb(255,255,255);
 }
 
-#status.final {
+#status.done {
   /* Box Shadow */
   -webkit-box-shadow: 0px 0px 20px rgb(25,171,60), inset 0px 0px 3px rgb(255,255,255);
   -moz-box-shadow: 0px 0px 20px rgb(25,171,60), inset 0px 0px 3px rgb(255,255,255);
@@ -436,11 +436,26 @@ hr {
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(78,207,108)), to(rgb(25,171,60)));
 }
 
-#status.final:hover {
+#status.done:hover {
   /* Box Shadow */
   -webkit-box-shadow: 0px 0px 60px rgb(25,171,60), inset 0px 0px 5px rgb(255,255,255);
   -moz-box-shadow: 0px 0px 60px rgb(25,171,60), inset 0px 0px 5px rgb(255,255,255);
   box-shadow: 0px 0px 60px rgb(25,171,60), inset 0px 0px 5px rgb(255,255,255);
+}
+
+#status.failed {
+  /* Box Shadow */
+  -webkit-box-shadow: 0px 0px 20px rgb(224,28,28), inset 0px 0px 3px rgb(255,255,255);
+  -moz-box-shadow: 0px 0px 20px rgb(224,28,28), inset 0px 0px 3px rgb(255,255,255);
+  box-shadow: 0px 0px 20px rgb(224,28,28), inset 0px 0px 3px rgb(255,255,255);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(255,62,62)), to(rgb(224,28,28)));
+}
+
+#status.failed:hover {
+  /* Box Shadow */
+  -webkit-box-shadow: 0px 0px 60px rgb(224,28,28), inset 0px 0px 5px rgb(255,255,255);
+  -moz-box-shadow: 0px 0px 60px rgb(224,28,28), inset 0px 0px 5px rgb(255,255,255);
+  box-shadow: 0px 0px 60px rgb(224,28,28), inset 0px 0px 5px rgb(255,255,255);
 }
 
 #status p {

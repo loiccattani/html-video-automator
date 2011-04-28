@@ -9,6 +9,7 @@ module HTMLVideoAutomator
       @id = get_new_id
       @report_url = "#{Config['app_root_url']}/jobs/job-report-#{@id}.html" # TODO: Move that sub path in config
       @pub_url = "#{Config['pub_url']}/#{@id}"
+      @some_task_failed = false
     end
     
     def prepare(hashes)
@@ -104,6 +105,7 @@ module HTMLVideoAutomator
       unless result
         FileUtils.mv video.path, "#{Config.path('dropbox')}/"
         $log.warn "Failed video #{video.filename} moved back to dropbox"
+        @some_task_failed = true
       end
       
       update_task(video, task, result)
@@ -136,6 +138,14 @@ module HTMLVideoAutomator
       pub_url = @pub_url
       job_id = @id
       videos = @videos
+      
+      if type == :final
+        unless @some_task_failed
+          type = :done
+        else
+          type = :failed
+        end
+      end
       
       begin
         erb = ERB.new File.new(File.dirname(__FILE__) + '/../../views/job-report.rhtml').read, nil, "%"
