@@ -221,13 +221,15 @@ hr {
   background-color: rgba(0,0,0,0.8);
 }
 
-#code h3 {
+#code h3,
+#code dt {
   font-size: 15px;
-  margin-top: 15px;
+  margin: 15px 0;
 }
 
-#code p {
-  margin: 10px 0;
+#code em {
+  color: #fff;
+  font-style: italic;
 }
 
 #code code {
@@ -235,6 +237,7 @@ hr {
   white-space: pre;
   width: 620px;
   padding: 10px;
+  margin: 10px 0;
   overflow-x: auto;
   overflow-y: hidden;
   font-size: 12px;
@@ -248,6 +251,7 @@ hr {
   display: inline;
   width: auto;
   padding: 2px 5px;
+  margin: 0;
 }
 
 #code dl {
