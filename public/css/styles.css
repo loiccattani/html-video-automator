@@ -121,10 +121,12 @@ footer a[href='http://unil.ch'] {
 
 h1 {
   font-size: 44px;
+  line-height: 44px;
 }
 
 h2 {
   font-size: 36px;
+  line-height: 36px;
 }
 
 h3 {
