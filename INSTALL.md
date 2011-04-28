@@ -12,6 +12,7 @@ You need to have strong knowledge about *nix systems, command-line tools, securi
   - Ruby 1.9.2 or later
   - Apache 2.2 with mod_rewrite and suEXEC properly configured
   - ffmpeg 0.6.1 or later with these libs:
+    - x264 latest snapshot
     - libfaac 1.28 or later
     - libvpx 0.9.6 or later
     - libogg 1.2.2 or later
@@ -33,7 +34,7 @@ This is needed for security reasons. But it also comes handy to have a place whe
 
 HTML Video Automator use the `scp` command with SSH public key authentication to publish and archive files to *content* and *sources* servers, respectively.
 
-You'll need a SSH key pair on the *main* server. The public key have to be installed on the *content* and *sources* servers.
+You'll need an SSH key pair on the *main* server. The public key have to be installed on the *content* and *sources* servers.
 
 You may also want to tighten up your servers security by configuring sshd to accept only public key authentication. Even accepting only specific users.
 
@@ -67,7 +68,7 @@ Configure Apache to serve the `public` directory as the DocumentRoot.
 
 SuEXEC is used to specify a user to run the app.
 
-#### Example of virtual host configuration
+#### Virtual host configuration example
     <VirtualHost *:80>
     	ServerName hva.example.com
     	DocumentRoot '/var/www/html-video-automator/public'
@@ -111,7 +112,7 @@ For security reasons, suEXEC need to be configured at compile time with restrict
 
 For more information, see: [http://httpd.apache.org/docs/2.2/suexec.html](http://httpd.apache.org/docs/2.2/suexec.html)
 
-Note: Don't forget to do a `make clean` if any suexec configuration setting is changed. Otherwise suexec won't be recompiled with these new settings.
+Note: Don't forget to do a `make clean` if any suexec configuration setting is changed. Or suexec won't be recompiled with these new settings.
 
 ## Compiling FFmpeg
 

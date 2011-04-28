@@ -24,7 +24,7 @@ L'application loggue les opérations effectuées
 
 ## Design
 
-La vidéo est présentée à l'aide de l'élément HTML5 `<video>` et de [VideoJS](http://videojs.com/).
+Pour une compatibilité optimale, la vidéo est présentée à l'aide de l'élément HTML5 `<video>` et de [VideoJS](http://videojs.com/).
 
 ### Workflow type
 
@@ -56,13 +56,11 @@ Prévoir de pouvoir configurer:
   - Ajouter métadonnées (Ce qu'on a) dans la template HTML pour info
   - Changelog dès initial release
   - p2: Afficher partie de log propre au job dans job report
-  - Déplacer les fichiers en traitement pour ne plus les avoir dans la dropbox
   - Vérifier propriétés CSS3 pour autres navigateurs (vendor prefixes)
   - Utiliser les classes modernizr pour styler en fonction des capacités des navigateurs
   - Options parametrables (Bien réfléchir à comment l'implémenter pour que cela reste simple, limpide et inobtrusif)
     - Taille de la vidéo (p.ex 565 max width pr Jahia)
     - Position temporelle du poster
-  - Ajouter zone de texte dans la vue vidéo permettant de copier le code HTML afin de l'inclure dans un autre document.
   
 # Failles de sécurité
 
