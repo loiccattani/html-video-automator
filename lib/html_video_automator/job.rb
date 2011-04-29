@@ -50,7 +50,9 @@ module HTMLVideoAutomator
         end
       end
       
-      prepare_content_server
+      $log.debug "Moved #{@videos.count} videos to workbench"
+      
+      prepare_content_server      
       prepare_sources_server
       
       @videos.each do |video|
@@ -168,6 +170,7 @@ module HTMLVideoAutomator
         $log.fatal "Error creating job directory on content server"
         abort
       end
+      $log.debug "Content server ready"
     end
     
     def prepare_sources_server
@@ -177,6 +180,7 @@ module HTMLVideoAutomator
         $log.fatal "Error creating job directory on sources server"
         abort
       end
+      $log.debug "Sources server ready"
     end
     
     def publish(video)
