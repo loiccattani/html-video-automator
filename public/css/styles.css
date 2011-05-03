@@ -322,8 +322,16 @@ hr {
 
 #home #main a {
   margin: 1em 0;
-  font-size: 120%;
+  font-size: 160%;
   text-decoration: none;
+}
+
+#dropbox.empty {
+  text-align: center;
+}
+
+#dropbox.empty a {
+font-size: 140%;
 }
 
 #dropbox td:first-child,
@@ -348,10 +356,6 @@ hr {
 #dropbox tr.video:hover {
   color: #fff;
   text-shadow: 0px 0px 2px rgb(255,255,255);
-}
-
-#dropbox p {
-  text-align: right;
 }
 
 #dropbox th:nth-child(4), #dropbox td:nth-child(4),

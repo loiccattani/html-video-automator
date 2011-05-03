@@ -30,6 +30,15 @@
   </header>
   
   <div id="main" role="main">
+    
+<% if videos.empty? %>
+
+    <section id="dropbox" class="empty">
+      <h3>Dropbox is empty!</h3>
+      <p><a href="/dropbox/">Reload</a></p>
+    </section>
+
+<% else %>
         
     <section id="dropbox">
       <h3>Dropbox</h3>
@@ -72,6 +81,8 @@
         <p><input type="submit" value="Automate selection" <%= if videos.empty? then 'disabled' end %>></p>
       </form>
     </section>
+    
+<% end # videos.empty? %>
     
   </div>
   
