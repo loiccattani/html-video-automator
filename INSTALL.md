@@ -82,6 +82,16 @@ SuEXEC is used to specify a user to run the app.
       SuexecUserGroup hva www_admins
     </VirtualHost>
 
+### Video MIME types
+
+Be sure to verify/add the following MIME types in your apache configuration:
+
+    video/mp4       mp4 mp4v mpg4
+    video/ogg       ogv
+    video/webm      webm
+
+If you are losing your hairs asking why Firefox don't want to play your video, it may well be that apache is not aware of webm video MIME type. 
+
 # Notes about HVA server set-up and install from sources
 
 This section is a bit off-topic. But if you need to install a new server from scratch, it may pave your way.
