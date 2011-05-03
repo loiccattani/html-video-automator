@@ -430,6 +430,10 @@ hr {
 #dropbox td.done, #report td.done { background-image: url('../images/icons/tick-circle.png'); }
 #dropbox td.failed, #report td.failed { background-image: url('../images/icons/exclamation-red.png'); }
 
+#dropbox form p {
+  text-align: right;
+}
+
 #status {
   position: relative;
   top: -30px;
