@@ -1,5 +1,6 @@
 require 'digest/sha1'
 require 'iconv'
+require 'logger'
 
 module HTMLVideoAutomator
   class Video
@@ -21,6 +22,8 @@ module HTMLVideoAutomator
       @fail_reason = nil
       @deliverables = Array.new
       @pub_url = nil
+      @ffmpeg_log = Logger.new(Config.path('ffmpeg_log_file'), 'daily')
+      @ffmpeg_log.level = Logger::INFO
     end
     
     def valid?
@@ -41,11 +44,17 @@ module HTMLVideoAutomator
       when 'mp4'
         filename = "#{@name}.mp4"
         output_path = Config.path('deliverables') + "/" + filename
-        status = system("ffmpeg -y -i '#{@path}' -threads 0 -f mp4 -vcodec libx264 -preset slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160000 -ac 2 -s #{wxh} #{output_path} 2>> #{Config.path('ffmpeg_log_file')}")
+        cmd = "ffmpeg -y -i '#{@path}' -threads 0 -f mp4 -vcodec libx264 -preset slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160k -ac 2 -s #{wxh} #{output_path}"
+        @ffmpeg_log.info "FFmpeg started for #{filename}:\n#{cmd}\n"
+        status = system("#{cmd} 2>> #{Config.path('ffmpeg_log_file')}")
+        @ffmpeg_log.info "FFmpeg ended processing for #{filename}\n########\n"
       when 'webm'
         filename = "#{@name}.webm"
         output_path = Config.path('deliverables') + "/" + filename
-        status = system("ffmpeg -y -i '#{@path}' -threads 8 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s #{wxh} #{output_path} 2>> #{Config.path('ffmpeg_log_file')}")
+        cmd = "ffmpeg -y -i '#{@path}' -threads 8 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s #{wxh} #{output_path}"
+        @ffmpeg_log.info "Launched ffmpeg for #{filename} with:\n#{cmd}\n"
+        status = system("#{cmd} 2>> #{Config.path('ffmpeg_log_file')}")
+        @ffmpeg_log.info "FFmpeg ended processing for #{filename}\n########\n"
       end
       
       if status
