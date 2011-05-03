@@ -7,7 +7,7 @@ module HTMLVideoAutomator
       Config.load
       
       $log = Logger.new(Config.path('log_file'), 'daily')
-      $log.level = Logger::INFO # Change this to Logger::DEBUG for more logging
+      $log.level = Logger::DEBUG # Change this to Logger::DEBUG for more logging
       
       @cgi = CGI.new
       

@@ -48,6 +48,7 @@ module HTMLVideoAutomator
         @ffmpeg_log.info "FFmpeg started for #{filename}:\n#{cmd}\n"
         status = system("#{cmd} 2>> #{Config.path('ffmpeg_log_file')}")
         @ffmpeg_log.info "FFmpeg ended processing for #{filename}\n########\n"
+        $log.debug "FFmpeg returned #{status}"
       when 'webm'
         filename = "#{@name}.webm"
         output_path = Config.path('deliverables') + "/" + filename
@@ -55,14 +56,21 @@ module HTMLVideoAutomator
         @ffmpeg_log.info "Launched ffmpeg for #{filename} with:\n#{cmd}\n"
         status = system("#{cmd} 2>> #{Config.path('ffmpeg_log_file')}")
         @ffmpeg_log.info "FFmpeg ended processing for #{filename}\n########\n"
+        $log.debug "FFmpeg returned #{status}"
       end
       
       if status
-        @deliverables.push output_path
-        $log.info "Done encoding #{filename}. Elapsed #{(Time.now - start_time).to_i}s"
-        return true
+        if File.exist?(output_path)
+          @deliverables.push output_path
+          $log.debug "Added deliverable #{output_path}"
+          $log.info "Done encoding #{filename}. Elapsed #{(Time.now - start_time).to_i}s"
+          return true
+        else
+          $log.error @fail_reason = "FFmpeg was unable to encode #{@name}"
+          return false
+        end
       else
-        $log.error @fail_reason = "ffmpeg returned an error encoding #{filename}"
+        $log.error @fail_reason = "FFmpeg returned an error encoding #{filename}"
         return false
       end
     end
@@ -72,13 +80,25 @@ module HTMLVideoAutomator
       output_path = Config.path('deliverables') + "/" + filename
       wxh = "#{@maxed_size[:width]}x#{@maxed_size[:height]}"
       poster_time = seconds_to_duration(duration_to_seconds(@duration) * 0.5)
-
-      if system("ffmpeg -i '#{@path}' -r 1 -ss #{poster_time} -vcodec png -vframes 1 -f image2 -s #{wxh} #{output_path} 2>> #{Config.path('ffmpeg_log_file')}")
-        @deliverables.push output_path
-        $log.info "Done poster for #{@name}"
-        return true
+      
+      cmd = "ffmpeg -i '#{@path}' -r 1 -ss #{poster_time} -vcodec png -vframes 1 -f image2 -s #{wxh} #{output_path}"
+      @ffmpeg_log.info "Launched ffmpeg for #{filename} with:\n#{cmd}\n"
+      status = system("#{cmd} 2>> #{Config.path('ffmpeg_log_file')}")
+      @ffmpeg_log.info "FFmpeg ended processing for #{filename}\n########\n"
+      $log.debug "FFmpeg returned #{status}"
+      
+      if status
+        if File.exist?(output_path)
+          @deliverables.push output_path
+          $log.debug "Added deliverable #{output_path}"
+          $log.info "Done poster for #{@name}"
+          return true
+        else
+          $log.error @fail_reason = "FFmpeg was unable to create poster for #{@name}"
+          return false
+        end
       else
-        $log.error @fail_reason = "ffmpeg returned an error creating poster for #{@name}"
+        $log.error @fail_reason = "FFmpeg returned an error creating poster for #{@name}"
         return false
       end
     end
@@ -102,6 +122,7 @@ module HTMLVideoAutomator
       end
       
       @deliverables.push output_path
+      $log.debug "Added deliverable #{output_path}"
       $log.info "Built HTML document for #{@name}"
       return true
     end

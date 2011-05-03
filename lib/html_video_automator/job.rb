@@ -92,7 +92,7 @@ module HTMLVideoAutomator
       # So that the user can repair, or replace it and launch a new job without waiting.
       unless result
         FileUtils.mv video.path, "#{Config.path('dropbox')}/"
-        $log.warn "Failed video #{video.filename} moved back to dropbox"
+        $log.info "Failed video #{video.filename} moved back to dropbox"
         @some_task_failed = true
       end
       
