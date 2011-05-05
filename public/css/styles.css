@@ -303,6 +303,7 @@ td.failed { background-image: url('../images/icons/exclamation-red.png'); }
 
 table {
   width: 640px;
+  margin-bottom: 10px;
 }
 
 tr:nth-child(odd) {
@@ -527,8 +528,8 @@ td, th {
 #status.in_progress {
   /* Box Shadow */
   -webkit-box-shadow: 0px 0px 20px rgb(224,120,28), inset 0px 0px 3px rgb(255,255,255);
-  -moz-box-shadow: 0px 0px 20px rgb(224,120,28), inset 0px 0px 3px rgb(255,255,255);
-  box-shadow: 0px 0px 20px rgb(224,120,28), inset 0px 0px 3px rgb(255,255,255);
+  -moz-box-shadow: 0px 0px 15px rgb(224,120,28), inset 0px 0px 3px rgb(255,255,255);
+  box-shadow: 0px 0px 15px rgb(224,120,28), inset 0px 0px 3px rgb(255,255,255);
   /* Gradient */
   background: rgb(255,171,62); /* Old browsers */
   background: -moz-linear-gradient(top, rgb(255,171,62) 0%, rgb(224,120,28) 100%); /* FF3.6+ */
@@ -547,15 +548,15 @@ td, th {
 #status.in_progress.alt {
   /* Box Shadow */
   -webkit-box-shadow: 0px 0px 60px rgb(224,120,28), inset 0px 0px 5px rgb(255,255,255);
-  -moz-box-shadow: 0px 0px 60px rgb(224,120,28), inset 0px 0px 5px rgb(255,255,255);
-  box-shadow: 0px 0px 60px rgb(224,120,28), inset 0px 0px 5px rgb(255,255,255);
+  -moz-box-shadow: 0px 0px 25px rgb(224,120,28), inset 0px 0px 5px rgb(255,255,255);
+  box-shadow: 0px 0px 25px rgb(224,120,28), inset 0px 0px 5px rgb(255,255,255);
 }
 
 #status.done {
   /* Box Shadow */
   -webkit-box-shadow: 0px 0px 20px rgb(25,171,60), inset 0px 0px 3px rgb(255,255,255);
-  -moz-box-shadow: 0px 0px 20px rgb(25,171,60), inset 0px 0px 3px rgb(255,255,255);
-  box-shadow: 0px 0px 20px rgb(25,171,60), inset 0px 0px 3px rgb(255,255,255);
+  -moz-box-shadow: 0px 0px 15px rgb(25,171,60), inset 0px 0px 3px rgb(255,255,255);
+  box-shadow: 0px 0px 15px rgb(25,171,60), inset 0px 0px 3px rgb(255,255,255);
   /* Gradient */
   background: rgb(78,207,108); /* Old browsers */
   background: -moz-linear-gradient(top, rgb(78,207,108) 0%, rgb(25,171,60) 100%); /* FF3.6+ */
@@ -569,23 +570,23 @@ td, th {
 #status.done:hover {
   /* Box Shadow */
   -webkit-box-shadow: 0px 0px 80px rgb(25,171,60), inset 0px 0px 6px rgb(255,255,255);
-  -moz-box-shadow: 0px 0px 80px rgb(25,171,60), inset 0px 0px 6px rgb(255,255,255);
-  box-shadow: 0px 0px 80px rgb(25,171,60), inset 0px 0px 6px rgb(255,255,255);
+  -moz-box-shadow: 0px 0px 25px rgb(25,171,60), inset 0px 0px 6px rgb(255,255,255);
+  box-shadow: 0px 0px 25px rgb(25,171,60), inset 0px 0px 6px rgb(255,255,255);
 }
 
 #status.failed {
   /* Box Shadow */
   -webkit-box-shadow: 0px 0px 20px rgb(201,0,12), inset 0px 0px 3px rgb(255,255,255);
-  -moz-box-shadow: 0px 0px 20px rgb(201,0,12), inset 0px 0px 3px rgb(255,255,255);
-  box-shadow: 0px 0px 20px rgb(201,0,12), inset 0px 0px 3px rgb(255,255,255);
+  -moz-box-shadow: 0px 0px 15px rgb(201,0,12), inset 0px 0px 3px rgb(255,255,255);
+  box-shadow: 0px 0px 15px rgb(201,0,12), inset 0px 0px 3px rgb(255,255,255);
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(234,65,68)), to(rgb(201,0,12)));
 }
 
 #status.failed.alt {
   /* Box Shadow */
   -webkit-box-shadow: 0px 0px 20px rgb(37,0,7), inset 0px 0px 3px rgb(74,54,55);
-  -moz-box-shadow: 0px 0px 20px rgb(37,0,7), inset 0px 0px 3px rgb(74,54,55);
-  box-shadow: 0px 0px 20px rgb(37,0,7), inset 0px 0px 3px rgb(74,54,55);
+  -moz-box-shadow: 0px 0px 15px rgb(37,0,7), inset 0px 0px 3px rgb(74,54,55);
+  box-shadow: 0px 0px 15px rgb(37,0,7), inset 0px 0px 3px rgb(74,54,55);
   /* Gradient */
   background: rgb(234,65,68); /* Old browsers */
   background: -moz-linear-gradient(top, rgb(234,65,68) 0%, rgb(201,0,12) 100%); /* FF3.6+ */
