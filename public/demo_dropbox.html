@@ -39,18 +39,35 @@
           <tr>
             <th></th>
             <th>File</th>
+            <th title="Valid video document">Valid</th>
+            <th>Video size</th>
+            <th>Duration</th>
+            <th>File size</th>
           </tr>
-          <tr>
+          <tr class='video'>
             <td><input type="checkbox" name="files[e5f86ba]" value="1" id="file_e5f86ba"></td>
             <td><label for="file_e5f86ba">TestFile1.mov</label></td>
+            <td class="done">Done</td>
+            <td>640&times;356</td>
+            <td>00:00:16.09</td>
+            <td>3.89 MB</td>
           </tr>
-          <tr>
+          </tr>
+          <tr class='video'>
             <td><input type="checkbox" name="files[d45ca68]" value="1" id="file_d45ca68"></td>
             <td><label for="file_d45ca68">TestFile2.mov</label></td>
+            <td class="done">Done</td>
+            <td>640&times;480</td>
+            <td>00:14:18.20</td>
+            <td>450.23 MB</td>
           </tr>
-          <tr>
+          <tr class='video'>
             <td><input type="checkbox" name="files[b78ca2f]" value="1" id="file_b78ca2f"></td>
             <td><label for="file_b78ca2f">TestFile3.mov</label></td>
+            <td class="done">Done</td>
+            <td>640&times;480</td>
+            <td>00:00:32.14</td>
+            <td>6.58 MB</td>
           </tr>
         </table>
         <p><input type="submit" value="Automate selection"></p>
@@ -68,6 +85,13 @@
       <img src="images/logo-unil.png" alt="University of Lausanne" title="Made in Unicom, University of Lausanne">
     </a>
   </footer>
+  
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.5.1.min.js">\x3C/script>')</script>
+  
+  <!-- Custom script -->
+  <script src="js/utils.js"></script>
   
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
   <script>
