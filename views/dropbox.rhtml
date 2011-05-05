@@ -35,14 +35,14 @@
 <% if videos.empty? %>
 
     <section id="dropbox" class="empty">
-      <h3>Dropbox is empty!</h3>
-      <p><a href="/dropbox/">Reload</a></p>
+      <h2>Dropbox is empty!</h2>
+      <p class="button"><a href="/dropbox/">Reload</a></p>
     </section>
 
 <% else %>
         
     <section id="dropbox">
-      <h3>Dropbox</h3>
+      <h2>Dropbox</h2>
       
       <form action="<%= script_url %>" method="POST" accept-charset="utf-8">
         <table border="0" cellspacing="0" cellpadding="0">

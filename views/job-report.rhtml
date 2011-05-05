@@ -39,7 +39,7 @@
   <div id="main" role="main">
         
     <section id="report">
-      <h3>Job #<%= job_id %></h3>
+      <h2>Job #<%= job_id %></h2>
       
 <% case type
 when :in_progress %>
@@ -104,7 +104,7 @@ when :in_progress %>
         </tr>
 <% end %>
       </table>
-      <p>Elapsed: <%= elapsed %></p>
+      <small>Elapsed: <%= elapsed %></small>
     </section>
   </div>
   
