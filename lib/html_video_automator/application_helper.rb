@@ -52,18 +52,19 @@ module ApplicationHelper
   end
   
   def number_to_human_size(number, precision = 2)
-    storage_units = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+    storage_units = ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB']
 
     number = number.to_f
+    base = 1024
 
-    if number.to_i < 1024
+    if number.to_i < base
       unit = "Bytes"
       return "#{number.to_i} #{unit}"
     else
       max_exp  = storage_units.size - 1
-      exponent = (Math.log(number) / Math.log(1024)).to_i # Convert to base 1024
+      exponent = (Math.log(number) / Math.log(base)).to_i # Convert to base
       exponent = max_exp if exponent > max_exp # we need this to avoid overflow for the highest unit
-      number  /= 1024 ** exponent
+      number  /= base ** exponent
 
       unit = storage_units[exponent]
       formatted_number = number.round(precision)
