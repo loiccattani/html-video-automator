@@ -199,7 +199,6 @@ h3 {
 a:link,
 a:visited {
   color: #999;
-  text-decoration: none;
   /* Transitions */
   -webkit-transition: all 0.1s ease-out;
   -moz-transition: all 0.1s ease-out;
