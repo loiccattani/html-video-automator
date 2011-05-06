@@ -35,32 +35,15 @@ Pour une compatibilité optimale, la vidéo est présentée à l'aide de l'élé
 
 ### Détails
 
-L'étape numéro 2 est contituée d'une page web générée dynamiquement et listant les fichiers présents dans la dropbox. Des cases à cocher permettent de séléctionner les fichiers à soumettre par POST. Ceci lancant un nouveau job HVA.
+L'étape numéro 2 est constituée d'une page web générée dynamiquement et listant les fichiers présents dans la dropbox. Des cases à cocher permettent de séléctionner les fichiers à soumettre par POST. Ceci lancant un nouveau job HVA.
 
 Pour des raisons de sécurité, les valeurs soumises ne devraient pas contenir les noms de fichiers mais plutôt un digest de ces derniers.
 
 Un script ruby CGI s'occupe de tout ceci.
 
-## Problèmes à résoudre / Questions
-
-  - Profils vidéo pour l'encodage (Quelle cible visons-nous: taille, débit, qualité, etc... ): Vérifier!
-
-## Configuration
-
-Prévoir de pouvoir configurer:
-
-  - Profils utilisés pour l'encodage
-
 # TODO
 
-  - Ajouter métadonnées (Ce qu'on a) dans la template HTML pour info
   - Changelog dès initial release
-  - p2: Afficher partie de log propre au job dans job report
-  - Vérifier propriétés CSS3 pour autres navigateurs (vendor prefixes)
-  - Utiliser les classes modernizr pour styler en fonction des capacités des navigateurs
-  - Options parametrables (Bien réfléchir à comment l'implémenter pour que cela reste simple, limpide et inobtrusif)
-    - Taille de la vidéo (p.ex 565 max width pr Jahia)
-    - Position temporelle du poster
   
 # Failles de sécurité
 
