@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   
   <title>HTML Video Automator - Video Demo</title>
-  <meta name="description" content="Page de démo pour vidéo encodée et publiée à l'aide de HTML Video Automator">
+  <meta name="description" content="Demo page for video encoded with HTML Video Automator">
   <meta name="author" content="Loïc Cattani, loic.cattani@gmail.com">
   
   <!--  Mobile viewport optimized: j.mp/bplateviewport -->
@@ -64,7 +64,7 @@
     </div>
     <!-- Download links provided for devices that can't play video in the browser. -->
     <p>
-      <strong>Téléchargez cette vidéo:</strong>
+      <strong>Download Video:</strong>
       <a href="http://video-js.zencoder.com/oceans-clip.mp4">MP4</a>,
       <a href="http://video-js.zencoder.com/oceans-clip.webm">WebM</a>
     </p>
@@ -73,51 +73,18 @@
     <hr>
     
     <section id="code">
-      <h3>Instructions pour ajouter la vidéo sur une page web</h3>
+      <h3>Adding This Video in Your Page</h3>
       <dl id="code_wordpress">
-        <dt>Dans wordpress avec le plug-in VideoJS</dt>
+        <dt>In Wordpress, With The VideoJS Plug-In</dt>
         <dd>
-          <p>Copier simplement le code ci-dessous dans la page ou l'article.</p>
-          <code>[<span class="code-tag">video mp4=</span><span class="code-value">"http://video-js.zencoder.com/oceans-clip.mp4"</span> <span class="code-tag">ogg=</span><span class="code-value">"http://video-js.zencoder.com/oceans-clip.ogg"</span> <span class="code-tag">webm=</span><span class="code-value">"http://video-js.zencoder.com/oceans-clip.webm"</span> <span class="code-tag">poster=</span><span class="code-value">"http://video-js.zencoder.com/oceans-clip.png"</span> <span class="code-tag">preload=</span><span class="code-value">"true"</span> <span class="code-tag">width=</span><span class="code-value">"640"</span> <span class="code-tag">height=</span><span class="code-value">"264"</span>]</code>
-        </dd>
-      </dl>
-            <dl id="code_jahia">
-        <dt>Dans une page Jahia avec l'extension VideoJS</dt>
-        <dd>
-          <p>Premièrement, activer l'extension VideoJS pour la page. Si ce n'est pas déjà fait.</p>
-          <p>Ensuite, dans <em>FCK Editor</em>, en mode <em>Source</em>, ajouter le code de la vidéo.</p>
-          <code><span class="code-comment">&lt;!-- Begin VideoJS --&gt;</span>
-&lt;<span class="code-tag">div class=</span><span class="code-value">&quot;video-js-box&quot;</span>&gt;
-  <span class="code-comment">&lt;!-- Using the Video for Everybody Embed Code http://camendesign.com/code/video_for_everybody --&gt;</span>
-  &lt;<span class="code-tag">video class=</span><span class="code-value">&quot;video-js&quot;</span> <span class="code-tag">width=</span><span class="code-value">&quot;565&quot;</span> <span class="code-tag">height=</span><span class="code-value">&quot;233&quot;</span> <span class="code-tag">controls preload poster=</span><span class="code-value">&quot;http://video-js.zencoder.com/oceans-clip.png&quot;</span>&gt;
-    &lt;<span class="code-tag">source src=</span><span class="code-value">&quot;http://video-js.zencoder.com/oceans-clip.mp4&quot;</span> <span class="code-tag">type=</span><span class="code-value">&quot;video/mp4; codecs=&#x27;avc1.42E01E, mp4a.40.2&#x27;&quot;</span> /&gt;
-    &lt;<span class="code-tag">source src=</span><span class="code-value">&quot;http://video-js.zencoder.com/oceans-clip.webm&quot;</span> <span class="code-tag">type=</span><span class="code-value">&quot;video/webm; codecs=&#x27;vp8, vorbis&#x27;&quot;</span> /&gt;
-    <span class="code-comment">&lt;!-- Flash Fallback. Use any flash video player here. Make sure to keep the vjs-flash-fallback class. --&gt;</span>
-    &lt;<span class="code-tag">object id=</span><span class="code-value">&quot;flash_fallback_1&quot;</span> <span class="code-tag">class=</span><span class="code-value">&quot;vjs-flash-fallback&quot;</span> <span class="code-tag">width=</span><span class="code-value">&quot;565&quot;</span> <span class="code-tag">height=</span><span class="code-value">&quot;233&quot;</span> <span class="code-tag">type=</span><span class="code-value">&quot;application/x-shockwave-flash&quot;</span> 
-      <span class="code-tag">data=</span><span class="code-value">&quot;http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf&quot;</span>&gt;
-      &lt;<span class="code-tag">param name=</span><span class="code-value">&quot;movie&quot;</span> <span class="code-tag">value=</span><span class="code-value">&quot;http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf&quot;</span> /&gt;
-      &lt;<span class="code-tag">param name=</span><span class="code-value">&quot;allowfullscreen&quot;</span> <span class="code-tag">value=</span><span class="code-value">&quot;true&quot;</span> /&gt;
-      &lt;<span class="code-tag">param name=</span><span class="code-value">&quot;flashvars&quot;</span> 
-        <span class="code-tag">value=</span><span class="code-value">&quot;config={&#x27;playlist&#x27;:[&#x27;http://video-js.zencoder.com/oceans-clip.png&#x27;, {&#x27;url&#x27;: &#x27;http://video-js.zencoder.com/oceans-clip.mp4&#x27;,&#x27;autoPlay&#x27;:false,&#x27;autoBuffering&#x27;:true}]}&quot;</span> /&gt;
-      <span class="code-comment">&lt;!-- Image Fallback. Typically the same as the poster image. --&gt;</span>
-      &lt;<span class="code-tag">img src=</span><span class="code-value">&quot;http://video-js.zencoder.com/oceans-clip.png&quot;</span> <span class="code-tag">width=</span><span class="code-value">&quot;565&quot;</span> <span class="code-tag">height=</span><span class="code-value">&quot;233&quot;</span> <span class="code-tag">alt=</span><span class="code-value">&quot;Poster Image&quot;</span> 
-        <span class="code-tag">title=</span><span class="code-value">&quot;No video playback capabilities.&quot;</span> /&gt;
-    &lt;/<span class="code-tag">object</span>&gt;
-  &lt;/<span class="code-tag">video</span>&gt;
-&lt;/<span class="code-tag">div</span>&gt;
-<span class="code-comment">&lt;!-- Download links provided for devices that can&#x27;t play video in the browser. --&gt;</span>
-&lt;<span class="code-tag">p</span>&gt;
-  &lt;<span class="code-tag">strong</span>&gt;T&eacute;l&eacute;chargez cette vid&eacute;o:&lt;/<span class="code-tag">strong</span>&gt;
-  &lt;<span class="code-tag">a href=</span><span class="code-value">&quot;http://video-js.zencoder.com/oceans-clip.mp4&quot;</span>&gt;MP4&lt;/<span class="code-tag">a</span>&gt;,
-  &lt;<span class="code-tag">a href=</span><span class="code-value">&quot;http://video-js.zencoder.com/oceans-clip.webm&quot;</span>&gt;WebM&lt;/<span class="code-tag">a</span>&gt;
-&lt;/<span class="code-tag">p</span>&gt;
-<span class="code-comment">&lt;!-- End VideoJS --&gt;</span></code>
+          <p>Copy the following line in your wordpress post or page.</p>
+          <code>[<span class="code-tag">video mp4=</span><span class="code-value">"http://video-js.zencoder.com/oceans-clip.mp4"</span> <span class="code-tag">ogg=</span><span class="code-value">"http://video-js.zencoder.com/oceans-clip.webm"</span> <span class="code-tag">poster=</span><span class="code-value">"http://video-js.zencoder.com/oceans-clip.png"</span> <span class="code-tag">preload=</span><span class="code-value">"true"</span> <span class="code-tag">width=</span><span class="code-value">"640"</span> <span class="code-tag">height=</span><span class="code-value">"264"</span>]</code>
         </dd>
       </dl>
       <dl id="code_html">
-        <dt>Dans une page web statique</dt>
+        <dt>In a Static Web Page</dt>
         <dd>
-          <p>Tout d'abord, copier le code suivant dans l'en-tête <code class="inline">&lt;<span class="code-tag">head</span>&gt;</code> du document HTML. S'il ne s'y trouve pas déjà.</p>
+          <p>First, add VideoJS to your page by copying this code in your HTML document's <code class="inline">&lt;<span class="code-tag">head</span>&gt;</code>.</p>
           <code><span class="code-tag"><span class="code-comment">&lt;!-- Begin VideoJS Head --&gt;</span>
 &lt;<span class="code-tag">script src=</span><span class="code-value">&quot;http://podcast.unil.ch/videojs/current/video.js&quot;</span>&gt;&lt;/<span class="code-tag">script</span>&gt;
 &lt;<span class="code-tag">link rel=</span><span class="code-value">&quot;stylesheet&quot;</span> <span class="code-tag">href=</span><span class="code-value">&quot;http://podcast.unil.ch/videojs/current/video-js.css&quot;</span> <span class="code-tag">media=</span><span class="code-value">&quot;screen&quot;</span> <span class="code-tag">title=</span><span class="code-value">&quot;Video JS&quot;</span>&gt;
@@ -126,7 +93,7 @@
   VideoJS.setupAllWhenReady();
 &lt;/<span class="code-tag">script</span>&gt;
 <span class="code-comment">&lt;!-- End VideoJS Head--&gt;</span></code>
-          <p>Ensuite, ajouter le code de la vidéo dans la page.</p>
+          <p>Then, add your video with this embed code:</p>
           <code><span class="code-comment">&lt;!-- Begin VideoJS --&gt;</span>
 &lt;<span class="code-tag">div class=</span><span class="code-value">&quot;video-js-box&quot;</span>&gt;
   <span class="code-comment">&lt;!-- Using the Video for Everybody Embed Code http://camendesign.com/code/video_for_everybody --&gt;</span>
