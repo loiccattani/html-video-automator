@@ -36,8 +36,9 @@ module HTMLVideoAutomator
       $log.info "Trying to launch job"
       @job = HTMLVideoAutomator::Job.new
       if @job.prepare(hashes)
-        @cgi.out("status" => "302", "location" => @job.report_url) {''} # Initial job report ready, redirect to it!
-        @cgi.out{''}
+        @cgi.out("status" => "303", "Connection" => "close", "Content-Length" => 1, "Location" => @job.report_url) {' '} # Initial job report ready, redirect to it!
+        # Why 303? http://en.wikipedia.org/wiki/HTTP_303
+        # Works in FF 4 only with Content-Lenght > 0 and Connection: close
         @job.start
       else
         $log.error "Can't launch job, bad hashes or missing files in dropbox"
