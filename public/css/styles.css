@@ -747,8 +747,15 @@ td, th {
 /* Grade-A Mobile Browsers (Opera Mobile, Mobile Safari, Android Chrome)
    consider this: www.cloudfour.com/css-media-query-for-mobile-is-fools-gold/ */
 @media screen and (max-device-width: 480px) {
-
-
+  
+  #home header {margin: 8em 0 3em 0}
+  body, footer {width: 480px;}
+  footer {margin-bottom: 10em;}
+  #main, table {width: 400px;}
+  #code code {width: 380px;}
+  #status {top: -20px; left: 90px;}
+  video {max-width: 400px;}
+  
   /* Uncomment if you don't want iOS and WinMobile to mobile-optimize the text for you: j.mp/textsizeadjust */
   /* html { -webkit-text-size-adjust:none; -ms-text-size-adjust:none; } */
 }
