@@ -6,6 +6,7 @@ module HTMLVideoAutomator
       def load
         videos = Array.new
         paths = Dir.glob("#{Config.path('dropbox')}/**/*")
+        $log.debug "Searching path in dropbox at \"#{Config.path('dropbox')}\""
         
         paths.each do |path|
           videos.push Video.new(path)

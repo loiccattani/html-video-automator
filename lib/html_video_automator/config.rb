@@ -21,8 +21,8 @@ module HTMLVideoAutomator
       end
       
       def path(path)
-        if path.chr == '/' # Absolute path
-          return path
+        if @config[path].chr == '/' # Absolute path
+          return @config[path]
         elsif path == 'home' # App's home path (Which may be like '~/work/hva')
           return File.expand_path(@config['home']) 
         else # Relative path from home
