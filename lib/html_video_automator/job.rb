@@ -73,7 +73,7 @@ module HTMLVideoAutomator
       
       case task
       when :validate
-        result = video.valid?
+        result = video.valid
       when :encode_mp4
         result = video.encode 'mp4'
       when :encode_webm

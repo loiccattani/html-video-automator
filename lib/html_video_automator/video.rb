@@ -4,7 +4,7 @@ require 'logger'
 
 module HTMLVideoAutomator
   class Video
-    attr_accessor :path, :relative_path, :filename, :name, :digest, :size, :maxed_size, :duration, :file_size, :tasks, :fail_reason, :deliverables, :pub_url
+    attr_accessor :path, :relative_path, :filename, :name, :digest, :valid, :size, :maxed_size, :duration, :file_size, :tasks, :fail_reason, :deliverables, :pub_url
     attr_writer :tasks, :fail_reason, :deliverables, :pub_url
     
     def initialize(path)
@@ -14,6 +14,7 @@ module HTMLVideoAutomator
       @name = transliterate(@filename[/(.*)\.(.*)/,1]) # Isolate filename from extension #TODO: test this against plenty of filenames...
       @digest = Digest::SHA1.hexdigest(@path)
       @ffmpeg_info = get_ffmpeg_info
+      @valid = valid?
       @size = get_size
       @maxed_size = get_maxed_size
       @duration = get_duration
@@ -30,10 +31,11 @@ module HTMLVideoAutomator
       match = @ffmpeg_info[/Stream[^\n\r]+Video/]
       if match
         $log.debug "Video stream found"
+        return true
       else
         $log.error @fail_reason = 'No video stream found'
+        return false
       end
-      return match
     end
     
     def encode(format)
