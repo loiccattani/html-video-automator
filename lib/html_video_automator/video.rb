@@ -9,22 +9,31 @@ module HTMLVideoAutomator
     
     def initialize(path)
       @path = path
-      @relative_path = nil # TODO: Relative path from dropbox
       @filename = File.basename(@path)
-      @name = transliterate(@filename[/(.*)\.(.*)/,1]) # Isolate filename from extension #TODO: test this against plenty of filenames...
+      @name = transliterate(@filename) # Transliterate and isolate filename from extension
       @digest = Digest::SHA1.hexdigest(@path)
-      @ffmpeg_info = get_ffmpeg_info
-      @valid = valid?
-      @size = get_size
-      @maxed_size = get_maxed_size
-      @duration = get_duration
-      @file_size = File.size(@path)
       @tasks = { :validate => :unknown, :encode_mp4 => :unknown, :encode_webm => :unknown, :gen_poster => :unknown, :gen_html => :unknown, :publish => :unknown, :archive => :unknown }
       @fail_reason = nil
       @deliverables = Array.new
       @pub_url = nil
       @ffmpeg_log = Logger.new(Config.path('ffmpeg_log_file'), 'daily')
       @ffmpeg_log.level = Logger::INFO
+      # Single and Double quotes in filenames may lead to command injection.
+      if @path.include?('"') or @path.include?("'")
+        @valid = false
+        @fail_reason = "Invalid filename, will be renamed safely..."
+      else
+        load_info
+      end
+    end
+    
+    def load_info
+      @ffmpeg_info = get_ffmpeg_info
+      @valid = valid?
+      @size = get_size
+      @maxed_size = get_maxed_size
+      @duration = get_duration
+      @file_size = File.size(@path)
     end
     
     def valid?

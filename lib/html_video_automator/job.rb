@@ -171,10 +171,12 @@ module HTMLVideoAutomator
     
     def move_videos_to_workbench
       @videos.each do |video|
+        video.filename = transliterate(video.filename, true)
         new_path = "#{Config.path('workbench')}/#{video.filename}"
         begin
           FileUtils.mv video.path, new_path
           video.path = new_path
+          video.load_info # Reload info as file path has changed
         rescue Exception => e
           # If the file is missing at this point, it's likely that another job stealed the file in a race condition.
           # Pretty rare, so delete the video so that job may continue.

@@ -63,12 +63,14 @@
             <td><label for="file_<%= video.digest %>"><%= video.filename %></label></td>
 <% if video.valid %>
             <td class="done">Done</td>
-<% else %>
-            <td class="failed">Failed</td>
-<% end %>
             <td><%= video.size[:width].to_s + "&times;" + video.size[:height].to_s if video.valid %></td>
             <td><%= video.duration if video.valid %></td>
             <td><%= number_to_human_size(video.file_size) %></td>
+<% else %>
+            <td class="failed">Failed</td>
+            <td colspan="3"><small><%= video.fail_reason %></small></td>
+<% end %>
+            
           </tr>
 <% end %>
 <% if videos.empty? %>

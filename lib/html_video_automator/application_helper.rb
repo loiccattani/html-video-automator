@@ -1,10 +1,14 @@
 module ApplicationHelper
   
-  def transliterate(str)
-    # Based on permalink_fu by Rick Olsen
+  def transliterate(str, with_extension = false)
+    # Based on permalink_fu by Rick Olsen, with modifications
 
+    # Take apart name and extension (Split at last dot)
+    s = str[/(.*)\.(.*)/,1]
+    e = str[/(.*)\.(.*)/,2]
+    
     # Escape str by transliterating to UTF-8 with Iconv
-    s = Iconv.iconv('ascii//ignore//translit', 'utf-8', str).to_s
+    s = Iconv.iconv('ascii//ignore//translit', 'utf-8', s).to_s
 
     # Downcase string
     s.downcase!
@@ -21,7 +25,11 @@ module ApplicationHelper
     # Replace groups of spaces with single hyphen
     s.gsub!(/\ +/, '-')
 
-    return s
+    if with_extension
+      return s + "." + e 
+    else
+      return s
+    end
   end
   
   def duration_to_seconds(duration, precision = 2)
