@@ -1,0 +1,11 @@
+/* TEAM */
+	Web designer and developer: Loïc Cattani
+	Contact: loic.cattani at gmail.com
+	Twitter: @arkonova
+	From: Lausanne, Switzerland
+
+/* SITE */
+	Last update: 2011/05/23
+	Language: English / French
+	Doctype: HTML5
+	IDE: Fingers, TextMate
