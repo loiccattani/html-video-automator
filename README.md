@@ -1,6 +1,6 @@
 # HVA - HTML Video Automator
 
-Encode your videos in all formats required for HTML5 video playback, generate poster image and HTML document, publish all files to your web server and archive the sources elsewhere. 1-Click.
+Encode your videos in formats required for HTML5 video playback, generate poster image and HTML document, publish all files to your web server and archive sources elsewhere. 1-Click.
 
 HTML Video Automator is a ruby application that let you convert and publish videos for the web, easily. It make use of the HTML5 `<video>` element for browsers supporting it, and provide a Flash fallback for others.
 

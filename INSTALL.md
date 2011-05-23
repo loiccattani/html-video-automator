@@ -11,7 +11,7 @@ You need to have strong knowledge about *nix systems, command-line tools, securi
 - A *main* "HVA" server for the HTML Video Automator application (A powerful one). With:
   - Ruby 1.9.2 or later
   - Apache 2.2 with mod_rewrite and suEXEC properly configured
-  - ffmpeg 0.6.1 or later with these libs:
+  - ffmpeg 0.6.1 or later with the following libraries:
     - x264 latest snapshot
     - libfaac 1.28 or later
     - libvpx 0.9.6 or later
@@ -129,5 +129,3 @@ Note: Don't forget to do a `make clean` if any suexec configuration setting is c
 This is how i have configured FFmpeg to work with my setup.
 
     ./configure --enable-static --disable-shared --enable-gpl --enable-version3 --enable-nonfree --enable-postproc --enable-pthreads --enable-libfaac --enable-libmp3lame --enable-libtheora --enable-libvorbis --enable-libvpx --enable-libx264 --arch=x86_64
-
-
