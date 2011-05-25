@@ -19,7 +19,7 @@ module HTMLVideoAutomator
       @ffmpeg_log = Logger.new(Config.path('ffmpeg_log_file'), 'daily')
       @ffmpeg_log.level = Logger::INFO
       # Single and Double quotes in filenames may lead to command injection.
-      if @path.include?('"') or @path.include?("'")
+      if @path =~ /"|'/
         @valid = false
         @fail_reason = "Invalid filename, will be renamed safely..."
       else
