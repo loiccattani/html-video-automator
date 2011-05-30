@@ -9,7 +9,9 @@ module HTMLVideoAutomator
         $log.debug "Searching path in dropbox at \"#{Config.path('dropbox')}\""
         
         paths.each do |path|
-          videos.push Video.new(path)
+          $log.debug "Found #{path}"
+          $log.debug "Path Encoding: #{path.encoding}"
+          videos.push Video.new(path.force_encoding("ASCII-8BIT")) # FIXME: Shouldn't force encoding here.
         end
         
         $log.info "#{paths.count} files found in the dropbox"

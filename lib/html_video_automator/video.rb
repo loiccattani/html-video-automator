@@ -9,7 +9,7 @@ module HTMLVideoAutomator
     
     def initialize(path)
       @path = path
-      @filename = Iconv.iconv('ascii//ignore//translit', 'utf-8', File.basename(@path)).first
+      @filename = File.basename(@path)
       @name = transliterate(@filename) # Transliterate and isolate filename from extension
       @digest = Digest::SHA1.hexdigest(@path)
       @tasks = { :validate => :unknown, :encode_mp4 => :unknown, :encode_webm => :unknown, :gen_poster => :unknown, :gen_html => :unknown, :publish => :unknown, :archive => :unknown }

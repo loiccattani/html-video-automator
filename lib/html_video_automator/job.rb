@@ -38,6 +38,7 @@ module HTMLVideoAutomator
       
       move_videos_to_workbench
       
+      $log.info "Preparing remote servers"
       prepare_content_server      
       prepare_sources_server
       
