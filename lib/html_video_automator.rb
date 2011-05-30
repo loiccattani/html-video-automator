@@ -1,3 +1,7 @@
+# coding: utf-8
+
+Encoding.default_external = "UTF-8"
+
 $: << File.dirname(__FILE__)
 
 require 'html_video_automator/runner'

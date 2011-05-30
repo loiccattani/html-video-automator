@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require 'fileutils'
 
 module HTMLVideoAutomator
@@ -181,7 +183,7 @@ module HTMLVideoAutomator
         rescue Exception => e
           # If the file is missing at this point, it's likely that another job stealed the file in a race condition.
           # Pretty rare, so delete the video so that job may continue.
-          $log.warn "Wow! Race condition occured! Deleted #{video.filename} so we can finish that job. (#{e})"
+          $log.warn "Race condition occured! Deleted #{video.filename} so we can finish that job. (#{e})"
           @videos.delete(video)
         end
       end

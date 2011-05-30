@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require "erb"
 
 module HTMLVideoAutomator
@@ -10,8 +12,7 @@ module HTMLVideoAutomator
         
         paths.each do |path|
           $log.debug "Found #{path}"
-          $log.debug "Path Encoding: #{path.encoding}"
-          videos.push Video.new(path.force_encoding("ASCII-8BIT")) # FIXME: Shouldn't force encoding here.
+          videos.push Video.new(path)
         end
         
         $log.info "#{paths.count} files found in the dropbox"

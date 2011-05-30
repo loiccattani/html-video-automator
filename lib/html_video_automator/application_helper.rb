@@ -1,3 +1,5 @@
+# coding: utf-8
+
 module ApplicationHelper
   
   def transliterate(str, with_extension = false)
