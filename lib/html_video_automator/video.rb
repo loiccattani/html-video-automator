@@ -23,7 +23,7 @@ module HTMLVideoAutomator
       # Single and Double quotes in filenames may lead to command injection.
       if @path =~ /"|'/
         @valid = false
-        @fail_reason = "Invalid filename, will be renamed safely..."
+        @fail_reason = "Invalid filename. Will be renamed, safely..."
       else
         load_info
       end

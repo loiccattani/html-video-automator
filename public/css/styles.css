@@ -692,6 +692,21 @@ td, th {
   color: #fff;
 }
 
+#code_wordpress dt {
+  padding-left: 20px;
+  background: url(../images/icons/wordpress.png) left 50% no-repeat;
+}
+
+#code_jahia dt {
+  padding-left: 20px;
+  background: url(../images/icons/jahia.png) left 50% no-repeat;
+}
+
+#code_html dt {
+  padding-left: 20px;
+  background: url(../images/icons/universal.png) left 50% no-repeat;
+}
+
 .code-comment {
   font-style: italic;
   color: rgb(0,136,255);
