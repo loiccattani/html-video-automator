@@ -238,6 +238,15 @@ header {
   transform: rotate(-3deg);
 }
 
+header a:link,
+header a:active,
+header a:hover,
+header a:visited {
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0px 0px 3px rgb(255,255,255), 0px -1px 15px rgb(255,0,255);
+}
+
 #main {
   width: 640px;
   padding: 40px 40px 25px 40px;
