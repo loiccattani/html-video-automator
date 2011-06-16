@@ -247,6 +247,13 @@ header a:visited {
   text-shadow: 0px 0px 3px rgb(255,255,255), 0px -1px 15px rgb(255,0,255);
 }
 
+header small {
+  position: relative;
+  top: 15px;
+  left: -10px;
+  font-size: 50%;
+}
+
 #main {
   width: 640px;
   padding: 40px 40px 25px 40px;
