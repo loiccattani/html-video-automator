@@ -176,6 +176,11 @@ module HTMLVideoAutomator
         h = mh
         w = [h * r, mw].min.to_i
       end
+      
+      # Ensure the new size is divisible by 2
+      # http://mailman.videolan.org/pipermail/x264-devel/2010-May/007305.html
+      w = (w/2)*2
+      h = (h/2)*2
 
       r = aspect_ratio(w, h)
 
