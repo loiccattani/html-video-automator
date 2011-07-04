@@ -85,7 +85,7 @@
         </dd>
       </dl>
       <dl id="code_jahia">
-        <dt>Dans une page Jahia avec l'extension VideoJS</dt>
+        <dt>Dans une page Jahia UNIL avec l'extension VideoJS</dt>
         <dd>
           <p>Premièrement, <em>activer l'extension VideoJS</em> pour la page. Si ce n'est pas déjà fait.</p>
           <p>Ensuite, dans <em>FCK Editor</em>, en mode <em>source</em>, ajouter le code de la vidéo.</p>
@@ -115,6 +115,13 @@
   &lt;<span class="code-tag">a href=</span><span class="code-value">&quot;<%= "#{pub_url}/#{name}" %>.webm&quot;</span>&gt;WebM&lt;/<span class="code-tag">a</span>&gt;
 &lt;/<span class="code-tag">p</span>&gt;
 <span class="code-comment">&lt;!-- End VideoJS --&gt;</span></code>
+        </dd>
+      </dl>
+      <dl id="code_moodle">
+        <dt>Dans Moodle UNIL</dt>
+        <dd>
+          <p>Copier simplement le lien ci-dessous dans le texte d'un cours.</p>
+          <code><%= "#{pub_url}/#{name}.html?d=#{size[:width]}x#{size[:height]}" %></code>
         </dd>
       </dl>
       <dl id="code_html">
