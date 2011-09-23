@@ -120,7 +120,7 @@ module HTMLVideoAutomator
       name = @name
       filename = "#{@name}.html"
       output_path = Config.path('deliverables') + "/" + filename
-      size = @maxed_size
+      size = get_maxed_size(640,480) # Maxed at 640x480 for VideoJS player, higher res can be viewed fullscreen
       pub_url = @pub_url
       jahia_size = get_jahia_size
       
@@ -157,14 +157,14 @@ module HTMLVideoAutomator
       @ffmpeg_info[/Duration:\s([0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{2})/, 1]
     end
     
-    def get_maxed_size
-      # Accept a size hash {:width, :height} and returns a maximized "wxh" value. Scaling down the size
+    def get_maxed_size(max_width = nil, max_height = nil)
+      # Accept a pair of size values and returns a maximized "wxh" value. Scaling down the size
       # if needed but not scale it up. Also keep its aspect ratio.
 
       w = @size[:width]
       h = @size[:height]
-      mw = Config['max_width']
-      mh = Config['max_height']
+      mw = max_width || Config['max_width']
+      mh = max_height || Config['max_height']
       r = aspect_ratio(w, h)
 
       $log.debug "Original size: #{w}x#{h} (#{r.round(2)})"

@@ -415,7 +415,7 @@ td, th {
   width: 20px;
 }
 
-#dropbox tr.video {
+#dropbox tr.video, #hd_mode {
   color: #999;
   /* Transitions */
   -webkit-transition: all 0.1s ease-out;
@@ -429,7 +429,7 @@ td, th {
   cursor: pointer;
 }
 
-#dropbox tr.video:hover {
+#dropbox tr.video:hover, #hd_mode:hover {
   color: #fff;
   text-shadow: 0px 0px 2px rgb(255,255,255);
 }
@@ -455,6 +455,10 @@ td, th {
 
 #dropbox input[type="checkbox"] {
   margin: 2px;
+}
+
+#dropbox #hd_mode {
+  float: left;
 }
 
 #dropbox form p {

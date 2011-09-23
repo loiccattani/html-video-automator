@@ -17,6 +17,11 @@ module HTMLVideoAutomator
     end
     
     def run
+      if @cgi.params['hd_mode'][0] == "1"
+        $log.info "HD Mode"
+        Config.set('max_width', Config['max_width_hd'])
+        Config.set('max_height', Config['max_height_hd'])
+      end
       if @cgi.request_method == 'GET'
         show_dropbox
       elsif @cgi.request_method == 'POST' and ! @cgi.params['hashes'].empty?

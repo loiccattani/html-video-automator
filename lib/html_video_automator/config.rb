@@ -22,6 +22,10 @@ module HTMLVideoAutomator
         c
       end
       
+      def set(path, value)
+        @config[path] = value
+      end
+      
       def path(path)
         if @config[path].chr == '/' # Absolute path
           return @config[path]
