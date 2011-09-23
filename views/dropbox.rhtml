@@ -84,11 +84,12 @@
           </tr>
 <% end %>
         </table>
-        <p id="hd_mode" style="display:none;">
+        <p id="submit"><input type="submit" value="Automate selection" <%= if videos.empty? then 'disabled' end %>></p>
+        <h4 id="options">Advanced Options</h4>
+        <p id="hd_mode">
           <input type="checkbox" name="hd_mode" value="1" id="hd_mode_checkbox">
-          <label for="hd_mode_checkbox">Output HD Video</label>
+          <label for="hd_mode_checkbox">Output HD Video (720p)</label>
         </p>
-        <p><input type="submit" value="Automate selection" <%= if videos.empty? then 'disabled' end %>></p>
       </form>
     </section>
     

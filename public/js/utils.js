@@ -14,10 +14,14 @@ $(document).ready(function() {
   });
 });
 
-// A click on a #code .pad toggle class .open
+// A click on a '#code dt' or option toggle class .open and slideToggle next sibling
 $(document).ready(function() {
   $('#code dt').click(function(event) {
     $(this).parent().toggleClass('open');
+    $(this).next().slideToggle();
+  });
+  $('#options').click(function(event) {
+    $(this).toggleClass('open');
     $(this).next().slideToggle();
   });
 });

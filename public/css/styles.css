@@ -457,12 +457,24 @@ td, th {
   margin: 2px;
 }
 
-#dropbox #hd_mode {
-  float: left;
+#dropbox h4 {
+  font-size: 85%; /* 11px */
+  color: #999;
 }
 
-#dropbox form p {
-  text-align: right;
+#dropbox h4.open {
+  color: white;
+}
+
+#dropbox #hd_mode {
+  display: none;
+  font-size: 85%; /* 11px */
+  height: 2em;
+  margin: 0.5em 0 0 0.5em;
+}
+
+#dropbox #submit {
+  float: right;
 }
 
 /* Report */
