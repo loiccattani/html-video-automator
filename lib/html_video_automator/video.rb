@@ -169,12 +169,14 @@ module HTMLVideoAutomator
 
       $log.debug "Original size: #{w}x#{h} (#{r.round(2)})"
 
-      if w > mw and r >= 1.0
+      if w > mw
         w = mw
-        h = [w / r, mh].min.to_i
-      elsif h > mh and r < 1.0
+        h = (w / r).to_i
+      end
+
+      if h > mh
         h = mh
-        w = [h * r, mw].min.to_i
+        w = (h * r).to_i
       end
       
       # Ensure the new size is divisible by 2
