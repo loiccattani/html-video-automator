@@ -14,14 +14,10 @@ $(document).ready(function() {
   });
 });
 
-// A click on a '#code dt' or option toggle class .open and slideToggle next sibling
+// A click on a '#code dt' or '.expandable dt' class .open and slideToggle next sibling
 $(document).ready(function() {
-  $('#code dt').click(function(event) {
+  $('.expandable dt').click(function(event) {
     $(this).parent().toggleClass('open');
     $(this).next().slideToggle();
-  });
-  $('.options').click(function(event) {
-    $(this).toggleClass('open');
-    $('.expand').slideToggle();
   });
 });

@@ -313,6 +313,71 @@ td.working { background-image: url('../images/icons/navigation.png'); }
 td.done { background-image: url('../images/icons/tick-circle.png'); }
 td.failed { background-image: url('../images/icons/exclamation-red.png'); }
 
+/* Expandable (A click on the dt slideToogle the dd)*/
+.expandable {
+  font-size: 85%; /* 11px */
+  color: #999;
+  cursor: pointer;
+}
+
+.expandable dt {
+  cursor: pointer;
+  color: #999;
+  /* Transitions */
+  -webkit-transition: color 0.1s ease-out;
+  -moz-transition: color 0.1s ease-out;
+  -o-transition: color 0.1s ease-out;
+  transition: color 0.1s ease-out;
+}
+
+.expandable dt:hover {
+  color: white;
+  text-shadow: 0px 0px 2px rgb(255,255,255);
+}
+
+.expandable.open dt {
+  color: white;
+}
+
+.expandable dd {
+  display: none;
+}
+
+.no-js .expandable dd {
+  display: block;
+}
+
+.no-js .expandable dt {
+  color: #fff;
+  text-shadow: none;
+  cursor: normal;
+}
+
+/* Forms */
+
+label {
+  color: #999;
+  /* Transitions */
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  -o-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+  cursor: pointer;
+}
+
+label:hover {
+  color: #fff;
+  text-shadow: 0px 0px 2px rgb(255,255,255);
+}
+
+input[type="checkbox"] {
+  margin: 2px;
+}
+
+#submit {
+  float: right;
+}
+
 /* Button */
 
 .button {
@@ -415,7 +480,7 @@ td, th {
   width: 20px;
 }
 
-#dropbox tr.video, #dropbox label {
+#dropbox tr.video {
   color: #999;
   /* Transitions */
   -webkit-transition: all 0.1s ease-out;
@@ -425,16 +490,12 @@ td, th {
   cursor: pointer;
 }
 
-#dropbox label {
-  cursor: pointer;
-}
-
-#dropbox tr.video:hover, #dropbox label:hover {
+#dropbox tr.video:hover {
   color: #fff;
   text-shadow: 0px 0px 2px rgb(255,255,255);
 }
 
-#dropbox th:nth-child(3), #dropbox td:nth-child(3){
+#dropbox th:nth-child(3), #dropbox td:nth-child(3) {
   width: 16px;
   max-width: 16px;
   height: 16px;
@@ -453,29 +514,8 @@ td, th {
 
 #dropbox th:nth-child(3) { background-image: url('../images/icons/film.png'); }
 
-#dropbox input[type="checkbox"] {
-  margin: 2px;
-}
-
-#dropbox .options {
-  font-size: 85%; /* 11px */
-  color: #999;
-  cursor: pointer;
-}
-
-#dropbox .options.open {
-  color: white;
-}
-
-#dropbox .expand {
-  display: none;
-  font-size: 85%; /* 11px */
-  margin-top: 6px;
-  margin-left: 6px;
-}
-
-#dropbox #submit {
-  float: right;
+#dropbox .expandable dd {
+  margin: 6px 0 0 6px;
 }
 
 /* Report */
@@ -696,33 +736,8 @@ td, th {
 }
 
 #code dt {
-  cursor: pointer;
   margin-top: 10px;
-  color: #999;
   font-size: 16px;
-  /* Transitions */
-  -webkit-transition: color 0.1s ease-out;
-  -moz-transition: color 0.1s ease-out;
-  -o-transition: color 0.1s ease-out;
-  transition: color 0.1s ease-out;
-}
-
-#code dt:hover {
-  color: #fff;
-  text-shadow: 0px 0px 2px rgb(255,255,255);
-}
-
-#code dd {
-  display: none;
-}
-
-.no-js #code dd {
-  display: block;
-}
-
-.no-js #code dt,
-#code .open dt {
-  color: #fff;
 }
 
 #code_wordpress dt {
