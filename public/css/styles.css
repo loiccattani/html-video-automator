@@ -313,14 +313,14 @@ td.working { background-image: url('../images/icons/navigation.png'); }
 td.done { background-image: url('../images/icons/tick-circle.png'); }
 td.failed { background-image: url('../images/icons/exclamation-red.png'); }
 
-/* Expandable (A click on the dt slideToogle the dd)*/
-.expandable {
+/* Expandable Definition List*/
+dl.expandable {
   font-size: 85%; /* 11px */
   color: #999;
   cursor: pointer;
 }
 
-.expandable dt {
+dl.expandable dt {
   cursor: pointer;
   color: #999;
   /* Transitions */
@@ -330,24 +330,24 @@ td.failed { background-image: url('../images/icons/exclamation-red.png'); }
   transition: color 0.1s ease-out;
 }
 
-.expandable dt:hover {
+dl.expandable dt:hover {
   color: white;
   text-shadow: 0px 0px 2px rgb(255,255,255);
 }
 
-.expandable.open dt {
+dl.expandable.open dt {
   color: white;
 }
 
-.expandable dd {
+dl.expandable dd {
   display: none;
 }
 
-.no-js .expandable dd {
+.no-js dl.expandable dd {
   display: block;
 }
 
-.no-js .expandable dt {
+.no-js dl.expandable dt {
   color: #fff;
   text-shadow: none;
   cursor: normal;
