@@ -415,7 +415,7 @@ td, th {
   width: 20px;
 }
 
-#dropbox tr.video, #hd_mode {
+#dropbox tr.video, #dropbox label {
   color: #999;
   /* Transitions */
   -webkit-transition: all 0.1s ease-out;
@@ -429,7 +429,7 @@ td, th {
   cursor: pointer;
 }
 
-#dropbox tr.video:hover, #hd_mode:hover {
+#dropbox tr.video:hover, #dropbox label:hover {
   color: #fff;
   text-shadow: 0px 0px 2px rgb(255,255,255);
 }
@@ -457,20 +457,21 @@ td, th {
   margin: 2px;
 }
 
-#dropbox h4 {
+#dropbox .options {
   font-size: 85%; /* 11px */
   color: #999;
+  cursor: pointer;
 }
 
-#dropbox h4.open {
+#dropbox .options.open {
   color: white;
 }
 
-#dropbox #hd_mode {
+#dropbox .expand {
   display: none;
   font-size: 85%; /* 11px */
-  height: 2em;
-  margin: 0.5em 0 0 0.5em;
+  margin-top: 6px;
+  margin-left: 6px;
 }
 
 #dropbox #submit {

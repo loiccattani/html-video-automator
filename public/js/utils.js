@@ -20,8 +20,8 @@ $(document).ready(function() {
     $(this).parent().toggleClass('open');
     $(this).next().slideToggle();
   });
-  $('#options').click(function(event) {
+  $('.options').click(function(event) {
     $(this).toggleClass('open');
-    $(this).next().slideToggle();
+    $('.expand').slideToggle();
   });
 });
