@@ -75,7 +75,7 @@
     
     <hr>
     
-    <section id="code">
+    <section id="code" class="expandable">
       <h3>Instructions pour ajouter la vidéo sur une page web</h3>
       <dl id="code_wordpress">
         <dt>Dans wordpress avec le plug-in VideoJS</dt>
@@ -84,7 +84,7 @@
           <code>[<span class="code-tag">video mp4=</span><span class="code-value">"<%= "#{pub_url}/#{name}" %>.mp4"</span> <span class="code-tag">webm=</span><span class="code-value">"<%= "#{pub_url}/#{name}" %>.webm"</span> <span class="code-tag">poster=</span><span class="code-value">"<%= "#{pub_url}/#{name}" %>.png"</span> <span class="code-tag">preload=</span><span class="code-value">"true"</span> <span class="code-tag">width=</span><span class="code-value">"<%= size[:width] %>"</span> <span class="code-tag">height=</span><span class="code-value">"<%= size[:height] %>"</span>]</code>
         </dd>
       </dl>
-      <dl id="code_jahia">
+      <dl id="code_jahia" class="expandable">
         <dt>Dans une page Jahia UNIL avec l'extension VideoJS</dt>
         <dd>
           <p>Premièrement, <em>activer l'extension VideoJS</em> pour la page. Si ce n'est pas déjà fait.</p>
@@ -117,14 +117,14 @@
 <span class="code-comment">&lt;!-- End VideoJS --&gt;</span></code>
         </dd>
       </dl>
-      <dl id="code_moodle">
+      <dl id="code_moodle" class="expandable">
         <dt>Dans Moodle UNIL</dt>
         <dd>
           <p>Copier simplement le lien ci-dessous dans le texte d'un cours.</p>
           <code><%= "#{pub_url}/#{name}.html?d=#{size[:width]}x#{size[:height]}" %></code>
         </dd>
       </dl>
-      <dl id="code_html">
+      <dl id="code_html" class="expandable">
         <dt>Méthode universelle: Dans une page web statique</dt>
         <dd>
           <p>Tout d'abord, copier le code suivant dans l'en-tête <code class="inline">&lt;<span class="code-tag">head</span>&gt;</code> du document HTML. S'il ne s'y trouve pas déjà.</p>
