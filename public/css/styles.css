@@ -697,8 +697,7 @@ td, th {
 
 /* Video code */
 
-#code h3,
-#code dt {
+#code h3 {
   font-size: 123.1%; /* 16px */
   margin-bottom: 10px;
 }
@@ -732,12 +731,15 @@ td, th {
 }
 
 #code dl {
-  margin: 5px 0;
+  padding-bottom: 10px;
 }
 
 #code dt {
+  font-size: 123.1%;  /* 16px */
+}
+
+#code dd {
   margin-top: 10px;
-  font-size: 16px;
 }
 
 #code_wordpress dt {
