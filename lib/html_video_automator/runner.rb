@@ -17,11 +17,6 @@ module HTMLVideoAutomator
     end
     
     def run
-      if @cgi.params['hd_mode'][0] == "1"
-        $log.info "HD Mode"
-        Config.set('max_width', Config['max_width_hd'])
-        Config.set('max_height', Config['max_height_hd'])
-      end
       if @cgi.request_method == 'GET'
         show_dropbox
       elsif @cgi.request_method == 'POST' and ! @cgi.params['hashes'].empty?
@@ -41,8 +36,9 @@ module HTMLVideoAutomator
     
     def launch_job(hashes)
       $log.info "Trying to launch job"
+      hd_output = @cgi.params['hd_mode'][0] == "1"
       @job = HTMLVideoAutomator::Job.new
-      if @job.prepare(hashes)
+      if @job.prepare(hashes, hd_output)
         @cgi.out("status" => "303", "Connection" => "close", "Content-Length" => 1, "Location" => @job.report_url) {' '} # Initial job report ready, redirect to it!
         # Why 303? http://en.wikipedia.org/wiki/HTTP_303
         # Works in FF 4 only with Content-Lenght > 0 and Connection: close

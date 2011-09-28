@@ -14,13 +14,14 @@ module HTMLVideoAutomator
       @some_task_failed = false
     end
     
-    def prepare(hashes)
+    def prepare(hashes, hd_output)
       @start_time = Time.now
       dropbox_videos = Dropbox.load
       
       # Compare each files in dropbox with POSTed hashes and push matches to @videos
       dropbox_videos.each do |video|
         if hashes.include? video.digest
+          video.hd_output = hd_output
           @videos.push video
         end
       end
@@ -34,7 +35,7 @@ module HTMLVideoAutomator
       
     end
     
-    def start
+    def start()
       try_lock if Config['enable_mutex']
       $log.info "Job ##{@id} Started"
       

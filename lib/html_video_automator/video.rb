@@ -6,8 +6,8 @@ require 'logger'
 
 module HTMLVideoAutomator
   class Video
-    attr_accessor :path, :relative_path, :filename, :name, :digest, :valid, :hd, :size, :maxed_size, :duration, :file_size, :tasks, :fail_reason, :deliverables, :pub_url
-    attr_writer :tasks, :fail_reason, :deliverables, :pub_url
+    attr_accessor :path, :relative_path, :filename, :name, :digest, :valid, :hd, :size, :maxed_size, :duration, :file_size, :tasks, :fail_reason, :deliverables, :pub_url, :hd_output
+    attr_writer :tasks, :fail_reason, :deliverables, :pub_url, :hd_output
     
     def initialize(path)
       @path = path
@@ -27,6 +27,7 @@ module HTMLVideoAutomator
       else
         load_info
       end
+      @hd_output = false
     end
     
     def load_info
@@ -125,9 +126,10 @@ module HTMLVideoAutomator
       name = @name
       filename = "#{@name}.html"
       output_path = Config.path('deliverables') + "/" + filename
-      size = get_maxed_size(640,480) # Maxed at 640x480 for VideoJS player, higher res can be viewed fullscreen
+      size = get_maxed_size(false) # Maxed at SD output for VideoJS player, HD res can be viewed fullscreen
       pub_url = @pub_url
       jahia_size = get_jahia_size
+      hd_badge = (@hd and @hd_output)
       
       begin
         erb = ERB.new File.new(File.dirname(__FILE__) + '/../../views/video.rhtml').read, nil, "%"
@@ -162,14 +164,21 @@ module HTMLVideoAutomator
       @ffmpeg_info[/Duration:\s([0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{2})/, 1]
     end
     
-    def get_maxed_size(max_width = nil, max_height = nil)
+    def get_maxed_size(hd_output = @hd_output)
       # Accept a pair of size values and returns a maximized "wxh" value. Scaling down the size
       # if needed but not scale it up. Also keep its aspect ratio.
-
+      
       w = @size[:width]
       h = @size[:height]
-      mw = max_width || Config['max_width']
-      mh = max_height || Config['max_height']
+      
+      if hd_output
+        mw = Config['max_width_hd']
+        mh = Config['max_height_hd']
+      else
+        mw = Config['max_width']
+        mh = Config['max_height']
+      end
+      
       r = aspect_ratio(w, h)
 
       $log.debug "Original size: #{w}x#{h} (#{r.round(2)})"

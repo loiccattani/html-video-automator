@@ -348,6 +348,10 @@ span.hd {
   background: linear-gradient(top, rgba(149,149,149,1) 0%,rgba(13,13,13,1) 46%,rgba(1,1,1,1) 50%,rgba(10,10,10,1) 53%,rgba(78,78,78,1) 76%,rgba(56,56,56,1) 87%,rgba(27,27,27,1) 100%); /* W3C */
 }
 
+h2 span.hd {
+  font-size: 14px;
+}
+
 /* Expandable Definition List*/
 dl.expandable {
   font-size: 85%; /* 11px */
