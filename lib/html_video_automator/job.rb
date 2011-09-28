@@ -35,7 +35,7 @@ module HTMLVideoAutomator
       
     end
     
-    def start()
+    def start
       try_lock if Config['enable_mutex']
       $log.info "Job ##{@id} Started"
       
