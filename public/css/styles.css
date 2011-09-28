@@ -352,6 +352,21 @@ dl.expandable dd {
   cursor: normal;
 }
 
+dl.expandable label {
+  color: #999;
+  /* Transitions */
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  -o-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+  cursor: pointer;
+}
+
+dl.expandable label:hover {
+  color: #fff;
+  text-shadow: 0px 0px 2px rgb(255,255,255);
+}
+
 /* Info */
 
 dl.info {
@@ -392,21 +407,6 @@ dl.info strong {
 }
 
 /* Forms */
-
-label {
-  color: #999;
-  /* Transitions */
-  -webkit-transition: all 0.1s ease-out;
-  -moz-transition: all 0.1s ease-out;
-  -o-transition: all 0.1s ease-out;
-  transition: all 0.1s ease-out;
-  cursor: pointer;
-}
-
-label:hover {
-  color: #fff;
-  text-shadow: 0px 0px 2px rgb(255,255,255);
-}
 
 input[type="checkbox"] {
   margin: 2px;
