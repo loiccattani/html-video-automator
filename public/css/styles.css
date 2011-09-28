@@ -313,6 +313,16 @@ td.working { background-image: url('../images/icons/navigation.png'); }
 td.done { background-image: url('../images/icons/tick-circle.png'); }
 td.failed { background-image: url('../images/icons/exclamation-red.png'); }
 
+/* General Icons */
+
+.icon {
+  padding-left: 20px;
+}
+
+.icon.options {
+  background: url('../images/icons/equalizer.png') left 50% no-repeat;
+}
+
 /* Expandable Definition List*/
 dl.expandable {
   font-size: 85%; /* 11px */
