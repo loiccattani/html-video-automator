@@ -6,7 +6,7 @@ require 'logger'
 
 module HTMLVideoAutomator
   class Video
-    attr_accessor :path, :relative_path, :filename, :name, :digest, :valid, :size, :maxed_size, :duration, :file_size, :tasks, :fail_reason, :deliverables, :pub_url
+    attr_accessor :path, :relative_path, :filename, :name, :digest, :valid, :hd, :size, :maxed_size, :duration, :file_size, :tasks, :fail_reason, :deliverables, :pub_url
     attr_writer :tasks, :fail_reason, :deliverables, :pub_url
     
     def initialize(path)
@@ -36,6 +36,7 @@ module HTMLVideoAutomator
       @maxed_size = get_maxed_size
       @duration = get_duration
       @file_size = File.size(@path)
+      @hd = hd?
     end
     
     def valid?
@@ -47,6 +48,10 @@ module HTMLVideoAutomator
         $log.error @fail_reason = 'No video stream found'
         return false
       end
+    end
+    
+    def hd?
+      return @size[:width] > Config['max_width'] || @size[:height] > Config['max_height']
     end
     
     def encode(format)
