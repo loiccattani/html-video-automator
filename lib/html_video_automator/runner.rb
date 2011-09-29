@@ -36,9 +36,9 @@ module HTMLVideoAutomator
     
     def launch_job(hashes)
       $log.info "Trying to launch job"
-      hd_output = @cgi.params['hd_mode'][0] == "1"
+      hd_mode = @cgi.params['hd_mode'][0] == "1"
       @job = HTMLVideoAutomator::Job.new
-      if @job.prepare(hashes, hd_output)
+      if @job.prepare(hashes, hd_mode)
         @cgi.out("status" => "303", "Connection" => "close", "Content-Length" => 1, "Location" => @job.report_url) {' '} # Initial job report ready, redirect to it!
         # Why 303? http://en.wikipedia.org/wiki/HTTP_303
         # Works in FF 4 only with Content-Lenght > 0 and Connection: close

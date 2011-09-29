@@ -81,7 +81,7 @@ when :in_progress %>
           <th>Info</th>
         </tr>
 <% videos.each do |video| %>        <tr>
-          <td><%= video.filename %> <%= "<span class=\"hd\">HD</span>" if video.hd and video.hd_output %></td>
+          <td><%= video.filename %> <%= "<span class=\"hd\">HD</span>" if video.hd_output %></td>
 <%   video.tasks.each do |task,status| 
        case status
        when :unknown %>

@@ -14,14 +14,14 @@ module HTMLVideoAutomator
       @some_task_failed = false
     end
     
-    def prepare(hashes, hd_output)
+    def prepare(hashes, hd_mode)
       @start_time = Time.now
       dropbox_videos = Dropbox.load
       
       # Compare each files in dropbox with POSTed hashes and push matches to @videos
       dropbox_videos.each do |video|
         if hashes.include? video.digest
-          video.hd_output = hd_output
+          video.hd_output = (video.hd and hd_mode)
           @videos.push video
         end
       end

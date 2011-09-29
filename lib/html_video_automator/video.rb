@@ -129,7 +129,7 @@ module HTMLVideoAutomator
       size = get_maxed_size(false) # Maxed at SD output for VideoJS player, HD res can be viewed fullscreen
       pub_url = @pub_url
       jahia_size = get_jahia_size
-      hd_badge = (@hd and @hd_output)
+      hd_output = @hd_output
       
       begin
         erb = ERB.new File.new(File.dirname(__FILE__) + '/../../views/video.rhtml').read, nil, "%"
