@@ -58,10 +58,11 @@ module HTMLVideoAutomator
     def encode(format)
       start_time = Time.now
       wxh = "#{@maxed_size[:width]}x#{@maxed_size[:height]}"
+      suffix = @hd_output ? "_hd" : ""
 
       case format
       when 'mp4'
-        filename = "#{@name}.mp4"
+        filename = "#{@name}#{suffix}.mp4"
         output_path = Config.path('deliverables') + "/" + filename
         cmd = "ffmpeg -y -i '#{@path}' -threads 0 -f mp4 -vcodec libx264 -preset slow -vpre ipod640 -b 1200k -acodec libfaac -ab 160k -ac 2 -s #{wxh} #{output_path}"
         @ffmpeg_log.info "FFmpeg started for #{filename}:\n#{cmd}\n"
@@ -69,7 +70,7 @@ module HTMLVideoAutomator
         @ffmpeg_log.info "FFmpeg ended processing for #{filename}\n########\n"
         $log.debug "FFmpeg returned #{status}"
       when 'webm'
-        filename = "#{@name}.webm"
+        filename = "#{@name}#{suffix}.webm"
         output_path = Config.path('deliverables') + "/" + filename
         cmd = "ffmpeg -y -i '#{@path}' -threads 8 -f webm -vcodec libvpx -g 120 -level 216 -qmax 50 -qmin 10 -rc_buf_aggressivity 0.95 -b 1200k -acodec libvorbis -aq 80 -ac 2 -s #{wxh} #{output_path}"
         @ffmpeg_log.info "Launched ffmpeg for #{filename} with:\n#{cmd}\n"
@@ -124,7 +125,8 @@ module HTMLVideoAutomator
     
     def gen_html
       name = @name
-      filename = "#{@name}.html"
+      suffix = @hd_output ? "_hd" : ""
+      filename = "#{@name}#{suffix}.html"
       output_path = Config.path('deliverables') + "/" + filename
       size = get_maxed_size(false) # Maxed at SD output for VideoJS player, HD res can be viewed fullscreen
       pub_url = @pub_url
