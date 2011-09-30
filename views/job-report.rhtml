@@ -96,7 +96,7 @@ when :in_progress %>
      end
      
      if video.tasks[:publish] == :done %>
-          <td><span class="button"><a href="<%= video.hd_output ? "#{pub_url}/#{video.name}_hd.html" : "#{pub_url}/#{video.name}.html" %>" title="See the video published with the HTML5 video element">Published!</a></span></td>
+          <td><span class="button"><a href="<%= video.hd_output ? "#{pub_url}/#{video.name}_hd.html" : "#{pub_url}/#{video.name}.html" %>" title="Check out the HTML5 video and instructions to use it!">Published!</a></span></td>
 <%   elsif video.tasks.count == video.tasks.count{|task,status| status == :unknown} %>
           <td>Waiting...</td>
 <%   elsif video.tasks.count{|task,status| status == :failed} > 0 %>
