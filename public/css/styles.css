@@ -298,12 +298,16 @@ footer a:visited {
 }
 
 footer a[title] {
-  font-size: 16px;
+  font-size: 14px;
   padding: 7px 0;
 }
 
 footer a[href='http://unil.ch'] {
   float: left;
+}
+
+footer a[href='http://p.yusukekamiyamane.com/'] img {
+  vertical-align: top;
 }
 
 /* Special */
