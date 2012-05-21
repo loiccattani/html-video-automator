@@ -49,7 +49,7 @@
     <!-- Begin VideoJS -->
     <div class="video-js-box">
       <!-- Using the Video for Everybody Embed Code http://camendesign.com/code/video_for_everybody -->
-      <video class="video-js" width="<%= size[:width] %>" height="<%= size[:height] %>" controls preload poster="<%= "#{pub_url}/#{name}" %>.png">
+      <video class="video-js" width="<%= size[:width] %>" height="<%= size[:height] %>" controls preload poster="<%= "#{pub_url}/#{name}#{suffix}" %>.png">
         <source src="<%= "#{pub_url}/#{name}#{suffix}" %>.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
         <source src="<%= "#{pub_url}/#{name}#{suffix}" %>.webm" type='video/webm; codecs="vp8, vorbis"' />
         <!-- Flash Fallback. Use any flash video player here. Make sure to keep the vjs-flash-fallback class. -->
@@ -58,9 +58,9 @@
           <param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" />
           <param name="allowfullscreen" value="true" />
           <param name="flashvars" 
-            value='config={"playlist":["<%= "#{pub_url}/#{name}" %>.png", {"url": "<%= "#{pub_url}/#{name}#{suffix}" %>.mp4","autoPlay":false,"autoBuffering":true}]}' />
+            value='config={"playlist":["<%= "#{pub_url}/#{name}#{suffix}" %>.png", {"url": "<%= "#{pub_url}/#{name}#{suffix}" %>.mp4","autoPlay":false,"autoBuffering":true}]}' />
           <!-- Image Fallback. Typically the same as the poster image. -->
-          <img src="<%= "#{pub_url}/#{name}" %>.png" width="<%= size[:width] %>" height="<%= size[:height] %>" alt="Poster Image" 
+          <img src="<%= "#{pub_url}/#{name}#{suffix}" %>.png" width="<%= size[:width] %>" height="<%= size[:height] %>" alt="Poster Image" 
             title="No video playback capabilities." />
         </object>
       </video>
@@ -81,7 +81,7 @@
         <dt>Dans wordpress avec le plug-in VideoJS</dt>
         <dd>
           <p>Copier simplement le code ci-dessous dans la page ou l'article.</p>
-          <code>[<span class="code-tag">video mp4=</span><span class="code-value">"<%= "#{pub_url}/#{name}#{suffix}" %>.mp4"</span> <span class="code-tag">webm=</span><span class="code-value">"<%= "#{pub_url}/#{name}#{suffix}" %>.webm"</span> <span class="code-tag">poster=</span><span class="code-value">"<%= "#{pub_url}/#{name}" %>.png"</span> <span class="code-tag">preload=</span><span class="code-value">"true"</span> <span class="code-tag">width=</span><span class="code-value">"<%= size[:width] %>"</span> <span class="code-tag">height=</span><span class="code-value">"<%= size[:height] %>"</span>]</code>
+          <code>[<span class="code-tag">video mp4=</span><span class="code-value">"<%= "#{pub_url}/#{name}#{suffix}" %>.mp4"</span> <span class="code-tag">webm=</span><span class="code-value">"<%= "#{pub_url}/#{name}#{suffix}" %>.webm"</span> <span class="code-tag">poster=</span><span class="code-value">"<%= "#{pub_url}/#{name}#{suffix}" %>.png"</span> <span class="code-tag">preload=</span><span class="code-value">"true"</span> <span class="code-tag">width=</span><span class="code-value">"<%= size[:width] %>"</span> <span class="code-tag">height=</span><span class="code-value">"<%= size[:height] %>"</span>]</code>
         </dd>
       </dl>
       <dl id="code_jahia" class="expandable">
@@ -92,7 +92,7 @@
           <code><span class="code-comment">&lt;!-- Begin VideoJS --&gt;</span>
 &lt;<span class="code-tag">div class=</span><span class="code-value">&quot;video-js-box&quot;</span>&gt;
   <span class="code-comment">&lt;!-- Using the Video for Everybody Embed Code http://camendesign.com/code/video_for_everybody --&gt;</span>
-  &lt;<span class="code-tag">video class=</span><span class="code-value">&quot;video-js&quot;</span> <span class="code-tag">width=</span><span class="code-value">&quot;<%= jahia_size[:width] %>&quot;</span> <span class="code-tag">height=</span><span class="code-value">&quot;<%= jahia_size[:height] %>&quot;</span> <span class="code-tag">controls preload poster=</span><span class="code-value">&quot;<%= "#{pub_url}/#{name}" %>.png&quot;</span>&gt;
+  &lt;<span class="code-tag">video class=</span><span class="code-value">&quot;video-js&quot;</span> <span class="code-tag">width=</span><span class="code-value">&quot;<%= jahia_size[:width] %>&quot;</span> <span class="code-tag">height=</span><span class="code-value">&quot;<%= jahia_size[:height] %>&quot;</span> <span class="code-tag">controls preload poster=</span><span class="code-value">&quot;<%= "#{pub_url}/#{name}#{suffix}" %>.png&quot;</span>&gt;
     &lt;<span class="code-tag">source src=</span><span class="code-value">&quot;<%= "#{pub_url}/#{name}#{suffix}" %>.mp4&quot;</span> <span class="code-tag">type=</span><span class="code-value">&quot;video/mp4; codecs=&#x27;avc1.42E01E, mp4a.40.2&#x27;&quot;</span> /&gt;
     &lt;<span class="code-tag">source src=</span><span class="code-value">&quot;<%= "#{pub_url}/#{name}#{suffix}" %>.webm&quot;</span> <span class="code-tag">type=</span><span class="code-value">&quot;video/webm; codecs=&#x27;vp8, vorbis&#x27;&quot;</span> /&gt;
     <span class="code-comment">&lt;!-- Flash Fallback. Use any flash video player here. Make sure to keep the vjs-flash-fallback class. --&gt;</span>
@@ -101,9 +101,9 @@
       &lt;<span class="code-tag">param name=</span><span class="code-value">&quot;movie&quot;</span> <span class="code-tag">value=</span><span class="code-value">&quot;http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf&quot;</span> /&gt;
       &lt;<span class="code-tag">param name=</span><span class="code-value">&quot;allowfullscreen&quot;</span> <span class="code-tag">value=</span><span class="code-value">&quot;true&quot;</span> /&gt;
       &lt;<span class="code-tag">param name=</span><span class="code-value">&quot;flashvars&quot;</span> 
-        <span class="code-tag">value=</span><span class="code-value">&quot;config={&#x27;playlist&#x27;:[&#x27;<%= "#{pub_url}/#{name}" %>.png&#x27;, {&#x27;url&#x27;: &#x27;<%= "#{pub_url}/#{name}#{suffix}" %>.mp4&#x27;,&#x27;autoPlay&#x27;:false,&#x27;autoBuffering&#x27;:true}]}&quot;</span> /&gt;
+        <span class="code-tag">value=</span><span class="code-value">&quot;config={&#x27;playlist&#x27;:[&#x27;<%= "#{pub_url}/#{name}#{suffix}" %>.png&#x27;, {&#x27;url&#x27;: &#x27;<%= "#{pub_url}/#{name}#{suffix}" %>.mp4&#x27;,&#x27;autoPlay&#x27;:false,&#x27;autoBuffering&#x27;:true}]}&quot;</span> /&gt;
       <span class="code-comment">&lt;!-- Image Fallback. Typically the same as the poster image. --&gt;</span>
-      &lt;<span class="code-tag">img src=</span><span class="code-value">&quot;<%= "#{pub_url}/#{name}" %>.png&quot;</span> <span class="code-tag">width=</span><span class="code-value">&quot;<%= jahia_size[:width] %>&quot;</span> <span class="code-tag">height=</span><span class="code-value">&quot;<%= jahia_size[:height] %>&quot;</span> <span class="code-tag">alt=</span><span class="code-value">&quot;Poster Image&quot;</span> 
+      &lt;<span class="code-tag">img src=</span><span class="code-value">&quot;<%= "#{pub_url}/#{name}#{suffix}" %>.png&quot;</span> <span class="code-tag">width=</span><span class="code-value">&quot;<%= jahia_size[:width] %>&quot;</span> <span class="code-tag">height=</span><span class="code-value">&quot;<%= jahia_size[:height] %>&quot;</span> <span class="code-tag">alt=</span><span class="code-value">&quot;Poster Image&quot;</span> 
         <span class="code-tag">title=</span><span class="code-value">&quot;No video playback capabilities.&quot;</span> /&gt;
     &lt;/<span class="code-tag">object</span>&gt;
   &lt;/<span class="code-tag">video</span>&gt;
@@ -140,7 +140,7 @@
           <code><span class="code-comment">&lt;!-- Begin VideoJS --&gt;</span>
 &lt;<span class="code-tag">div class=</span><span class="code-value">&quot;video-js-box&quot;</span>&gt;
   <span class="code-comment">&lt;!-- Using the Video for Everybody Embed Code http://camendesign.com/code/video_for_everybody --&gt;</span>
-  &lt;<span class="code-tag">video class=</span><span class="code-value">&quot;video-js&quot;</span> <span class="code-tag">width=</span><span class="code-value">&quot;<%= size[:width] %>&quot;</span> <span class="code-tag">height=</span><span class="code-value">&quot;<%= size[:height] %>&quot;</span> <span class="code-tag">controls preload poster=</span><span class="code-value">&quot;<%= "#{pub_url}/#{name}" %>.png&quot;</span>&gt;
+  &lt;<span class="code-tag">video class=</span><span class="code-value">&quot;video-js&quot;</span> <span class="code-tag">width=</span><span class="code-value">&quot;<%= size[:width] %>&quot;</span> <span class="code-tag">height=</span><span class="code-value">&quot;<%= size[:height] %>&quot;</span> <span class="code-tag">controls preload poster=</span><span class="code-value">&quot;<%= "#{pub_url}/#{name}#{suffix}" %>.png&quot;</span>&gt;
     &lt;<span class="code-tag">source src=</span><span class="code-value">&quot;<%= "#{pub_url}/#{name}#{suffix}" %>.mp4&quot;</span> <span class="code-tag">type=</span><span class="code-value">&quot;video/mp4; codecs=&#x27;avc1.42E01E, mp4a.40.2&#x27;&quot;</span> /&gt;
     &lt;<span class="code-tag">source src=</span><span class="code-value">&quot;<%= "#{pub_url}/#{name}#{suffix}" %>.webm&quot;</span> <span class="code-tag">type=</span><span class="code-value">&quot;video/webm; codecs=&#x27;vp8, vorbis&#x27;&quot;</span> /&gt;
     <span class="code-comment">&lt;!-- Flash Fallback. Use any flash video player here. Make sure to keep the vjs-flash-fallback class. --&gt;</span>
@@ -149,9 +149,9 @@
       &lt;<span class="code-tag">param name=</span><span class="code-value">&quot;movie&quot;</span> <span class="code-tag">value=</span><span class="code-value">&quot;http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf&quot;</span> /&gt;
       &lt;<span class="code-tag">param name=</span><span class="code-value">&quot;allowfullscreen&quot;</span> <span class="code-tag">value=</span><span class="code-value">&quot;true&quot;</span> /&gt;
       &lt;<span class="code-tag">param name=</span><span class="code-value">&quot;flashvars&quot;</span> 
-        <span class="code-tag">value=</span><span class="code-value">&quot;config={&#x27;playlist&#x27;:[&#x27;<%= "#{pub_url}/#{name}" %>.png&#x27;, {&#x27;url&#x27;: &#x27;<%= "#{pub_url}/#{name}#{suffix}" %>.mp4&#x27;,&#x27;autoPlay&#x27;:false,&#x27;autoBuffering&#x27;:true}]}&quot;</span> /&gt;
+        <span class="code-tag">value=</span><span class="code-value">&quot;config={&#x27;playlist&#x27;:[&#x27;<%= "#{pub_url}/#{name}#{suffix}" %>.png&#x27;, {&#x27;url&#x27;: &#x27;<%= "#{pub_url}/#{name}#{suffix}" %>.mp4&#x27;,&#x27;autoPlay&#x27;:false,&#x27;autoBuffering&#x27;:true}]}&quot;</span> /&gt;
       <span class="code-comment">&lt;!-- Image Fallback. Typically the same as the poster image. --&gt;</span>
-      &lt;<span class="code-tag">img src=</span><span class="code-value">&quot;<%= "#{pub_url}/#{name}" %>.png&quot;</span> <span class="code-tag">width=</span><span class="code-value">&quot;<%= size[:width] %>&quot;</span> <span class="code-tag">height=</span><span class="code-value">&quot;<%= size[:height] %>&quot;</span> <span class="code-tag">alt=</span><span class="code-value">&quot;Poster Image&quot;</span> 
+      &lt;<span class="code-tag">img src=</span><span class="code-value">&quot;<%= "#{pub_url}/#{name}#{suffix}" %>.png&quot;</span> <span class="code-tag">width=</span><span class="code-value">&quot;<%= size[:width] %>&quot;</span> <span class="code-tag">height=</span><span class="code-value">&quot;<%= size[:height] %>&quot;</span> <span class="code-tag">alt=</span><span class="code-value">&quot;Poster Image&quot;</span> 
         <span class="code-tag">title=</span><span class="code-value">&quot;No video playback capabilities.&quot;</span> /&gt;
     &lt;/<span class="code-tag">object</span>&gt;
   &lt;/<span class="code-tag">video</span>&gt;

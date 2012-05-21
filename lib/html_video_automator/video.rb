@@ -96,7 +96,8 @@ module HTMLVideoAutomator
     end
     
     def gen_poster
-      filename = "#{@name}.png"
+      suffix = @hd_output ? "_hd" : ""
+      filename = "#{@name}#{suffix}.png"
       output_path = Config.path('deliverables') + "/" + filename
       wxh = "#{@maxed_size[:width]}x#{@maxed_size[:height]}"
       poster_time = seconds_to_duration(duration_to_seconds(@duration) * 0.5)
